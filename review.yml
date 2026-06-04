@@ -1,0 +1,43 @@
+---
+name: Politecnico di Torino
+description: Politecnico di Torino public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/politecnico-di-torino/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 3
+    summary: >-
+      Verified a real, official developer footprint without fabricating
+      endpoints. The verified @polito GitHub org publishes an official OpenAPI
+      3.0.3 spec (api-spec, TypeSpec-authored) that is the single source of
+      truth for the PoliTO REST API backing the official students mobile app;
+      the students-app .env.example points at the
+      https://app.didattica.polito.it/mock/api host. The polito.it open-data
+      portal publishes downloadable academic datasets but exposes no documented
+      API. There is no self-service public developer program, sign-up, or
+      published auth scheme; the production API is consumed by first-party apps.
+      LinkedIn returns HTTP 999 (anti-bot) but the school page resolves in a
+      browser.
+    endpoints:
+      - url: https://github.com/polito
+        status: 200
+        note: Verified official GitHub organization (controls www.polito.it).
+      - url: https://github.com/polito/api-spec
+        status: 200
+        note: Official OpenAPI/TypeSpec spec for the PoliTO REST API.
+      - url: https://github.com/polito/students-app
+        status: 200
+        note: Official React Native students app; reference API consumer (EUPL 1.2).
+      - url: https://app.didattica.polito.it/
+        status: 200
+        note: API host referenced by the students-app configuration; first-party use.
+      - url: https://www.polito.it/open-data
+        status: 200
+        note: Open-data portal with downloadable datasets; no documented API.
+      - url: https://www.polito.it/en
+        status: 200
+        note: Official institutional website (English).
+      - url: https://it.linkedin.com/school/politecnico-di-torino/
+        status: 999
+        note: LinkedIn anti-bot status; school page exists and loads in browser.

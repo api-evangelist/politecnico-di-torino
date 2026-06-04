@@ -1,0 +1,102 @@
+---
+aid: politecnico-di-torino
+name: Politecnico di Torino
+description: >-
+  Politecnico di Torino (PoliTO) is Italy's oldest technical university, founded
+  in 1859 in Turin, and a leading European institution for engineering,
+  architecture, and design, ranked #241 in the QS World University Rankings
+  2025. Its public developer footprint centers on an official OpenAPI
+  specification (polito/api-spec) for the REST API that powers the official
+  students mobile application, plus an institutional open-data portal publishing
+  academic datasets. Code is published openly under the verified @polito GitHub
+  organization, while the production API itself is consumed by official
+  first-party apps and is not offered as a self-service public developer
+  program.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/politecnico-di-torino/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Italy
+  - Open Data
+  - Mobile
+  - OpenAPI
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: politecnico-di-torino:rest-api
+    name: PoliTO REST API (api-spec)
+    description: >-
+      The official OpenAPI 3.0.3 specification for the REST API of Politecnico
+      di Torino, maintained as the single source of truth for planning,
+      implementation, testing, documentation, and tooling. It backs the
+      official students mobile application and is authored in TypeSpec, with a
+      generated openapi.yaml, a Dockerized Swagger UI, and Prism mock support.
+      The API is consumed by first-party apps via the app.didattica.polito.it
+      host; there is no documented self-service public sign-up.
+    humanURL: https://github.com/polito/api-spec
+    tags: [ Education, University, OpenAPI, Students, REST ]
+    properties:
+      - type: Documentation
+        url: https://github.com/polito/api-spec
+      - type: GitHub
+        url: https://github.com/polito/api-spec
+      - type: SourceCode
+        url: https://github.com/polito/api-spec
+  - aid: politecnico-di-torino:students-app
+    name: PoliTO Students App (mobile backend client)
+    description: >-
+      Politecnico di Torino's official React Native mobile application for
+      students, open-sourced under EUPL 1.2. It is a reference consumer of the
+      PoliTO REST API; its configuration points at the
+      https://app.didattica.polito.it/mock/api base host. Published in the
+      polito/students-app and polito/rn-apps repositories.
+    humanURL: https://github.com/polito/students-app
+    tags: [ Education, University, Mobile, Students, ReactNative ]
+    properties:
+      - type: Documentation
+        url: https://github.com/polito/students-app
+      - type: GitHub
+        url: https://github.com/polito/students-app
+      - type: SourceCode
+        url: https://github.com/polito/rn-apps
+  - aid: politecnico-di-torino:open-data
+    name: PoliTO Open Data
+    description: >-
+      Institutional open-data portal publishing freely reusable academic
+      datasets (study programs and courses, student enrollment, international
+      students, graduates, mobility, and doctoral programs) under attribution
+      and share-alike terms. The portal lists downloadable datasets; no
+      programmatic API or developer documentation is published for it.
+    humanURL: https://www.polito.it/open-data
+    tags: [ Education, University, Open Data, Datasets ]
+    properties:
+      - type: Documentation
+        url: https://www.polito.it/open-data
+common:
+  - type: Website
+    url: https://www.polito.it/en
+  - type: GitHub
+    url: https://github.com/polito
+  - type: LinkedIn
+    url: https://it.linkedin.com/school/politecnico-di-torino/
+  - type: OpenData
+    url: https://www.polito.it/open-data
+  - type: SourceCode
+    url: https://github.com/polito/api-spec
+  - type: Plans
+    url: plans/politecnico-di-torino-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/politecnico-di-torino-rate-limits.yml
+  - type: FinOps
+    url: finops/politecnico-di-torino-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
