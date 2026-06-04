@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/politecnico-di-torino/main/json-structure/politecnico-di-torino-student-structure.json",
+  "name": "Student",
+  "type": "object",
+  "description": "JSON Structure for a PoliTO Students API student career profile (source: polito/api-spec).",
+  "properties": {
+    "username": { "type": "string" },
+    "firstName": { "type": "string" },
+    "lastName": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["active", "closed", "cancelled", "graduated", "career_closed"]
+    },
+    "allCareerIds": { "type": "array", "items": { "type": "string" } },
+    "degreeId": { "type": "string" },
+    "degreeCode": { "type": "string" },
+    "degreeLevel": { "type": "string" },
+    "degreeName": { "type": "string" },
+    "firstEnrollmentYear": { "type": "int32" },
+    "lastEnrollmentYear": { "type": "int32" },
+    "isCurrentlyEnrolled": { "type": "boolean" },
+    "averageGrade": { "type": ["double", "null"] },
+    "estimatedFinalGrade": { "type": ["double", "null"] },
+    "totalCredits": { "type": "int32" },
+    "totalAttendedCredits": { "type": "int32" },
+    "totalAcquiredCredits": { "type": "int32" },
+    "enrollmentCredits": { "type": "int32" },
+    "enrollmentAttendedCredits": { "type": "int32" },
+    "enrollmentAcquiredCredits": { "type": "int32" }
+  },
+  "required": [
+    "username", "firstName", "lastName", "status", "allCareerIds",
+    "degreeId", "degreeCode", "degreeLevel", "degreeName",
+    "firstEnrollmentYear", "lastEnrollmentYear", "isCurrentlyEnrolled",
+    "totalCredits", "totalAttendedCredits", "totalAcquiredCredits"
+  ]
+}

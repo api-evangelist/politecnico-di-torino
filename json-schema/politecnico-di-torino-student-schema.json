@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/politecnico-di-torino/main/json-schema/politecnico-di-torino-student-schema.json",
+  "title": "Student",
+  "description": "A Politecnico di Torino student's career profile returned by the Students API (source: polito/api-spec).",
+  "type": "object",
+  "required": [
+    "username",
+    "firstName",
+    "lastName",
+    "status",
+    "allCareerIds",
+    "degreeId",
+    "degreeCode",
+    "degreeLevel",
+    "degreeName",
+    "firstEnrollmentYear",
+    "lastEnrollmentYear",
+    "isCurrentlyEnrolled",
+    "totalCredits",
+    "totalAttendedCredits",
+    "totalAcquiredCredits"
+  ],
+  "properties": {
+    "username": { "type": "string", "examples": ["s290683"] },
+    "firstName": { "type": "string" },
+    "lastName": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["active", "closed", "cancelled", "graduated", "career_closed"]
+    },
+    "allCareerIds": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "All the ids related to this student"
+    },
+    "degreeId": { "type": "string", "examples": ["81-6"] },
+    "degreeCode": { "type": "string", "examples": ["LM-32"] },
+    "degreeLevel": { "type": "string" },
+    "degreeName": { "type": "string" },
+    "firstEnrollmentYear": { "type": "integer" },
+    "lastEnrollmentYear": { "type": "integer" },
+    "isCurrentlyEnrolled": { "type": "boolean" },
+    "averageGrade": { "type": ["number", "null"] },
+    "estimatedFinalGrade": { "type": ["number", "null"] },
+    "totalCredits": { "type": "integer" },
+    "totalAttendedCredits": { "type": "integer" },
+    "totalAcquiredCredits": { "type": "integer" },
+    "enrollmentCredits": { "type": "integer" },
+    "enrollmentAttendedCredits": { "type": "integer" },
+    "enrollmentAcquiredCredits": { "type": "integer" }
+  }
+}

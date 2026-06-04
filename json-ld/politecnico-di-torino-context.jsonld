@@ -1,0 +1,55 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "polito": "https://www.polito.it/vocab#",
+    "name": "schema:name",
+    "url": "schema:url",
+    "description": "schema:description",
+    "Institution": "schema:CollegeOrUniversity",
+    "API": "schema:WebAPI",
+
+    "Student": "polito:Student",
+    "username": "schema:identifier",
+    "firstName": "schema:givenName",
+    "lastName": "schema:familyName",
+    "degreeName": "polito:degreeName",
+    "degreeCode": "polito:degreeCode",
+    "isCurrentlyEnrolled": "polito:isCurrentlyEnrolled",
+    "averageGrade": "polito:averageGrade",
+
+    "Course": "schema:Course",
+    "courseName": "schema:name",
+    "courseShortcode": "schema:courseCode",
+    "cfu": "polito:credits",
+
+    "Exam": "polito:Exam",
+    "courseId": "polito:courseId",
+    "status": "polito:status",
+    "examStartsAt": { "@id": "schema:startDate", "@type": "schema:DateTime" },
+    "examEndsAt": { "@id": "schema:endDate", "@type": "schema:DateTime" },
+
+    "Announcement": "polito:Announcement",
+    "title": "schema:headline",
+    "contents": "schema:articleBody",
+    "date": { "@id": "schema:datePublished", "@type": "schema:DateTime" },
+
+    "Booking": "schema:Reservation",
+    "startsAt": { "@id": "schema:startTime", "@type": "schema:DateTime" },
+    "endsAt": { "@id": "schema:endTime", "@type": "schema:DateTime" },
+
+    "Place": "schema:Place",
+    "latitude": "schema:latitude",
+    "longitude": "schema:longitude",
+    "building": "polito:building",
+    "floor": "polito:floor",
+
+    "Person": "schema:Person",
+    "email": "schema:email",
+    "phoneNumbers": "schema:telephone",
+    "profileUrl": "schema:url"
+  },
+  "@type": "Institution",
+  "name": "Politecnico di Torino",
+  "url": "https://www.polito.it/en",
+  "description": "Italy's oldest technical university (founded 1859, Turin); its official REST API (polito/api-spec) powers the PoliTO students mobile application."
+}

@@ -1,0 +1,17 @@
+{
+  "operation": "Announcements_getAnnouncements",
+  "method": "GET",
+  "path": "/announcements",
+  "server": "https://app.didattica.polito.it/api",
+  "response": [
+    {
+      "id": "abc-123",
+      "title": "Welcome to the app",
+      "contents": "Here is a quick guide to get started.",
+      "description": "Onboarding announcement",
+      "scope": "onboarding",
+      "seen": false,
+      "date": "2026-01-01T12:00:00Z"
+    }
+  ]
+}

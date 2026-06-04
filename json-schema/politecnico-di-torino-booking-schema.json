@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/politecnico-di-torino/main/json-schema/politecnico-di-torino-booking-schema.json",
+  "title": "Booking",
+  "description": "A booking (e.g. study room, appointment, or service slot) held by a PoliTO student (source: polito/api-spec).",
+  "type": "object",
+  "required": ["id", "description", "topic", "startsAt", "endsAt", "seat", "cancelableUntil", "location"],
+  "properties": {
+    "id": { "type": "integer", "examples": [258674] },
+    "description": { "type": "string" },
+    "topic": {
+      "type": "object",
+      "description": "Booking topic overview",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" }
+      }
+    },
+    "subtopic": { "type": ["object", "null"] },
+    "startsAt": { "type": "string", "format": "date-time" },
+    "endsAt": { "type": "string", "format": "date-time" },
+    "seat": {
+      "type": ["object", "null"],
+      "properties": {
+        "id": { "type": "integer" },
+        "row": { "type": "string" },
+        "column": { "type": "string" }
+      }
+    },
+    "cancelableUntil": { "type": "string", "format": "date-time" },
+    "location": {
+      "type": "object",
+      "description": "Place reference for the booking"
+    }
+  }
+}

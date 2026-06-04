@@ -1,0 +1,24 @@
+{
+  "operation": "Exams_getExams",
+  "method": "GET",
+  "path": "/exams",
+  "server": "https://app.didattica.polito.it/api",
+  "response": [
+    {
+      "id": 101245,
+      "courseId": 1023,
+      "courseShortcode": "02JEUOA",
+      "courseName": "Software Engineering",
+      "teacherId": 5512,
+      "type": "written",
+      "status": "available",
+      "bookingStartsAt": "2026-06-20T08:00:00Z",
+      "bookingEndsAt": "2026-06-28T23:59:00Z",
+      "examStartsAt": "2026-07-01T09:00:00Z",
+      "examEndsAt": "2026-07-01T11:00:00Z",
+      "bookedCount": 42,
+      "availableCount": 158,
+      "isReschedulable": false
+    }
+  ]
+}

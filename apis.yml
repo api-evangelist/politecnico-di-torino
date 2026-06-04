@@ -48,6 +48,16 @@ apis:
         url: https://github.com/polito/api-spec
       - type: SourceCode
         url: https://github.com/polito/api-spec
+      - type: OpenAPI
+        url: openapi/politecnico-di-torino-students-api.yaml
+      - type: OpenAPI
+        url: openapi/politecnico-di-torino-faculty-api.yaml
+      - type: x-vocabulary
+        url: vocabulary/politecnico-di-torino-vocabulary.yml
+      - type: x-rules
+        url: rules/politecnico-di-torino-rules.yml
+      - type: x-json-ld
+        url: json-ld/politecnico-di-torino-context.jsonld
   - aid: politecnico-di-torino:students-app
     name: PoliTO Students App (mobile backend client)
     description: >-

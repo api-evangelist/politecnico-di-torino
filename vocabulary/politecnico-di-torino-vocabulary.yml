@@ -1,0 +1,51 @@
+vocabulary:
+  name: Politecnico di Torino API Vocabulary
+  description: >-
+    Controlled vocabulary of the core domain terms used across the official
+    Politecnico di Torino REST API (Students and Faculty), derived from the
+    polito/api-spec OpenAPI definitions that power the official PoliTO mobile
+    application.
+  version: "0.0.1"
+  terms:
+    - term: Announcement
+      definition: An in-app message surfaced to a user within a defined scope (e.g. onboarding).
+      tags: [common, content]
+    - term: Booking
+      definition: A reserved slot for a topic/subtopic, place, and optional seat held by a student.
+      tags: [student, scheduling]
+    - term: Course
+      definition: A unit of teaching with credits (CFU), staff, modules, and linked Moodle resources.
+      tags: [common, academic]
+    - term: Exam
+      definition: An exam session for a course that a student can view, book, or request to reschedule.
+      tags: [student, academic]
+    - term: ExamGrade
+      definition: A recorded grade outcome associated with a course exam.
+      tags: [student, academic]
+    - term: Degree
+      definition: A degree program identified by code and level (e.g. bachelor, master).
+      tags: [common, academic]
+    - term: Person
+      definition: A directory record for a staff member or contact, with email, phone, and profile URL.
+      tags: [common, people]
+    - term: Place
+      definition: A physical location (building, floor, room) with geolocation and capacity data.
+      tags: [common, facilities]
+    - term: Student
+      definition: A student's career profile including degree, enrollment, credits, and grade averages.
+      tags: [student, identity]
+    - term: News
+      definition: An institutional news item published to the app news feed.
+      tags: [common, content]
+    - term: Ticket
+      definition: A support request opened by a student and tracked through to resolution.
+      tags: [student, support]
+    - term: Survey
+      definition: A questionnaire presented to students for course or service feedback.
+      tags: [student, feedback]
+    - term: JobOffer
+      definition: An internship or job opportunity offered to students.
+      tags: [student, careers]
+    - term: EuropeanStudentCard
+      definition: The European Student Card (ESC) credential linked to a student's identity.
+      tags: [student, identity]

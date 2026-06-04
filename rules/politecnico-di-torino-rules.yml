@@ -1,0 +1,61 @@
+extends:
+  - spectral:oas
+formats:
+  - oas3
+documentationUrl: https://github.com/polito/api-spec
+rules:
+  # PoliTO specs are authored in TypeSpec and target OpenAPI 3.0.
+  polito-openapi-3:
+    description: Specification should declare OpenAPI 3.0.x.
+    severity: warn
+    given: $.openapi
+    then:
+      function: pattern
+      functionOptions:
+        match: "^3\\.0\\."
+
+  # Both PoliTO APIs publish the official production + mock servers.
+  polito-servers-defined:
+    description: At least one server URL must be defined.
+    severity: error
+    given: $.servers
+    then:
+      function: length
+      functionOptions:
+        min: 1
+
+  polito-server-host:
+    description: Servers should point at the app.didattica.polito.it host.
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: "app\\.didattica\\.polito\\.it"
+
+  # Operations are tagged by domain (Exams, Bookings, Courses, etc.).
+  polito-operation-tags:
+    description: Every operation should carry at least one tag.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: tags
+      function: truthy
+
+  # PoliTO uses generated operationIds of the form Group_operationName.
+  polito-operation-id:
+    description: Operations should declare an operationId.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: operationId
+      function: truthy
+
+  # Bilingual (IT/EN) summaries are the convention in this spec.
+  polito-summary-present:
+    description: Operations should include a human summary.
+    severity: info
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: summary
+      function: truthy

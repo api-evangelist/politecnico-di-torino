@@ -1,0 +1,25 @@
+{
+  "operation": "Student_getStudent",
+  "method": "GET",
+  "path": "/student",
+  "server": "https://app.didattica.polito.it/api",
+  "response": {
+    "username": "s290683",
+    "firstName": "Luca",
+    "lastName": "Pezzolla",
+    "status": "active",
+    "allCareerIds": ["290683", "213956"],
+    "degreeId": "81-6",
+    "degreeCode": "LM-32",
+    "degreeLevel": "Corso di Laurea Magistrale in",
+    "degreeName": "INGEGNERIA INFORMATICA (COMPUTER ENGINEERING)",
+    "firstEnrollmentYear": 2021,
+    "lastEnrollmentYear": 2022,
+    "isCurrentlyEnrolled": false,
+    "averageGrade": 27.5,
+    "estimatedFinalGrade": 105,
+    "totalCredits": 120,
+    "totalAttendedCredits": 90,
+    "totalAcquiredCredits": 78
+  }
+}
