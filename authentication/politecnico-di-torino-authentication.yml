@@ -1,0 +1,13 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/politecnico-di-torino-faculty-api.yaml, openapi/politecnico-di-torino-students-api.yaml
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: Bearer
+  sources:
+  - openapi/politecnico-di-torino-faculty-api.yaml
+  - openapi/politecnico-di-torino-students-api.yaml
