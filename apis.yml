@@ -89,6 +89,8 @@ apis:
       - type: Documentation
         url: https://www.polito.it/open-data
 common:
+  - type: AgenticAccess
+    url: agentic-access/politecnico-di-torino-agentic-access.yml
   - type: DomainSecurity
     url: security/politecnico-di-torino-domain-security.yml
   - type: Authentication
