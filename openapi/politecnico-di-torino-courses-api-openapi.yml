@@ -1,0 +1,1362 @@
+openapi: 3.0.0
+info:
+  title: Polito Faculty Announcements Courses API
+  version: 0.0.1
+  license:
+    name: CC BY-NC 4.0
+    url: https://creativecommons.org/licenses/by-nc/4.0/
+servers:
+- url: https://app.didattica.polito.it/api
+  description: Production server
+  variables: {}
+- url: https://app.didattica.polito.it/mock/api
+  description: Mock server (uses example data)
+  variables: {}
+security:
+- BearerAuth: []
+tags:
+- name: Courses
+paths:
+  /courses/{courseId}:
+    get:
+      operationId: Courses_getCourse
+      summary: Show course | Mostra corso
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Course'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Courses
+  /courses/{courseId}/assignments:
+    get:
+      operationId: Courses_getCourseAssignments
+      summary: List assignments | Elenca elaborati
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CourseAssignment'
+                required:
+                - data
+              example:
+                data:
+                - id: 1003948
+                  description: extrapoints2
+                  mimeType: application/x-zip-compressed
+                  filename: extrapoints2.zip
+                  uploadedAt: '2022-01-21T14:38:00Z'
+                  deletedAt: null
+                  url: https://file.didattica.polito.it/down/ELABORATI_PRE/1003948/S290683/14576f69df588d55b631c3c3c30de3f5/6305eae6
+                  sizeInKiloBytes: 195
+                - id: 993784
+                  description: extrapoints1
+                  mimeType: application/x-zip-compressed
+                  filename: extrapoints1.zip
+                  uploadedAt: '2022-01-10T18:53:00Z'
+                  deletedAt: null
+                  url: https://file.didattica.polito.it/down/ELABORATI_PRE/993784/S290683/15c275f7f7682c6acb5acd07d24590a9/6305eae6
+                  sizeInKiloBytes: 401
+                - id: 982517
+                  description: lab_09
+                  mimeType: application/zip
+                  filename: lab_09.zip
+                  uploadedAt: '2021-12-16T22:48:00Z'
+                  deletedAt: null
+                  url: https://file.didattica.polito.it/down/ELABORATI_PRE/982517/S290683/29288344d27567de6ddf0fa718b980a5/6305eae6
+                  sizeInKiloBytes: 126
+                - id: 934034
+                  description: lab_01
+                  mimeType: application/x-zip-compressed
+                  filename: lab_01.zip
+                  uploadedAt: '2021-10-13T11:20:00Z'
+                  deletedAt: null
+                  url: https://file.didattica.polito.it/down/ELABORATI_PRE/934034/S290683/fd675d8a411d0747885b24e473a5d683/6305eae6
+                  sizeInKiloBytes: 144
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Courses
+    post:
+      operationId: Courses_uploadCourseAssignment
+      summary: Upload assignment | Carica elaborato
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Courses
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CourseAssignmentUpload'
+  /courses/{courseId}/assignments/{assignmentId}:
+    patch:
+      operationId: Courses_updateAssignment
+      summary: Update assignment | Aggiorna elaborato
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: assignmentId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Courses
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAssignmentRequest'
+  /courses/{courseId}/files:
+    get:
+      operationId: Courses_getCourseFiles
+      summary: List files | Elenca file
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CourseDirectoryContent'
+                required:
+                - data
+              example:
+                data:
+                - id: '33248655'
+                  name: videolectures
+                  type: directory
+                  files:
+                  - id: '33248890'
+                    name: HCI2021-L01 2021-09-28 13-06-26.m4v
+                    sizeInKiloBytes: 123428
+                    mimeType: video/x-m4v
+                    createdAt: '2021-09-28T16:31:43Z'
+                    type: file
+                    checksum: deadbeefcafebabe0000000000000000
+                  - id: '33251708'
+                    name: HCI2021-L02 2021-09-30 08-34-32.mp4
+                    sizeInKiloBytes: 248172
+                    mimeType: video/mp4
+                    createdAt: '2021-09-30T10:20:50Z'
+                    type: file
+                    checksum: deadbeefcafebabe0000000000000001
+                  - id: '33256476'
+                    name: HCI2021-L03 2021-10-05 13-06-47.mp4
+                    sizeInKiloBytes: 243792
+                    mimeType: video/mp4
+                    createdAt: '2021-10-05T15:00:15Z'
+                    type: file
+                    checksum: deadbeefcafebabe0000000000000002
+                  - id: '33257988'
+                    name: HCI2021-L04 2021-10-07 08-35-46.mp4
+                    sizeInKiloBytes: 244993
+                    mimeType: video/mp4
+                    createdAt: '2021-10-07T11:12:25Z'
+                    type: file
+                    checksum: deadbeefcafebabe0000000000000003
+                  - id: '33262287'
+                    name: HCI2021-L05 2021-10-12 13-05-46.mp4
+                    sizeInKiloBytes: 298172
+                    mimeType: video/mp4
+                    createdAt: '2021-10-12T16:11:46Z'
+                    type: file
+                    checksum: deadbeefcafebabe0000000000000004
+                  - id: '33265387'
+                    name: HCI2021-L06 2021-10-14 08-35-12.mp4
+                    sizeInKiloBytes: 285926
+                    mimeType: video/mp4
+                    createdAt: '2021-10-14T11:25:20Z'
+                    type: file
+                    checksum: deadbeefcafebabe0000000000000005
+                  - id: '33269079'
+                    name: HCI2021-L07 2021-10-19 13-10-40.mp4
+                    sizeInKiloBytes: 234466
+                    mimeType: video/mp4
+                    createdAt: '2021-10-19T15:02:22Z'
+                    type: file
+                    checksum: deadbeefcafebabe0000000000000006
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Courses
+  /courses/{courseId}/files/{fileId}:
+    get:
+      operationId: Courses_getCourseFile
+      summary: Download file | Scarica file
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: fileId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                nullable: true
+        '302':
+          description: Redirection
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: The server cannot find the requested resource.
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Courses
+  /courses/{courseId}/guide:
+    get:
+      operationId: Courses_getCourseGuide
+      summary: Show guide | Mostra guida
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GuideSection'
+                required:
+                - data
+              example:
+                data:
+                - title: Presentazione
+                  content: Nowadays, computing devices are ubiquitously present and integrated in our daily life. Sensors and actuators are embedded in home appliances, lights, or cars. This course provides a strong foundation in human-centered design principles.
+                - title: Risultati attesi
+                  content: 'Knowledge: Concepts of Usability, User Experience, User centered design processes. Skills: Developing a working prototype, mastering novel interaction technologies, joint development in teams.'
+                - title: Prerequisiti
+                  content: Programming skills, knowledge on web technologies (HTML, JS, client-server architectures), attitude towards working in teams.
+                - title: Programma
+                  content: Introduction to Human-Computer Interaction, building interactive applications with human-centered design process, beyond WIMP paradigms (AI-powered systems, tangible interaction, voice, wearables).
+                - title: Note
+                  content: ''
+                - title: Organizzazione dell'insegnamento
+                  content: Project-based and problem-based learning with teams working towards a common goal. Project-related activities start since the beginning with deliverables before given deadlines.
+                - title: Bibliografia
+                  content: Course slides and related materials. Selected chapters from Human Computer Interaction texts by Dix et al., and Shneiderman et al.
+                - title: Regole d'esame
+                  content: Exam consists of written test (40% of score) and group project evaluation (60% of score). Both parts are mandatory and must be taken in the same academic year.
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Courses
+  /courses/{courseId}/nextLecture:
+    get:
+      operationId: Courses_getNextLecture
+      summary: Get next lecture | Ottieni prossima lezione
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Lecture'
+                required:
+                - data
+              example:
+                data:
+                  id: 12131312
+                  startsAt: '2021-09-28T14:30:00Z'
+                  endsAt: '2021-09-28T17:30:00Z'
+                  place:
+                    buildingId: TO_CIT22
+                    floorId: XPTE
+                    name: Aula 1P
+                    roomId: '036'
+                    siteId: TO_CIT
+                  type: Lezione
+                  description: null
+                  courseId: 252258
+                  courseName: Human Computer Interaction
+                  teacherId: 1847
+                  virtualClassrooms:
+                  - id: 149336
+                    title: CYB / lecture 28.09.2021 (TLS, slides 1-40)
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Courses
+  /courses/{courseId}/notices:
+    get:
+      operationId: Courses_getCourseNotices
+      summary: List notices | Elenca avvisi
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CourseNotices'
+                required:
+                - data
+              example:
+                data:
+                - id: 332559
+                  publishedAt: '2021-09-22T14:00:00Z'
+                  expiresAt: null
+                  content: "<p>Dear students,</p>\r\r<p>welcome to the 2021 edition of the Human Computer Interaction course (<strong>HCI</strong>, for short)!</p>\r\r<p>Some useful information to get started...</p>\r\r<p>The <strong>first class</strong> will be on Tuesday, September 28, in Room 7T, from 13:00 to 14:30.<br />\rDon&#39;t forget to <em>book</em> a spot in the room, starting from tomorrow, on the Portale della Didattica: the rooms given to this course are currently bigger than the number of enrolled students, so there should be space for everybody!</p>\r\r<p>All teaching <strong>material</strong>, information, and course schedule will be posted on the page: <a href=\"http://bit.ly/polito-hci\">http://bit.ly/polito-hci</a> (we will <u>not</u>&nbsp;use the Portale della Didattica).</p>\r\r<p>All messages and communications with the teachers, and among students, will be on <strong>Slack</strong>. We will <u>completely</u>&nbsp;avoid email communications.<br />\rPlease, join the <em>HCI Slack workspace</em> at the address:<br />\r&nbsp; <a href=\"https://join.slack.com/t/polito-hci-2021/signup\">https://join.slack.com/t/polito-hci-2021/signup</a><br />\rPlease note: to have access to the workspace, you must use your<em> @studenti.polito.it </em>email address. You are free to choose your nickname as you prefer.&nbsp;</p>\r\r<p>Finally, all lectures &mdash; not labs &mdash; will be <strong>video-recorded</strong> and made available both on YouTube and on the Portale della Didattica. The YouTube playlist is:<br />\r&nbsp; <a href=\"https://www.youtube.com/playlist?list=PLs7DWGc_wmwT-1N2vbRkLWrM6LIker9A-\">https://www.youtube.com/playlist?list=PLs7DWGc_wmwT-1N2vbRkLWrM6LIker9A-</a></p>\r\r<p>See you on Tuesday!</p>\r\r<p>Thanks,</p>\r\r<p>Luigi and Fulvio</p>\r"
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Courses
+  /courses/{courseId}/preferences:
+    patch:
+      operationId: Courses_updateCoursePreferences
+      summary: Update course preferences | Aggiorna preferenze del corso
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Courses
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CoursePreferencesRequest'
+  /courses/{courseId}/videolectures:
+    get:
+      operationId: Courses_getCourseVideolectures
+      summary: List videolectures | Elenca videolezioni
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VideoLecture'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Courses
+  /courses/{courseId}/virtual-classrooms:
+    get:
+      operationId: Courses_getCourseVirtualClassrooms
+      summary: List virtual classrooms | Elenca virtual classroom
+      parameters:
+      - name: courseId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: live
+        in: query
+        required: false
+        description: Filter virtual classrooms by their live status
+        schema:
+          type: boolean
+        explode: false
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VirtualClassroom'
+                required:
+                - data
+              example:
+                data:
+                - id: 149336
+                  title: CYB / lecture 28.09.2021 (TLS, slides 1-40)
+                  teacherId: 1847
+                  coverUrl: https://lucapezzolla.com/cover.jpg
+                  videoUrl: https://video.polito.it/dl/BE7C779FC37D50996EE1FF32B6BC7FAE/6305E087/vc2021/252258/64cdcfc29ac1cd827d20ff1fa62c512eade6b3c0-1632832182985.mp4
+                  createdAt: '2021-09-28T14:29:00Z'
+                  duration: 02h 56m
+                  type: recording
+                - id: 150397
+                  title: CYB / lecture 01.10.2021 (TLS, slides 41-55)
+                  teacherId: 1847
+                  coverUrl: https://lucapezzolla.com/cover.jpg
+                  videoUrl: https://video.polito.it/dl/0BC53A27F4776D8A6809D28EB4CB3C9F/6305E087/vc2021/252258/e5e7a53da68cebd5cff1a585659092fcfeca651a-1633074845891.mp4
+                  createdAt: '2021-10-01T09:54:00Z'
+                  duration: 01h 31m
+                  type: recording
+                - id: 151650
+                  title: CYB / lecture 5.10.2021 (TLS, slides 56-end, + SSH all slides)
+                  teacherId: 1847
+                  coverUrl: https://lucapezzolla.com/cover.jpg
+                  videoUrl: https://video.polito.it/dl/56DA5556ECD96ED30EC6F8CBAB704285/6305E087/vc2021/252258/c30092cca256f522f64774e19538d43909ce558b-1633437688385.mp4
+                  createdAt: '2021-10-05T14:41:00Z'
+                  duration: 02h 43m
+                  type: recording
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Courses
+  /v2/courses:
+    get:
+      operationId: CoursesV2_getCourses
+      summary: List courses | Elenca corsi
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CourseOverview'
+                required:
+                - data
+              example:
+                data:
+                - id: null
+                  name: System and device programming
+                  shortcode: 01NYHOV
+                  cfu: 10
+                  teachingPeriod: 2-2
+                  teacherId: 2893
+                  teacherName: Stefano Quer
+                  previousEditions: []
+                  isOverBooking: false
+                  enrollmentRole: student
+                  year: '2025'
+                  modules:
+                  - id: 251008
+                    name: Programming Module A
+                    shortcode: 01NYHOV
+                    teachingPeriod: 2-2
+                    teacherId: 3001
+                    teacherName: Mario Rossi
+                    previousEditions:
+                    - id: 251005
+                      year: '2024'
+                    isOverBooking: false
+                    enrollmentRole: student
+                    year: '2025'
+                  - id: 251009
+                    name: Programming Module B
+                    shortcode: 01NYHOV
+                    teachingPeriod: 2-2
+                    teacherId: 3002
+                    teacherName: Giovanni Verdi
+                    previousEditions:
+                    - id: 251006
+                      year: '2024'
+                    isOverBooking: false
+                    enrollmentRole: student
+                    year: '2025'
+                - id: 252121
+                  name: Web Applications II
+                  shortcode: 01TXSOV
+                  cfu: 6
+                  teachingPeriod: 2-2
+                  teacherId: 2235
+                  teacherName: Giovanni Malnati
+                  previousEditions: []
+                  isOverBooking: false
+                  enrollmentRole: student
+                  year: '2025'
+                  modules: null
+                - id: 252126
+                  name: Security verification and testing
+                  shortcode: 01TYAOV
+                  cfu: 6
+                  teachingPeriod: 1-1
+                  teacherId: 1943
+                  teacherName: Riccardo Sisto
+                  previousEditions: []
+                  isOverBooking: false
+                  enrollmentRole: student
+                  year: '2025'
+                  modules: null
+                - id: 252138
+                  name: Information systems security
+                  shortcode: 01TYMOV
+                  cfu: 6
+                  teachingPeriod: 1-1
+                  teacherId: 1847
+                  teacherName: Antonio Lioy
+                  previousEditions: []
+                  isOverBooking: false
+                  enrollmentRole: student
+                  year: '2025'
+                  modules: null
+                - id: 252258
+                  name: Cybersecurity
+                  shortcode: 01UDROV
+                  cfu: 6
+                  teachingPeriod: 2-2
+                  teacherId: 1847
+                  teacherName: Antonio Lioy
+                  previousEditions: []
+                  isOverBooking: false
+                  enrollmentRole: student
+                  year: '2025'
+                  modules: null
+                - id: 252788
+                  name: Architetture dei sistemi di elaborazione
+                  shortcode: 02GOLOV
+                  cfu: 10
+                  teachingPeriod: 1-1
+                  teacherId: 12684
+                  teacherName: Edgar Ernesto Sanchez Sanchez
+                  previousEditions: []
+                  isOverBooking: false
+                  enrollmentRole: student
+                  year: '2025'
+                  modules: null
+                - id: 252842
+                  name: Human Computer Interaction
+                  shortcode: 02JSKOV
+                  cfu: 6
+                  teachingPeriod: 1-1
+                  teacherId: 25734
+                  teacherName: Luigi De Russis
+                  previousEditions: []
+                  isOverBooking: false
+                  enrollmentRole: student
+                  year: '2025'
+                  modules: null
+                - id: 253378
+                  name: Cryptography
+                  shortcode: 03LPYOV
+                  cfu: 6
+                  teachingPeriod: 2-2
+                  teacherId: 13461
+                  teacherName: Antonio Jose Di Scala
+                  previousEditions: []
+                  isOverBooking: false
+                  enrollmentRole: student
+                  year: '2025'
+                  modules: null
+                - id: null
+                  name: Tesi
+                  shortcode: 29EBHOV
+                  cfu: 30
+                  teachingPeriod: 1-1
+                  teacherId: null
+                  teacherName: null
+                  previousEditions: []
+                  isOverBooking: false
+                  enrollmentRole: student
+                  year: '2025'
+                  modules: null
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Courses
+components:
+  schemas:
+    VirtualClassroomRecording:
+      type: object
+      required:
+      - coverUrl
+      - videoUrl
+      - duration
+      - type
+      properties:
+        coverUrl:
+          type: string
+          nullable: true
+        videoUrl:
+          type: string
+        duration:
+          type: string
+        type:
+          type: string
+          enum:
+          - recording
+      allOf:
+      - $ref: '#/components/schemas/VirtualClassroomBase'
+    CourseDirectoryEntry:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/CourseDirectory'
+      - $ref: '#/components/schemas/CourseFileOverview'
+      discriminator:
+        propertyName: type
+        mapping:
+          directory: '#/components/schemas/CourseDirectory'
+          file: '#/components/schemas/CourseFileOverview'
+    CourseFileOverview:
+      type: object
+      required:
+      - id
+      - name
+      - sizeInKiloBytes
+      - mimeType
+      - createdAt
+      - type
+      - checksum
+      properties:
+        id:
+          type: string
+          example: '33352562'
+        name:
+          type: string
+          example: Laboratori
+        sizeInKiloBytes:
+          type: integer
+          example: 305
+        mimeType:
+          type: string
+          example: application/x-zip-compressed
+        createdAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+        type:
+          type: string
+          enum:
+          - file
+        checksum:
+          type: string
+          example: deadbeefcafebabe0000000000000000
+      example:
+        type: file
+        id: '2'
+        name: Lecture1.pdf
+        sizeInKiloBytes: 2048
+        mimeType: application/pdf
+        createdAt: '2024-06-01T10:00:00Z'
+        checksum: deadbeefcafebabe0000000000000000
+    UpdateAssignmentRequest:
+      type: object
+      properties:
+        delivery:
+          type: boolean
+        state:
+          type: string
+          enum:
+          - submitted
+          - uploaded
+    GuideSection:
+      type: object
+      required:
+      - title
+      - content
+      properties:
+        title:
+          type: string
+          example: Title
+        content:
+          type: string
+          example: HTML content
+    RelatedVirtualClassroom:
+      type: object
+      required:
+      - id
+      - title
+      properties:
+        id:
+          type: integer
+          example: 150157
+        title:
+          type: string
+          example: Lecture 1
+    VirtualClassroom:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/VirtualClassroomLive'
+      - $ref: '#/components/schemas/VirtualClassroomRecording'
+      discriminator:
+        propertyName: type
+        mapping:
+          live: '#/components/schemas/VirtualClassroomLive'
+          recording: '#/components/schemas/VirtualClassroomRecording'
+    Lecture:
+      type: object
+      required:
+      - id
+      - startsAt
+      - endsAt
+      - type
+      - virtualClassrooms
+      - description
+      - courseId
+      - courseName
+      - teacherId
+      - place
+      properties:
+        id:
+          type: number
+        startsAt:
+          type: string
+          format: date-time
+        endsAt:
+          type: string
+          format: date-time
+        type:
+          type: string
+        virtualClassrooms:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedVirtualClassroom'
+        description:
+          type: string
+          nullable: true
+        courseId:
+          type: integer
+        courseName:
+          type: string
+        teacherId:
+          type: integer
+          example: 150157
+        place:
+          $ref: '#/components/schemas/PlaceRef'
+    PlaceRef:
+      type: object
+      required:
+      - buildingId
+      - floorId
+      - roomId
+      - siteId
+      - name
+      properties:
+        buildingId:
+          type: string
+        floorId:
+          type: string
+        roomId:
+          type: string
+        siteId:
+          type: string
+        name:
+          type: string
+    CourseModuleEdition:
+      type: object
+      required:
+      - year
+      - id
+      properties:
+        year:
+          type: string
+          example: '2021'
+        id:
+          type: integer
+          example: 244577
+    CoursePreferencesRequest:
+      type: object
+      properties:
+        notifications:
+          type: object
+          properties:
+            notices:
+              type: boolean
+              example: true
+            files:
+              type: boolean
+              example: true
+            lectures:
+              type: boolean
+              example: true
+    VideoLecture:
+      type: object
+      required:
+      - id
+      - title
+      - teacherId
+      - abstract
+      - coverUrl
+      - videoUrl
+      - audioUrl
+      - createdAt
+      - duration
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        teacherId:
+          type: integer
+        abstract:
+          type: string
+        coverUrl:
+          type: string
+        videoUrl:
+          type: string
+        audioUrl:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        duration:
+          type: string
+    CourseModule:
+      type: object
+      required:
+      - id
+      - shortcode
+      - name
+      - teachingPeriod
+      - teacherId
+      - teacherName
+      - previousEditions
+      - isOverBooking
+      - enrollmentRole
+      - year
+      properties:
+        id:
+          type: integer
+          nullable: true
+          description: 'The identifier for the current instance of this course.
+
+            If null this is not a teaching (such as thesis), it won''t have a course page'
+          example: 258674
+        shortcode:
+          type: string
+          example: 01NYHOV
+        name:
+          type: string
+          example: System and device programming
+        teachingPeriod:
+          type: string
+          description: The semester(s) this course belongs to
+          example: 2-2
+        teacherId:
+          type: integer
+          nullable: true
+          example: 2893
+        teacherName:
+          type: string
+          nullable: true
+          example: Mario Rossi
+        previousEditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseModuleEdition'
+          description: Previous editions of this course that were part of the student's PSP
+          example:
+          - id: 244577
+            year: '2021'
+        isOverBooking:
+          type: boolean
+          example: false
+        enrollmentRole:
+          allOf:
+          - $ref: '#/components/schemas/CourseEnrollmentRole'
+          description: Type of enrollment of the user for this course
+          example: student
+        year:
+          type: string
+          example: '2022'
+      example:
+        id: 251008
+        name: Programming Module A
+        shortcode: ProgModA
+        teachingPeriod: 2-2
+        teacherId: 3001
+        teacherName: Mario Rossi
+        previousEditions:
+        - id: 251005
+          year: '2024'
+        isOverBooking: false
+        enrollmentRole: student
+        year: '2025'
+    CourseDirectory:
+      type: object
+      required:
+      - id
+      - name
+      - files
+      - type
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        files:
+          $ref: '#/components/schemas/CourseDirectoryContent'
+        type:
+          type: string
+          enum:
+          - directory
+      example:
+        name: Root
+        id: '1234'
+        type: directory
+        files:
+        - type: directory
+          id: '1'
+          name: Week 1
+          files: []
+    CourseOverview:
+      type: object
+      required:
+      - cfu
+      - modules
+      properties:
+        cfu:
+          type: integer
+          example: 10
+        modules:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseModule'
+          nullable: true
+      allOf:
+      - $ref: '#/components/schemas/CourseModule'
+    CourseDirectoryContent:
+      type: array
+      items:
+        $ref: '#/components/schemas/CourseDirectoryEntry'
+    Course:
+      type: object
+      required:
+      - cfu
+      - links
+      - moodleCourses
+      - vcPreviousYears
+      - vcOtherCourses
+      - notifications
+      - staff
+      properties:
+        cfu:
+          type: integer
+          example: 10
+        links:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                example: https://docs.google.com/document/d/13hpWEDQxziSkhSU0PuqxMXntqZYp3ffDKZ2-umQ7Ywo/edit?usp=sharing
+              description:
+                type: string
+                example: Calendario settimanale dei contenuti del corso
+            required:
+            - url
+        moodleCourses:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: Analisi Matematica I
+              id:
+                type: string
+                example: '645376'
+          nullable: true
+        vcPreviousYears:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseModuleEdition'
+          example:
+          - id: 244577
+            year: '2021'
+        vcOtherCourses:
+          type: array
+          items:
+            type: object
+            properties:
+              year:
+                type: string
+                example: '2021'
+              id:
+                type: integer
+                example: 244577
+              name:
+                type: string
+                example: Fisica II
+            required:
+            - year
+            - id
+            - name
+          description: Other editions/courses to be included in virtual classrooms
+        notifications:
+          type: object
+          properties:
+            notices:
+              type: boolean
+              example: true
+            files:
+              type: boolean
+              example: true
+            lectures:
+              type: boolean
+              example: true
+          required:
+          - notices
+          - files
+          - lectures
+        staff:
+          type: array
+          items:
+            type: object
+            properties:
+              role:
+                type: string
+              id:
+                type: number
+                example: 244577
+            required:
+            - role
+            - id
+      allOf:
+      - $ref: '#/components/schemas/CourseModule'
+    CourseEnrollmentRole:
+      type: string
+      enum:
+      - student
+      - viewer
+      - teacher
+      - collaborator
+    CourseAssignmentUpload:
+      type: object
+      properties:
+        description:
+          type: string
+        file:
+          type: string
+          format: binary
+      required:
+      - description
+      - file
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    CourseAssignment:
+      type: object
+      required:
+      - id
+      - description
+      - mimeType
+      - filename
+      - uploadedAt
+      - deletedAt
+      - url
+      - sizeInKiloBytes
+      properties:
+        id:
+          type: integer
+          example: 947503
+        description:
+          type: string
+          example: laboratorio 3
+        mimeType:
+          type: string
+          example: application/x-zip-compressed
+        filename:
+          type: string
+          example: lab_03.zip
+        uploadedAt:
+          type: string
+          format: date-time
+          example: '2022-09-02T14:00:00Z'
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+        url:
+          type: string
+          example: https://file.didattica.polito.it/down/ELABORATI_PRE/1003948/S290683/6791f0016c78599138828211522fa84d/62cebc94
+        sizeInKiloBytes:
+          type: integer
+          example: 305
+    CourseNotices:
+      type: object
+      required:
+      - id
+      - publishedAt
+      - expiresAt
+      - content
+      properties:
+        id:
+          type: integer
+          example: 360724
+        publishedAt:
+          type: string
+          format: date-time
+          example: '2022-07-03T14:00:00Z'
+        expiresAt:
+          type: string
+          format: date-time
+          nullable: true
+        content:
+          type: string
+          example: <p>Conferma spostamento orario esame:</p><p><b>Ore 15</b></p>
+    VirtualClassroomBase:
+      type: object
+      required:
+      - id
+      - title
+      - createdAt
+      - teacherId
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        teacherId:
+          type: integer
+    VirtualClassroomLive:
+      type: object
+      required:
+      - type
+      properties:
+        meetingId:
+          type: string
+        type:
+          type: string
+          enum:
+          - live
+      allOf:
+      - $ref: '#/components/schemas/VirtualClassroomBase'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: Bearer

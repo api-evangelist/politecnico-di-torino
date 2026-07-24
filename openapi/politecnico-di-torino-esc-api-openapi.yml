@@ -1,0 +1,168 @@
+openapi: 3.0.0
+info:
+  title: Polito Faculty Announcements Esc API
+  version: 0.0.1
+  license:
+    name: CC BY-NC 4.0
+    url: https://creativecommons.org/licenses/by-nc/4.0/
+servers:
+- url: https://app.didattica.polito.it/api
+  description: Production server
+  variables: {}
+- url: https://app.didattica.polito.it/mock/api
+  description: Mock server (uses example data)
+  variables: {}
+security:
+- BearerAuth: []
+tags:
+- name: Esc
+paths:
+  /esc:
+    delete:
+      operationId: Esc_escDelete
+      summary: Delete all Student data on the ESC-Router (and all student's cards) | Cancella tutti i dati dello studente sul Router ESC (e tutte le carte dello studente)
+      parameters: []
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/ErrorResponse'
+                - type: object
+                  properties:
+                    code:
+                      type: integer
+                    message:
+                      type: string
+                    errors:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/EscError'
+                  required:
+                  - errors
+      tags:
+      - Esc
+    get:
+      operationId: Esc_escGet
+      summary: retrieve european student card | recupera la european student card
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EuropeanStudentCard'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Esc
+  /esc/create:
+    post:
+      operationId: Esc_escRequest
+      summary: request european student card | richiedi la european student card
+      parameters: []
+      responses:
+        '201':
+          description: The request has succeeded and a new resource has been created as a result.
+          content:
+            application/json:
+              schema:
+                nullable: true
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Esc
+components:
+  schemas:
+    EuropeanStudentCard:
+      type: object
+      required:
+      - canBeRequested
+      - details
+      properties:
+        canBeRequested:
+          type: boolean
+        details:
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+              - active
+              - inactive
+              - expired
+            inactiveStatusReason:
+              type: string
+              nullable: true
+            cardNumber:
+              type: string
+            expiresAt:
+              type: string
+            qrCode:
+              type: string
+          required:
+          - status
+          - inactiveStatusReason
+          - cardNumber
+          - expiresAt
+          - qrCode
+          nullable: true
+    EscError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 500
+        message:
+          type: string
+          example: An error occurred
+        careerId:
+          type: integer
+          example: 123456
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: Bearer

@@ -1,0 +1,351 @@
+openapi: 3.0.0
+info:
+  title: Polito Faculty Announcements Exams API
+  version: 0.0.1
+  license:
+    name: CC BY-NC 4.0
+    url: https://creativecommons.org/licenses/by-nc/4.0/
+servers:
+- url: https://app.didattica.polito.it/api
+  description: Production server
+  variables: {}
+- url: https://app.didattica.polito.it/mock/api
+  description: Mock server (uses example data)
+  variables: {}
+security:
+- BearerAuth: []
+tags:
+- name: Exams
+paths:
+  /exams:
+    get:
+      operationId: Exams_getExams
+      summary: List exams | Elenca esami
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Exam'
+                required:
+                - data
+              example:
+                data:
+                - id: 888137
+                  courseId: 262147
+                  courseShortcode: 01UDROV
+                  courseName: Cybersecurity (AA-ZZ)
+                  teacherId: 1847
+                  type: Scritto
+                  status: booked
+                  bookingStartsAt: null
+                  bookingEndsAt: '2022-08-23T14:00:00Z'
+                  examStartsAt: '2022-08-29T08:00:00Z'
+                  examEndsAt: '2022-08-29T10:00:00Z'
+                  bookedCount: 12
+                  availableCount: 8
+                  moduleNumber: 1
+                  notes: null
+                  places: []
+                  isReschedulable: false
+                  question: null
+                  feedback: Esiste già una prenotazione per l'esame in questione
+                  requestReason: null
+                  requestDetails: null
+                - id: 887981
+                  courseId: 262789
+                  courseShortcode: 01NYHOV
+                  courseName: System and device programming (AA-ZZ)
+                  teacherId: 2893
+                  type: Esami scritti a risposta aperta o chiusa tramite PC
+                  status: available
+                  bookingStartsAt: null
+                  bookingEndsAt: '2022-09-02T14:00:00Z'
+                  examStartsAt: '2022-09-08T14:00:00Z'
+                  examEndsAt: '2022-09-08T18:00:00Z'
+                  bookedCount: 42
+                  availableCount: 108
+                  moduleNumber: 1
+                  notes: null
+                  places: []
+                  isReschedulable: false
+                  question: null
+                  feedback: null
+                  requestReason: null
+                  requestDetails: null
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Exams
+  /exams/{examId}/booking:
+    delete:
+      operationId: Exams_deleteExamBookingById
+      summary: Delete exam booking | Annulla prenotazione esame
+      parameters:
+      - name: examId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Exams
+    post:
+      operationId: Exams_bookExam
+      summary: Book exam | Prenota esame
+      parameters:
+      - name: examId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Exams
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookExamRequest'
+  /exams/{examId}/rescheduleRequest:
+    post:
+      operationId: Exams_rescheduleExam
+      summary: Ask to reschedule an exam | Chiedi di spostare un esame
+      parameters:
+      - name: examId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Exams
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RescheduleExamRequest'
+components:
+  schemas:
+    Exam:
+      type: object
+      required:
+      - id
+      - courseId
+      - courseShortcode
+      - courseName
+      - teacherId
+      - type
+      - status
+      - bookingStartsAt
+      - bookingEndsAt
+      - examStartsAt
+      - examEndsAt
+      - bookedCount
+      - availableCount
+      - question
+      - feedback
+      - isReschedulable
+      - notes
+      - moduleNumber
+      - requestReason
+      - requestDetails
+      properties:
+        id:
+          type: integer
+        courseId:
+          type: number
+        courseShortcode:
+          type: string
+        courseName:
+          type: string
+        teacherId:
+          type: integer
+        type:
+          type: string
+        places:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlaceRef'
+        status:
+          type: string
+          enum:
+          - available
+          - booked
+          - requestable
+          - requested
+          - requestAccepted
+          - requestRejected
+          - unavailable
+        bookingStartsAt:
+          type: string
+          format: date-time
+          nullable: true
+        bookingEndsAt:
+          type: string
+          format: date-time
+        examStartsAt:
+          type: string
+          format: date-time
+          nullable: true
+        examEndsAt:
+          type: string
+          format: date-time
+          nullable: true
+        bookedCount:
+          type: integer
+        availableCount:
+          type: integer
+        question:
+          type: object
+          properties:
+            id:
+              type: integer
+            statement:
+              type: string
+            options:
+              type: array
+              items:
+                type: string
+          required:
+          - id
+          - statement
+          - options
+          nullable: true
+        feedback:
+          type: string
+          nullable: true
+        isReschedulable:
+          type: boolean
+          description: If true, the student can ask the professor to reschedule the exam
+        notes:
+          type: string
+          nullable: true
+        moduleNumber:
+          type: integer
+          description: The module number, if this is a module
+        requestReason:
+          type: string
+          nullable: true
+        requestDetails:
+          type: string
+          nullable: true
+    PlaceRef:
+      type: object
+      required:
+      - buildingId
+      - floorId
+      - roomId
+      - siteId
+      - name
+      properties:
+        buildingId:
+          type: string
+        floorId:
+          type: string
+        roomId:
+          type: string
+        siteId:
+          type: string
+        name:
+          type: string
+    BookExamRequest:
+      type: object
+      required:
+      - courseShortcode
+      properties:
+        courseShortcode:
+          type: string
+          example: 01UDROV
+        questionId:
+          type: integer
+        questionOption:
+          type: integer
+        requestReason:
+          type: string
+    RescheduleExamRequest:
+      type: object
+      required:
+      - courseShortcode
+      - requestReason
+      - requestDetails
+      properties:
+        courseShortcode:
+          type: string
+          example: 01UDROV
+        requestReason:
+          type: string
+        requestDetails:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: Bearer

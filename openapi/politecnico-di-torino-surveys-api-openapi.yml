@@ -1,0 +1,186 @@
+openapi: 3.0.0
+info:
+  title: Polito Faculty Announcements Surveys API
+  version: 0.0.1
+  license:
+    name: CC BY-NC 4.0
+    url: https://creativecommons.org/licenses/by-nc/4.0/
+servers:
+- url: https://app.didattica.polito.it/api
+  description: Production server
+  variables: {}
+- url: https://app.didattica.polito.it/mock/api
+  description: Mock server (uses example data)
+  variables: {}
+security:
+- BearerAuth: []
+tags:
+- name: Surveys
+paths:
+  /surveys:
+    get:
+      operationId: Surveys_getSurveys
+      summary: Get surveys | Mostra survey
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Survey'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Surveys
+components:
+  schemas:
+    SurveyCourseRef:
+      type: object
+      required:
+      - id
+      - name
+      - shortcode
+      properties:
+        id:
+          type: number
+          example: 1
+        name:
+          type: string
+          example: Course name
+        shortcode:
+          type: string
+          example: 01NYHOV
+      example:
+        id: 1
+        name: Course name
+        shortcode: 01NYHOV
+    Survey:
+      type: object
+      required:
+      - id
+      - title
+      - subtitle
+      - category
+      - type
+      - period
+      - year
+      - isMandatory
+      - isCompiled
+      - compileDate
+      - url
+      - startsAt
+      - endsAt
+      properties:
+        id:
+          type: number
+          example: 1
+        title:
+          type: string
+          example: Survey title
+        subtitle:
+          type: string
+          nullable: true
+          example: Survey subtitle
+        category:
+          $ref: '#/components/schemas/SurveyTaxonomy'
+        type:
+          $ref: '#/components/schemas/SurveyTaxonomy'
+        period:
+          type: number
+          example: 2
+        year:
+          type: string
+          example: '2024'
+        isMandatory:
+          type: boolean
+          example: true
+        isCompiled:
+          type: boolean
+          example: false
+        compileDate:
+          type: string
+          format: date-time
+          nullable: true
+          example: '2022-08-31T14:00:00Z'
+        url:
+          type: string
+          example: https://
+        startsAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+        endsAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+        course:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/SurveyCourseRef'
+          nullable: true
+      example:
+        id: 1
+        title: Survey title
+        subtitle: Survey subtitle
+        category:
+          id: CPD
+          name: CPD
+        type:
+          id: CPD
+          name: CPD
+        period: 2
+        year: '2024'
+        isMandatory: true
+        isCompiled: false
+        compileDate: '2022-08-31T14:00:00Z'
+        url: https://
+        startsAt: '2022-08-31T14:00:00Z'
+        endsAt: '2022-08-31T14:00:00Z'
+        course:
+          id: 1
+          name: Course name
+          shortcode: 01NYHOV
+    SurveyTaxonomy:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          example: CPD
+        name:
+          type: string
+          example: CPD
+      example:
+        id: CPD
+        name: CPD
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: Bearer

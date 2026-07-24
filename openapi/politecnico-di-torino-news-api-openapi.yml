@@ -1,0 +1,208 @@
+openapi: 3.0.0
+info:
+  title: Polito Faculty Announcements News API
+  version: 0.0.1
+  license:
+    name: CC BY-NC 4.0
+    url: https://creativecommons.org/licenses/by-nc/4.0/
+servers:
+- url: https://app.didattica.polito.it/api
+  description: Production server
+  variables: {}
+- url: https://app.didattica.polito.it/mock/api
+  description: Mock server (uses example data)
+  variables: {}
+security:
+- BearerAuth: []
+tags:
+- name: News
+paths:
+  /news:
+    get:
+      operationId: News_getNews
+      summary: List news | Lista news
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NewsItemOverview'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - News
+  /news/{newsItemId}:
+    get:
+      operationId: News_getNewsItem
+      summary: Show news | Mostra news
+      parameters:
+      - name: newsItemId
+        in: path
+        required: true
+        schema:
+          type: number
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/NewsItem'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - News
+components:
+  schemas:
+    NewsItemExtra:
+      type: object
+      required:
+      - url
+      - description
+      - type
+      - sizeInKiloBytes
+      properties:
+        url:
+          type: string
+          example: https://
+        description:
+          type: string
+          example: Bando
+        type:
+          type: string
+          enum:
+          - link
+          - file
+          - image
+          example: image
+        sizeInKiloBytes:
+          type: integer
+          nullable: true
+          example: 305
+      example:
+        url: https://
+        description: Bando
+        type: image
+        sizeInKiloBytes: 305
+    NewsItem:
+      type: object
+      required:
+      - location
+      - htmlContent
+      - extras
+      properties:
+        location:
+          type: string
+          example: Energy Center - Via Paolo Borsellino 38, Torino
+        htmlContent:
+          type: string
+          example: Martedì <strong>18 aprile 2023 - </strong>presso l'<strong>Auditorium dell'Energy Center del Politecnico</strong>...
+        extras:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsItemExtra'
+      allOf:
+      - $ref: '#/components/schemas/NewsItemOverview'
+      example:
+        id: 123
+        title: Partecipazione, co-progettazione e impatto sociale. Sfide e opportunità per l'inclusione sociale
+        isEvent: false
+        shortDescription: Seminario di presentazione del progetto
+        eventStartTime: Dal 30 agosto 2023
+        eventEndTime: Al 30 agosto 2023
+        createdAt: '2022-08-31T14:00:00Z'
+        location: Energy Center - Via Paolo Borsellino 38, Torino
+        htmlContent: Martedì <strong>18 aprile 2023 - </strong>presso l'<strong>Auditorium dell'Energy Center del Politecnico</strong>...
+        extras:
+        - url: https://
+          description: Bando
+          type: image
+          sizeInKiloBytes: 305
+    NewsItemOverview:
+      type: object
+      required:
+      - id
+      - title
+      - isEvent
+      - shortDescription
+      - eventStartTime
+      - eventEndTime
+      - createdAt
+      properties:
+        id:
+          type: number
+          example: 123
+        title:
+          type: string
+          example: Partecipazione, co-progettazione e impatto sociale. Sfide e opportunità per l'inclusione sociale
+        isEvent:
+          type: boolean
+          example: false
+        shortDescription:
+          type: string
+          example: Seminario di presentazione del progetto
+        eventStartTime:
+          type: string
+          nullable: true
+          example: Dal 30 agosto 2023
+        eventEndTime:
+          type: string
+          nullable: true
+          example: Al 30 agosto 2023
+        createdAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+      example:
+        id: 123
+        title: Partecipazione, co-progettazione e impatto sociale. Sfide e opportunità per l'inclusione sociale
+        isEvent: false
+        shortDescription: Seminario di presentazione del progetto
+        eventStartTime: Dal 30 agosto 2023
+        eventEndTime: Al 30 agosto 2023
+        createdAt: '2022-08-31T14:00:00Z'
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: Bearer

@@ -1,0 +1,714 @@
+openapi: 3.0.0
+info:
+  title: Polito Faculty Announcements Tickets API
+  version: 0.0.1
+  license:
+    name: CC BY-NC 4.0
+    url: https://creativecommons.org/licenses/by-nc/4.0/
+servers:
+- url: https://app.didattica.polito.it/api
+  description: Production server
+  variables: {}
+- url: https://app.didattica.polito.it/mock/api
+  description: Mock server (uses example data)
+  variables: {}
+security:
+- BearerAuth: []
+tags:
+- name: Tickets
+paths:
+  /ticket-faqs:
+    get:
+      operationId: TicketFAQs_searchTicketFAQs
+      summary: Search ticket FAQs | Ricerca FAQ ticket
+      parameters:
+      - name: accept-language
+        in: header
+        required: false
+        schema:
+          type: string
+          enum:
+          - it
+          - en
+          default: it
+      - name: search
+        in: query
+        required: true
+        description: Find FAQs containing 'search' in the question
+        schema:
+          type: string
+        explode: false
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TicketFAQ'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Tickets
+  /ticket-topics:
+    get:
+      operationId: TicketTopics_getTicketTopics
+      summary: List ticket topics | Elenca ambiti ticket
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TicketTopic'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Tickets
+  /tickets:
+    get:
+      operationId: Tickets_getTickets
+      summary: List tickets | Elenca ticket
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TicketOverview'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Tickets
+    post:
+      operationId: Tickets_createTicket
+      summary: Create ticket | Crea ticket
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TicketOverview'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Tickets
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateTicketRequest'
+  /tickets/{ticketId}:
+    get:
+      operationId: Tickets_getTicket
+      summary: Show a ticket | Mostra un ticket
+      parameters:
+      - name: ticketId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Ticket'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Tickets
+  /tickets/{ticketId}/attachments/{attachmentId}:
+    get:
+      operationId: Tickets_getTicketAttachment
+      summary: Download ticket attachment | Scarica allegato del ticket
+      parameters:
+      - name: ticketId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: attachmentId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '302':
+          description: Redirection
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: The server cannot find the requested resource.
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Tickets
+  /tickets/{ticketId}/close:
+    put:
+      operationId: Tickets_markTicketAsClosed
+      summary: Mark a ticket as closed | Segna un ticket come chiuso
+      parameters:
+      - name: ticketId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Tickets
+  /tickets/{ticketId}/read:
+    put:
+      operationId: Tickets_markTicketAsRead
+      summary: Mark a ticket as read | Segna un ticket come letto
+      parameters:
+      - name: ticketId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Tickets
+  /tickets/{ticketId}/replies:
+    post:
+      operationId: Tickets_replyToTicket
+      summary: Reply to a ticket | Rispondi ad un ticket
+      parameters:
+      - name: ticketId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Tickets
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReplyTicketRequest'
+  /tickets/{ticketId}/replies/{replyId}/attachments/{attachmentId}:
+    get:
+      operationId: Tickets_getTicketReplyAttachment
+      summary: Download ticket reply attachment | Scarica allegato di una risposta al ticket
+      parameters:
+      - name: ticketId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: replyId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: attachmentId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '302':
+          description: Redirection
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: The server cannot find the requested resource.
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Tickets
+  /tickets/{ticketId}/replies/{replyId}/feedback:
+    put:
+      operationId: Tickets_setTicketReplyFeedback
+      summary: Give feedback on a ticket reply | Fornisci feedback su una risposta al ticket
+      parameters:
+      - name: ticketId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: replyId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: positive
+        in: query
+        required: true
+        schema:
+          type: boolean
+        explode: false
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Tickets
+components:
+  schemas:
+    ReplyTicketRequest:
+      type: object
+      properties:
+        message:
+          type: string
+        attachment:
+          type: string
+          format: binary
+      required:
+      - message
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    TicketSubtopic:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: number
+          example: 103
+        name:
+          type: string
+          example: Accesso studenti esterni
+      example:
+        id: 103
+        name: Accesso studenti esterni
+    TicketAttachment:
+      type: object
+      required:
+      - id
+      - filename
+      - mimeType
+      - sizeInKiloBytes
+      properties:
+        id:
+          type: number
+          example: 0
+        filename:
+          type: string
+          example: screenshot.png
+        mimeType:
+          type: string
+          example: image/png
+        sizeInKiloBytes:
+          type: integer
+          example: 305
+      example:
+        id: 0
+        filename: screenshot.png
+        mimeType: image/png
+        sizeInKiloBytes: 305
+    Ticket:
+      type: object
+      required:
+      - id
+      - subject
+      - message
+      - status
+      - hasAttachments
+      - isFromAgent
+      - agentId
+      - unreadCount
+      - createdAt
+      - updatedAt
+      - replies
+      - attachments
+      properties:
+        id:
+          type: number
+          example: 1145890
+        subject:
+          type: string
+          example: Sostituzione esame in piano carriera
+        message:
+          type: string
+          example: Buongiorno, vi contatto per sostituire A con B
+        status:
+          $ref: '#/components/schemas/TicketStatus'
+        hasAttachments:
+          type: boolean
+          example: true
+        isFromAgent:
+          type: boolean
+          description: If true, this ticket was opened by an agent (not by the student)
+          example: false
+        agentId:
+          type: number
+          nullable: true
+        unreadCount:
+          type: number
+          example: 2
+        createdAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+        replies:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketReply'
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketAttachment'
+    TicketReply:
+      type: object
+      required:
+      - id
+      - message
+      - isFromAgent
+      - agentId
+      - isRead
+      - createdAt
+      - attachments
+      properties:
+        id:
+          type: number
+          example: 1145890
+        message:
+          type: string
+          example: Non si può fare.
+        isFromAgent:
+          type: boolean
+          description: If true, this reply was sent by an agent (not by the student)
+          example: true
+        agentId:
+          anyOf:
+          - allOf:
+            - $ref: '#/components/schemas/TicketSpecialAgent'
+            nullable: true
+          - type: number
+            nullable: true
+          example: 351
+        needsFeedback:
+          type: boolean
+          example: false
+        isRead:
+          type: boolean
+          example: true
+        createdAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketAttachment'
+      example:
+        id: 1145890
+        message: Non si può fare.
+        isFromAgent: true
+        agentId: 351
+        isRead: true
+        createdAt: '2022-08-31T14:00:00Z'
+        attachments: []
+    TicketSpecialAgent:
+      type: string
+      enum:
+      - AIAgent
+    TicketFAQ:
+      type: object
+      required:
+      - id
+      - question
+      - answer
+      properties:
+        id:
+          type: number
+          example: 3623
+        question:
+          type: string
+          example: Ho dimenticato il mio nome utente e/o la password e non riesco più ad accedere ad Apply@Polito. Come posso fare?
+        answer:
+          type: string
+          example: Clicca sul link &quot;<u>Codice e/o Password dimenticata</u>?&quot; presente sulla pagina di <a href="https://didattica.polito.it/pls/portal30/sviluppo.pkg_apply.login?p_lang=IT">Log-in</a>&nbsp;e segui le istruzioni.
+      example:
+        id: 3623
+        question: Ho dimenticato il mio nome utente e/o la password e non riesco più ad accedere ad Apply@Polito. Come posso fare?
+        answer: Clicca sul link &quot;<u>Codice e/o Password dimenticata</u>?&quot; presente sulla pagina di <a href="https://didattica.polito.it/pls/portal30/sviluppo.pkg_apply.login?p_lang=IT">Log-in</a>&nbsp;e segui le istruzioni.
+    TicketTopic:
+      type: object
+      required:
+      - id
+      - name
+      - subtopics
+      properties:
+        id:
+          type: number
+          example: 103
+        name:
+          type: string
+          example: Accesso studenti esterni
+        subtopics:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketSubtopic'
+      example:
+        id: 61
+        name: ACCESSO LAUREE MAGISTRALI
+        subtopics:
+        - id: 103
+          name: Accesso studenti esterni
+    CreateTicketRequest:
+      type: object
+      properties:
+        subject:
+          type: string
+        message:
+          type: string
+        subtopicId:
+          type: number
+        attachment:
+          type: string
+          format: binary
+      required:
+      - subject
+      - message
+      - subtopicId
+    TicketStatus:
+      type: string
+      enum:
+      - new
+      - pending
+      - closed
+    TicketOverview:
+      type: object
+      required:
+      - id
+      - subject
+      - message
+      - status
+      - hasAttachments
+      - isFromAgent
+      - agentId
+      - unreadCount
+      - createdAt
+      - updatedAt
+      properties:
+        id:
+          type: number
+          example: 1145890
+        subject:
+          type: string
+          example: Sostituzione esame in piano carriera
+        message:
+          type: string
+          example: Buongiorno, vi contatto per sostituire A con B
+        status:
+          $ref: '#/components/schemas/TicketStatus'
+        hasAttachments:
+          type: boolean
+          example: true
+        isFromAgent:
+          type: boolean
+          description: If true, this ticket was opened by an agent (not by the student)
+          example: false
+        agentId:
+          type: number
+          nullable: true
+        unreadCount:
+          type: number
+          example: 2
+        createdAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+      example:
+        id: 1145890
+        subject: Sostituzione esame in piano carriera
+        message: Buongiorno, vi contatto per sostituire A con B
+        status: new
+        hasAttachments: true
+        isFromAgent: false
+        agentId: null
+        unreadCount: 2
+        createdAt: '2022-08-31T14:00:00Z'
+        updatedAt: '2022-08-31T14:00:00Z'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: Bearer

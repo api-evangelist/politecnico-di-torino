@@ -1,0 +1,236 @@
+openapi: 3.0.0
+info:
+  title: Polito Faculty Announcements People API
+  version: 0.0.1
+  license:
+    name: CC BY-NC 4.0
+    url: https://creativecommons.org/licenses/by-nc/4.0/
+servers:
+- url: https://app.didattica.polito.it/api
+  description: Production server
+  variables: {}
+- url: https://app.didattica.polito.it/mock/api
+  description: Mock server (uses example data)
+  variables: {}
+security:
+- BearerAuth: []
+tags:
+- name: People
+paths:
+  /people:
+    get:
+      operationId: People_getPeople
+      summary: Search people | Cerca persone
+      parameters:
+      - name: search
+        in: query
+        required: true
+        description: Filter people containing 'search' in their full name
+        schema:
+          type: string
+        explode: false
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PersonOverview'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - People
+  /people/{personId}:
+    get:
+      operationId: People_getPerson
+      summary: Show person | Mostra persona
+      parameters:
+      - name: personId
+        in: path
+        required: true
+        schema:
+          type: number
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Person'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - People
+components:
+  schemas:
+    PersonOverview:
+      type: object
+      required:
+      - id
+      - firstName
+      - lastName
+      - picture
+      - role
+      properties:
+        id:
+          type: number
+          example: 2154
+        firstName:
+          type: string
+          example: Fulvio
+        lastName:
+          type: string
+          example: Corno
+        picture:
+          type: string
+          nullable: true
+          example: https://www.swas.polito.it/_library/image_pub.asp?matricola=002154
+        role:
+          type: string
+          example: Docente
+      example:
+        id: 2154
+        firstName: Fulvio
+        lastName: Corno
+        picture: https://www.swas.polito.it/_library/image_pub.asp?matricola=002154
+        role: Docente
+    PersonCourse:
+      type: object
+      required:
+      - id
+      - name
+      - role
+      - year
+      properties:
+        id:
+          type: integer
+          description: The identifier for this course
+          example: 258674
+        shortcode:
+          type: string
+          description: The shortcode for this course
+          example: 01NYHOV
+        name:
+          type: string
+          description: The name of the course
+          example: Computer sciences
+        role:
+          type: string
+          description: The role of the person in this course
+          example: Collaboratore
+        year:
+          type: number
+          description: The year this course was given in
+          example: 2021
+      example:
+        id: 258674
+        shortcode: 01NYHOV
+        name: Computer sciences
+        role: Collaboratore
+        year: 2021
+    Person:
+      type: object
+      required:
+      - email
+      - phoneNumbers
+      - facilityShortName
+      - profileUrl
+      - courses
+      properties:
+        email:
+          type: string
+          example: fulvio.corno@polito.it
+        phoneNumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        facilityShortName:
+          type: string
+          nullable: true
+          example: DAUIN
+        profileUrl:
+          type: string
+          example: https://www.dauin.polito.it/personale/scheda/(matricola)/002154
+        courses:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonCourse'
+          nullable: true
+      allOf:
+      - $ref: '#/components/schemas/PersonOverview'
+      example:
+        id: 2154
+        firstName: Fulvio
+        lastName: Corno
+        picture: https://www.swas.polito.it/_library/image_pub.asp?matricola=002154
+        role: Docente
+        email: fulvio.corno@polito.it
+        phoneNumbers:
+        - full: 0110907053
+          internal: '7053'
+        facilityShortName: DAUIN
+        profileUrl: https://www.dauin.polito.it/personale/scheda/(matricola)/002154
+        courses:
+        - id: 258674
+          shortcode: 01NYHOV
+          name: Computer sciences
+          role: Collaboratore
+          year: 2021
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    PhoneNumber:
+      type: object
+      required:
+      - full
+      - internal
+      properties:
+        full:
+          type: string
+          example: 0110907053
+        internal:
+          type: string
+          example: '7053'
+      example:
+        full: 0110907053
+        internal: '7053'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: Bearer

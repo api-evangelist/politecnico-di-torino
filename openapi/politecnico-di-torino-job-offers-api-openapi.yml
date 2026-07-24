@@ -1,0 +1,168 @@
+openapi: 3.0.0
+info:
+  title: Polito Faculty Announcements Job offers API
+  version: 0.0.1
+  license:
+    name: CC BY-NC 4.0
+    url: https://creativecommons.org/licenses/by-nc/4.0/
+servers:
+- url: https://app.didattica.polito.it/api
+  description: Production server
+  variables: {}
+- url: https://app.didattica.polito.it/mock/api
+  description: Mock server (uses example data)
+  variables: {}
+security:
+- BearerAuth: []
+tags:
+- name: Job offers
+paths:
+  /job-offers:
+    get:
+      operationId: JobOffers_getJobOffers
+      summary: List job offers | Elenca offerte di lavoro
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JobOfferOverview'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Job offers
+  /job-offers/{jobOfferId}:
+    get:
+      operationId: JobOffers_getJobOffer
+      summary: Show a job offer | Mostra un'offerta di lavoro
+      parameters:
+      - name: jobOfferId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/JobOffer'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Job offers
+components:
+  schemas:
+    JobOfferOverview:
+      type: object
+      required:
+      - id
+      - title
+      - location
+      - companyId
+      - companyName
+      - createdAtDate
+      - endsAtDate
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        location:
+          type: string
+        companyId:
+          type: number
+        companyName:
+          type: string
+        createdAtDate:
+          type: string
+          format: date
+        endsAtDate:
+          type: string
+          format: date
+    JobOffer:
+      type: object
+      required:
+      - companyLocation
+      - companyMission
+      - description
+      - requirements
+      - contractType
+      - salary
+      - contactInformation
+      - url
+      - email
+      - freePositions
+      properties:
+        companyLocation:
+          type: string
+        companyMission:
+          type: string
+        description:
+          type: string
+        requirements:
+          type: string
+        contractType:
+          type: string
+        salary:
+          type: string
+        contactInformation:
+          type: string
+          nullable: true
+        url:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        freePositions:
+          type: number
+          example: 2
+      allOf:
+      - $ref: '#/components/schemas/JobOfferOverview'
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: Bearer

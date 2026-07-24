@@ -1,0 +1,694 @@
+openapi: 3.0.0
+info:
+  title: Polito Faculty Announcements Bookings API
+  version: 0.0.1
+  license:
+    name: CC BY-NC 4.0
+    url: https://creativecommons.org/licenses/by-nc/4.0/
+servers:
+- url: https://app.didattica.polito.it/api
+  description: Production server
+  variables: {}
+- url: https://app.didattica.polito.it/mock/api
+  description: Mock server (uses example data)
+  variables: {}
+security:
+- BearerAuth: []
+tags:
+- name: Bookings
+paths:
+  /booking-topics:
+    get:
+      operationId: BookingTopics_getBookingTopics
+      summary: List booking topics | Elenca ambiti di prenotazione
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BookingTopic'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Bookings
+  /booking-topics/{bookingTopicId}/slots:
+    get:
+      operationId: BookingTopics_getBookingSlots
+      summary: Show booking slots | Mostra turni prenotabili
+      parameters:
+      - name: bookingTopicId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: fromDate
+        in: query
+        required: false
+        description: First day - defaults to monday of current week
+        schema:
+          type: string
+          format: date
+        explode: false
+      - name: toDate
+        in: query
+        required: false
+        description: Last day - defaults to sunday of current week
+        schema:
+          type: string
+          format: date
+        explode: false
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BookingSlot'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Bookings
+  /booking-topics/{bookingTopicId}/slots/{bookingSlotId}/seats:
+    get:
+      operationId: BookingTopics_getBookingSeats
+      summary: Show seats for a booking slots | Mostra posti prenotabili
+      parameters:
+      - name: bookingTopicId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: bookingSlotId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BookingSeats'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Bookings
+  /bookings:
+    get:
+      operationId: BookingsManagement_getBookings
+      summary: List bookings | Elenca prenotazioni
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Booking'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Bookings
+    post:
+      operationId: BookingsManagement_createBooking
+      summary: Create booking | Crea prenotazione
+      parameters: []
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Bookings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBookingRequest'
+  /bookings/{bookingId}:
+    delete:
+      operationId: BookingsManagement_deleteBooking
+      summary: Delete booking | Cancella prenotazione
+      parameters:
+      - name: bookingId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Bookings
+    patch:
+      operationId: BookingsManagement_updateBooking
+      summary: Update booking | Aggiorna prenotazione
+      parameters:
+      - name: bookingId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Bookings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBookingRequest'
+components:
+  schemas:
+    Booking:
+      type: object
+      required:
+      - id
+      - description
+      - topic
+      - subtopic
+      - startsAt
+      - endsAt
+      - seat
+      - cancelableUntil
+      - location
+      properties:
+        id:
+          type: integer
+          example: 258674
+        description:
+          type: string
+          example: ''
+        topic:
+          $ref: '#/components/schemas/BookingTopicOverview'
+        subtopic:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/BookingTopicOverview'
+          nullable: true
+        startsAt:
+          type: string
+          format: date-time
+          example: '2021-10-05T10:00:00Z'
+        endsAt:
+          type: string
+          format: date-time
+          example: '2021-10-05T10:15:00Z'
+        seat:
+          type: object
+          properties:
+            id:
+              type: integer
+            row:
+              type: string
+            column:
+              type: string
+          nullable: true
+        cancelableUntil:
+          type: string
+          format: date-time
+          example: '2021-10-05T09:00:00Z'
+        location:
+          $ref: '#/components/schemas/BookingPlaceRef'
+        locationCheck:
+          $ref: '#/components/schemas/BookingLocationCheck'
+    BookingPlaceRef:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/BookingPhysicalPlaceRef'
+      - $ref: '#/components/schemas/BookingVirtualPlaceRef'
+      discriminator:
+        propertyName: type
+        mapping:
+          place: '#/components/schemas/BookingPhysicalPlaceRef'
+          virtualPlace: '#/components/schemas/BookingVirtualPlaceRef'
+    PlaceRef:
+      type: object
+      required:
+      - buildingId
+      - floorId
+      - roomId
+      - siteId
+      - name
+      properties:
+        buildingId:
+          type: string
+        floorId:
+          type: string
+        roomId:
+          type: string
+        siteId:
+          type: string
+        name:
+          type: string
+    BookingSubtopic:
+      type: object
+      required:
+      - requirements
+      properties:
+        requirements:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              url:
+                type: string
+      allOf:
+      - $ref: '#/components/schemas/BookingTopicLeaf'
+    CreateBookingRequest:
+      type: object
+      required:
+      - slotId
+      properties:
+        slotId:
+          type: integer
+          example: 103051
+        seatId:
+          type: integer
+          example: 20018
+    BookingLocationCheck:
+      type: object
+      required:
+      - enabled
+      - checked
+      - latitude
+      - longitude
+      - radiusInKm
+      properties:
+        enabled:
+          type: boolean
+        checked:
+          type: boolean
+        latitude:
+          type: string
+          nullable: true
+        longitude:
+          type: string
+          nullable: true
+        radiusInKm:
+          type: number
+          nullable: true
+    BookingPhysicalPlaceRef:
+      type: object
+      required:
+      - description
+      properties:
+        description:
+          type: string
+      allOf:
+      - $ref: '#/components/schemas/PlaceRef'
+    BookingSlot:
+      type: object
+      required:
+      - id
+      - description
+      - isBooked
+      - canBeBooked
+      - hasSeats
+      - hasSeatSelection
+      - places
+      - bookedPlaces
+      - feedback
+      - location
+      - startsAt
+      - endsAt
+      - bookingStartsAt
+      - bookingEndsAt
+      properties:
+        id:
+          type: integer
+          example: 103051
+        description:
+          type: string
+          example: ''
+        isBooked:
+          type: boolean
+          example: false
+        canBeBooked:
+          type: boolean
+          example: false
+        hasSeats:
+          type: boolean
+          example: false
+        hasSeatSelection:
+          type: boolean
+          example: false
+        places:
+          type: integer
+          example: 2
+        bookedPlaces:
+          type: integer
+          example: 2
+        feedback:
+          type: string
+          example: Il turno è pieno
+        location:
+          type: object
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            type:
+              type: string
+            address:
+              type: string
+        startsAt:
+          type: string
+          format: date-time
+          example: '2021-10-05T10:00:00Z'
+        endsAt:
+          type: string
+          format: date-time
+          example: '2021-10-05T10:15:00Z'
+        bookingStartsAt:
+          type: string
+          format: date-time
+          example: '2021-10-01T00:00:00Z'
+        bookingEndsAt:
+          type: string
+          format: date-time
+          example: '2021-10-05T09:00:00Z'
+      example:
+        id: 103051
+        description: ''
+        isBooked: false
+        canBeBooked: false
+        hasSeats: false
+        hasSeatSelection: false
+        places: 2
+        bookedPlaces: 2
+        feedback: Il turno è pieno
+        location:
+          name: Virtual Classroom della Segreteria Generale Studenti
+          description: ''
+          type: VC
+          address: https://didattica.polito.it/pls/portal30/sviluppo.bbb_corsi.queueRoom?id=SEGRETERIA_GENERALE&p_tipo=SEGRETERIA_GENERALE
+        startsAt: '2021-10-05T10:00:00Z'
+        endsAt: '2021-10-05T10:15:00Z'
+        bookingStartsAt: '2021-10-01T00:00:00Z'
+        bookingEndsAt: '2021-10-05T09:00:00Z'
+    BookingVirtualPlaceRef:
+      type: object
+      required:
+      - name
+      - url
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+    BookingTopic:
+      type: object
+      required:
+      - subtopics
+      properties:
+        subtopics:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingSubtopic'
+      allOf:
+      - $ref: '#/components/schemas/BookingTopicLeaf'
+      example:
+        id: DIDATTICA_ING
+        title: Segreteria Didattica Ingegneria
+        description: Servizi della Segreteria Didattica Ingegneria
+        isEnabled: true
+        disclaimer: ''
+        showCalendar: true
+        slotLength: 15
+        slotsPerHour: 4
+        startDate: null
+        startHour: 8
+        endHour: 18
+        maxBookingsPerDay: 2
+        canBeCancelled: true
+        daysPerWeek: 5
+        agendaView: false
+        subtopics:
+        - id: DID_ING_VC_EN
+          title: Aspetti didattici di carriera - Sportello virtuale in inglese
+          description: ''
+          isEnabled: true
+          disclaimer: ''
+          showCalendar: true
+          slotLength: 15
+          slotsPerHour: 4
+          startDate: null
+          startHour: 8
+          endHour: 18
+          maxBookingsPerDay: 2
+          canBeCancelled: true
+          daysPerWeek: 5
+          agendaView: false
+          requirements: []
+    BookingSeats:
+      type: object
+      required:
+      - totalCount
+      - availableCount
+      - rows
+      properties:
+        totalCount:
+          type: integer
+        availableCount:
+          type: integer
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingSeatsRow'
+    BookingTopicLeaf:
+      type: object
+      required:
+      - isEnabled
+      - disclaimer
+      - showCalendar
+      - slotLength
+      - slotsPerHour
+      - startDate
+      - startHour
+      - endHour
+      - maxBookingsPerDay
+      - canBeCancelled
+      - daysPerWeek
+      - agendaView
+      properties:
+        isEnabled:
+          type: boolean
+          example: true
+        disclaimer:
+          type: string
+          example: ''
+        showCalendar:
+          type: boolean
+          example: true
+        slotLength:
+          type: integer
+          example: 15
+        slotsPerHour:
+          type: integer
+          example: 4
+        startDate:
+          type: string
+          format: date
+          nullable: true
+          description: Start date of the booking period
+        startHour:
+          type: integer
+          example: 8
+        endHour:
+          type: integer
+          example: 18
+        maxBookingsPerDay:
+          type: integer
+          example: 2
+        canBeCancelled:
+          type: boolean
+          example: true
+        daysPerWeek:
+          type: integer
+          description: Number of days per week the booking is available, starting from startDate weekday, or monday if missing
+          example: 5
+        agendaView:
+          type: boolean
+          description: Specifies if the topic requires the agenda display
+          example: false
+      allOf:
+      - $ref: '#/components/schemas/BookingTopicOverview'
+    BookingTopicOverview:
+      type: object
+      required:
+      - id
+      - title
+      - description
+      properties:
+        id:
+          type: string
+          example: DIDATTICA_ING
+        title:
+          type: string
+          example: Segreteria Didattica Ingegneria
+        description:
+          type: string
+          example: Servizi della Segreteria Didattica Ingegneria
+    UpdateBookingRequest:
+      type: object
+      required:
+      - isLocationChecked
+      properties:
+        isLocationChecked:
+          type: boolean
+          example: true
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    BookingSeatsRow:
+      type: object
+      required:
+      - label
+      - seats
+      properties:
+        id:
+          type: integer
+        label:
+          type: string
+        seats:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingSeatCell'
+    BookingSeatCell:
+      type: object
+      required:
+      - id
+      - status
+      - label
+      properties:
+        id:
+          type: integer
+          example: 20018
+        status:
+          type: string
+          enum:
+          - available
+          - booked
+          - unavailable
+          example: available
+        label:
+          type: string
+          example: A5
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: Bearer

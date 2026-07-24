@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: Polito Faculty Announcements API
+  version: 0.0.1
+  license:
+    name: CC BY-NC 4.0
+    url: https://creativecommons.org/licenses/by-nc/4.0/
+servers:
+- url: https://app.didattica.polito.it/api
+  description: Production server
+  variables: {}
+- url: https://app.didattica.polito.it/mock/api
+  description: Mock server (uses example data)
+  variables: {}
+security:
+- BearerAuth: []
+tags:
+- name: Announcements
+paths:
+  /announcements:
+    get:
+      operationId: Announcements_getAnnouncements
+      summary: List announcements | Lista annunci
+      parameters:
+      - name: new
+        in: query
+        required: false
+        schema:
+          type: boolean
+        explode: false
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Announcement'
+                required:
+                - data
+              example:
+                data:
+                - id: abc-123
+                  title: Welcome to the app
+                  contents: Here is a quick guide to get started.
+                  description: Onboarding announcement
+                  scope: onboarding
+                  seen: false
+                  date: '2026-01-01T12:00:00Z'
+                - id: def-456
+                  title: New feature available
+                  contents: Check out the new booking system.
+                  scope: appInfo
+                  seen: true
+                  date: '2026-02-15T09:30:00Z'
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Announcements
+  /announcements/{announcementId}/read:
+    put:
+      operationId: Announcements_markAnnouncementAsRead
+      summary: Mark announcement as read | Segna annuncio come letto
+      parameters:
+      - name: announcementId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Announcements
+components:
+  schemas:
+    Announcement:
+      type: object
+      required:
+      - id
+      - title
+      - contents
+      - scope
+      - seen
+      - date
+      properties:
+        id:
+          type: string
+          example: abc-123
+        title:
+          type: string
+          example: Welcome to the app
+        contents:
+          type: string
+          example: Here is a quick guide to get started.
+        description:
+          type: string
+          example: Onboarding announcement
+        scope:
+          allOf:
+          - $ref: '#/components/schemas/AnnouncementScope'
+          example: onboarding
+        seen:
+          type: boolean
+          example: false
+        date:
+          type: string
+          format: date-time
+          example: '2026-01-01T12:00:00Z'
+        cover:
+          type: string
+          example: https://example.com/announcement-cover.jpg
+      example:
+        id: abc-123
+        title: Welcome to the app
+        contents: Here is a quick guide to get started.
+        description: Onboarding announcement
+        scope: onboarding
+        seen: false
+        date: '2026-01-01T12:00:00Z'
+    AnnouncementScope:
+      type: string
+      enum:
+      - onboarding
+      - appInfo
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: Bearer

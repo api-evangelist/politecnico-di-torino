@@ -1,0 +1,1109 @@
+openapi: 3.0.0
+info:
+  title: Polito Faculty Announcements Student API
+  version: 0.0.1
+  license:
+    name: CC BY-NC 4.0
+    url: https://creativecommons.org/licenses/by-nc/4.0/
+servers:
+- url: https://app.didattica.polito.it/api
+  description: Production server
+  variables: {}
+- url: https://app.didattica.polito.it/mock/api
+  description: Mock server (uses example data)
+  variables: {}
+security:
+- BearerAuth: []
+tags:
+- name: Student
+paths:
+  /deadlines:
+    get:
+      operationId: StudentNs_getDeadlines
+      summary: List deadlines | Elenca scadenze
+      parameters:
+      - name: fromDate
+        in: query
+        required: false
+        description: First day - defaults to 7 days before today
+        schema:
+          type: string
+          format: date
+        explode: false
+      - name: toDate
+        in: query
+        required: false
+        description: Last day - defaults to 7 days after today
+        schema:
+          type: string
+          format: date
+        explode: false
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Deadline'
+                required:
+                - data
+              example:
+                data:
+                - name: Termine per l'iscrizione e pagamento della prima rata, per gli studenti di anni successivi al primo
+                  type: Iscrizioni e pagamento tasse
+                  date: '2022-10-11'
+                  url: null
+                - name: Trasferimento da altri Atenei italiani
+                  type: Trasferimenti e valutazioni carriere precedenti
+                  date: '2022-10-14'
+                  url: null
+                - name: Termine per superare gli esami
+                  type: Sessioni esami di laurea
+                  date: '2022-11-12'
+                  url: null
+                - name: Termine iscrizione esame finale
+                  type: Sessioni esami di laurea
+                  date: '2022-11-14'
+                  url: null
+                - name: Periodo per la compilazione del piano carriera / carico didattico
+                  type: Iscrizioni e pagamento tasse
+                  date: '2022-11-25'
+                  url: null
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Student
+  /grades:
+    get:
+      operationId: StudentNs_getStudentGrades
+      summary: Retrieve student grades | Recupera i voti dello studente
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ExamGrade'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Student
+  /guides:
+    get:
+      operationId: StudentNs_getGuides
+      summary: Get guides | Mostra guide
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Guide'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Student
+  /me:
+    get:
+      operationId: StudentNs_getStudent
+      summary: Retrieve student profile | Recupera il profilo studente
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Student'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Student
+  /messages:
+    get:
+      operationId: Messages_getMessages
+      summary: List messages | Elenca messaggi
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Message'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Student
+  /messages/{messageId}:
+    delete:
+      operationId: Messages_deleteMessage
+      summary: Delete a message | Cancella un messaggio
+      parameters:
+      - name: messageId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Student
+  /messages/{messageId}/read:
+    put:
+      operationId: Messages_markMessageAsRead
+      summary: Mark a message as read | Segna un messaggio come letto
+      parameters:
+      - name: messageId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Student
+  /notifications:
+    get:
+      operationId: Notifications_getNotifications
+      summary: List notifications | Elenca notifiche
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Notification'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Student
+  /notifications/preferences:
+    get:
+      operationId: Notifications_getNotificationPreferences
+      summary: Get notification preferences | Ottieni preferenze notifiche
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/NotificationPreferences'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Student
+    patch:
+      operationId: Notifications_updateNotificationPreferences
+      summary: Update notification preferences | Aggiorna preferenze notifiche
+      parameters: []
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Student
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateNotificationPreferencesRequest'
+  /notifications/{notificationId}:
+    delete:
+      operationId: Notifications_deleteNotification
+      summary: Delete a notification | Cancella una notifica
+      parameters:
+      - name: notificationId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Student
+  /notifications/{notificationId}/read:
+    put:
+      operationId: Notifications_markNotificationAsRead
+      summary: Mark a notification as read | Segna una notifica come letta
+      parameters:
+      - name: notificationId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Student
+  /preferences:
+    patch:
+      operationId: StudentNs_updateDevicePreferences
+      summary: Update device preferences | Aggiorna preferenze del dispositivo
+      parameters: []
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Student
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePreferencesRequest'
+  /provisional-grades:
+    get:
+      operationId: ProvisionalGrades_getStudentProvisionalGrades
+      summary: Retrieve student provisional grades | Recupera le valutazioni provvisorie dello studente
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProvisionalGrade'
+                  states:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProvisionalGradeState'
+                required:
+                - data
+                - states
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Student
+  /provisional-grades/{provisionalGradeId}/accept:
+    post:
+      operationId: ProvisionalGrades_acceptProvisionalGrade
+      summary: Accept provisional grade | Accetta valutazione provvisoria
+      parameters:
+      - name: provisionalGradeId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Student
+  /provisional-grades/{provisionalGradeId}/reject:
+    post:
+      operationId: ProvisionalGrades_rejectProvisionalGrade
+      summary: Reject provisional grade | Rifiuta valutazione provvisoria
+      parameters:
+      - name: provisionalGradeId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Student
+  /unreadEmails:
+    get:
+      operationId: StudentNs_getUnreadEmailsNumber
+      summary: Retrieve student's unread emails number | Recupera il numero di email non lette dello studente
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EmailBadge'
+                required:
+                - data
+        '400':
+          description: The server could not understand the request due to invalid syntax.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Student
+components:
+  schemas:
+    UpdatePreferencesRequest:
+      type: object
+      properties:
+        language:
+          type: string
+          enum:
+          - it
+          - en
+          example: it
+    ExamGrade:
+      type: object
+      required:
+      - courseName
+      - credits
+      - grade
+      - date
+      - teacherId
+      - onTimeExamPoints
+      - shortcode
+      - academicYear
+      - creditsCountTowardsDegree
+      properties:
+        courseName:
+          type: string
+          example: System and device programming
+        credits:
+          type: number
+          example: 10
+        grade:
+          type: string
+          example: 30L
+        date:
+          type: string
+          format: date
+          example: '2022-07-15'
+        teacherId:
+          type: integer
+          nullable: true
+          example: 2893
+        onTimeExamPoints:
+          type: number
+          nullable: true
+          description: Points for "on-time" exams - null the student is not eligible for on-time exams or the exam does not grant on-time points
+          example: 2
+        shortcode:
+          type: string
+          example: 01NYHOV
+        academicYear:
+          type: integer
+          example: 2021
+        creditsCountTowardsDegree:
+          type: boolean
+          description: Defines whether the credits from the exam count toward the total required for graduation
+          example: true
+    GuideField:
+      type: object
+      required:
+      - label
+      - value
+      properties:
+        label:
+          type: string
+        value:
+          type: string
+        isCopyEnabled:
+          type: boolean
+    UpdateNotificationPreferencesRequest:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            notices:
+              type: boolean
+              example: true
+            files:
+              type: boolean
+              example: true
+            lectures:
+              type: boolean
+              example: true
+            bookings:
+              type: boolean
+              example: true
+            tickets:
+              type: boolean
+              example: true
+    ProvisionalGrade:
+      type: object
+      required:
+      - id
+      - examId
+      - courseShortcode
+      - courseName
+      - teacherId
+      - credits
+      - grade
+      - date
+      - state
+      - stateDescription
+      - teacherMessage
+      - isWithdrawn
+      - isFailure
+      - canBeAccepted
+      - canBeRejected
+      - confirmedAt
+      - rejectedAt
+      - rejectingExpiresAt
+      properties:
+        id:
+          type: number
+          example: 654632
+        examId:
+          type: number
+          example: 887981
+        courseShortcode:
+          type: string
+          example: 01NYHOV
+        courseName:
+          type: string
+          example: System and device programming
+        teacherId:
+          type: integer
+          example: 2893
+        credits:
+          type: number
+          example: 10
+        grade:
+          type: string
+          example: '30'
+        date:
+          type: string
+          format: date
+          example: '2022-07-15'
+        state:
+          type: string
+          enum:
+          - published
+          - confirmed
+          - rejected
+          example: published
+        stateDescription:
+          type: string
+          example: Pubblicata
+        teacherMessage:
+          type: string
+          nullable: true
+        isWithdrawn:
+          type: boolean
+          example: false
+        isFailure:
+          type: boolean
+          example: false
+        canBeAccepted:
+          type: boolean
+          example: true
+        canBeRejected:
+          type: boolean
+          example: true
+        confirmedAt:
+          type: string
+          format: date
+          nullable: true
+        rejectedAt:
+          type: string
+          format: date-time
+          nullable: true
+        rejectingExpiresAt:
+          type: string
+          format: date-time
+          example: '2022-07-31T23:59:59Z'
+    Guide:
+      type: object
+      required:
+      - id
+      - listTitle
+      - title
+      - intro
+      - fields
+      - sections
+      properties:
+        id:
+          type: string
+        listTitle:
+          type: string
+        title:
+          type: string
+        intro:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/GuideField'
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/GuideSection'
+    Student:
+      type: object
+      required:
+      - username
+      - firstName
+      - lastName
+      - status
+      - allCareerIds
+      - degreeId
+      - degreeCode
+      - degreeLevel
+      - degreeName
+      - firstEnrollmentYear
+      - lastEnrollmentYear
+      - isCurrentlyEnrolled
+      - averageGrade
+      - estimatedFinalGrade
+      - averageGradePurged
+      - estimatedFinalGradePurged
+      - usePurgedAverageFinalGrade
+      - mastersAdmissionAverageGrade
+      - totalOnTimeExamPoints
+      - maxOnTimeExamPoints
+      - excludedCreditsNumber
+      - totalCredits
+      - totalAttendedCredits
+      - totalAcquiredCredits
+      - enrollmentCredits
+      - enrollmentAttendedCredits
+      - enrollmentAcquiredCredits
+      - smartCardPicture
+      - europeanStudentCard
+      properties:
+        username:
+          type: string
+          example: s290683
+        firstName:
+          type: string
+          example: Luca
+        lastName:
+          type: string
+          example: Pezzolla
+        status:
+          type: string
+          enum:
+          - active
+          - closed
+          - cancelled
+          - graduated
+          - career_closed
+          example: active
+        allCareerIds:
+          type: array
+          items:
+            type: string
+          description: All the ids related to this student
+          example:
+          - '290683'
+          - '213956'
+        degreeId:
+          type: string
+          example: 81-6
+        degreeCode:
+          type: string
+          example: LM-32
+        degreeLevel:
+          type: string
+          example: Corso di Laurea Magistrale in
+        degreeName:
+          type: string
+          example: INGEGNERIA INFORMATICA (COMPUTER ENGINEERING)
+        firstEnrollmentYear:
+          type: integer
+          example: 2021
+        lastEnrollmentYear:
+          type: integer
+          example: 2022
+        isCurrentlyEnrolled:
+          type: boolean
+          example: false
+        averageGrade:
+          type: number
+          nullable: true
+          example: 27.5
+        estimatedFinalGrade:
+          type: number
+          nullable: true
+          example: 105
+        averageGradePurged:
+          type: number
+          nullable: true
+          description: Purged grade is only available for bachelor degree students
+        estimatedFinalGradePurged:
+          type: number
+          nullable: true
+          description: Purged grade is only available for bachelor degree students
+        usePurgedAverageFinalGrade:
+          type: boolean
+          description: Specify whether to use purgedAverageFinalGrade or averageFinalGrade as the graduation grade shown
+        mastersAdmissionAverageGrade:
+          type: number
+          nullable: true
+          description: Master's admission grade is only available for bachelor degree students
+        totalOnTimeExamPoints:
+          type: number
+          nullable: true
+          description: Total points for "on-time" exams - null if "on-time" exams are not applicable for the student's position (max value = maxOnTimeExamPoints)
+        maxOnTimeExamPoints:
+          type: number
+          description: Maximum points for "on-time" exams
+        excludedCreditsNumber:
+          type: number
+          nullable: true
+          description: Credits excluded from calculating the purged grade
+        totalCredits:
+          type: integer
+        totalAttendedCredits:
+          type: integer
+        totalAcquiredCredits:
+          type: integer
+        enrollmentCredits:
+          type: integer
+        enrollmentAttendedCredits:
+          type: integer
+        enrollmentAcquiredCredits:
+          type: integer
+        smartCardPicture:
+          type: string
+          nullable: true
+        europeanStudentCard:
+          $ref: '#/components/schemas/EuropeanStudentCard'
+    EmailBadge:
+      type: object
+      required:
+      - unreadEmails
+      properties:
+        unreadEmails:
+          type: string
+          example: 99+
+    MessageType:
+      type: string
+      enum:
+      - emergency
+      - event
+      - personal
+      - teacher
+      - secretariat
+      - exams
+      - mfa
+      example: secretariat
+    NotificationPreferences:
+      type: object
+      required:
+      - notices
+      - files
+      - lectures
+      - bookings
+      - tickets
+      properties:
+        notices:
+          type: boolean
+          example: true
+        files:
+          type: boolean
+          example: true
+        lectures:
+          type: boolean
+          example: true
+        bookings:
+          type: boolean
+          example: true
+        tickets:
+          type: boolean
+          example: true
+    GuideSection:
+      type: object
+      required:
+      - title
+      - content
+      properties:
+        title:
+          type: string
+          example: Title
+        content:
+          type: string
+          example: HTML content
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    ProvisionalGradeState:
+      type: object
+      required:
+      - id
+      - name
+      - description
+      properties:
+        id:
+          type: string
+          example: published
+        name:
+          type: string
+          example: Pubblicata
+        description:
+          type: string
+          example: La valutazione è stata pubblicata dal docente
+    Message:
+      type: object
+      required:
+      - id
+      - title
+      - message
+      - type
+      - senderId
+      - sentAt
+      - isRead
+      properties:
+        id:
+          type: number
+          example: 123
+        title:
+          type: string
+          example: Nuovo avviso da System and device programming
+        message:
+          type: string
+          nullable: true
+          example: Ricordati di...
+        type:
+          allOf:
+          - $ref: '#/components/schemas/MessageType'
+          example: teacher
+        senderId:
+          type: number
+          nullable: true
+          example: 2893
+        sentAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+        isRead:
+          type: boolean
+          example: false
+    Notification:
+      type: object
+      required:
+      - id
+      - title
+      - message
+      - sentAt
+      - isRead
+      properties:
+        id:
+          type: number
+          example: 123
+        title:
+          type: string
+          example: Nuovo avviso da System and device programming
+        message:
+          type: string
+          nullable: true
+          example: Ricordati di...
+        scope:
+          type: array
+          items:
+            type: string
+          description: An array representing the hierarchical path to the object this notification is related to (replicates the navigation/modules structure)
+          example:
+          - courses
+          - '258674'
+          - notices
+        sentAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+        isRead:
+          type: boolean
+          example: false
+    EuropeanStudentCard:
+      type: object
+      required:
+      - canBeRequested
+      - details
+      properties:
+        canBeRequested:
+          type: boolean
+        details:
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+              - active
+              - inactive
+              - expired
+            inactiveStatusReason:
+              type: string
+              nullable: true
+            cardNumber:
+              type: string
+            expiresAt:
+              type: string
+            qrCode:
+              type: string
+          required:
+          - status
+          - inactiveStatusReason
+          - cardNumber
+          - expiresAt
+          - qrCode
+          nullable: true
+    Deadline:
+      type: object
+      required:
+      - name
+      - type
+      - url
+      - date
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+          example: Termine per l'iscrizione e pagamento della prima rata
+        type:
+          type: string
+          example: Iscrizioni e pagamento tasse
+        url:
+          type: string
+          nullable: true
+        date:
+          type: string
+          format: date
+          example: '2022-10-11'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: Bearer
