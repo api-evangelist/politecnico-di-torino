@@ -1,0 +1,42 @@
+{
+  "provider": "politecnico-di-torino",
+  "sources": [
+    "politecnico-di-torino-announcements-api-openapi.yml",
+    "politecnico-di-torino-auth-api-openapi.yml",
+    "politecnico-di-torino-bookings-api-openapi.yml",
+    "politecnico-di-torino-courses-api-openapi.yml",
+    "politecnico-di-torino-esc-api-openapi.yml",
+    "politecnico-di-torino-exams-api-openapi.yml",
+    "politecnico-di-torino-job-offers-api-openapi.yml",
+    "politecnico-di-torino-lectures-api-openapi.yml",
+    "politecnico-di-torino-news-api-openapi.yml",
+    "politecnico-di-torino-offering-api-openapi.yml",
+    "politecnico-di-torino-people-api-openapi.yml",
+    "politecnico-di-torino-places-api-openapi.yml",
+    "politecnico-di-torino-student-api-openapi.yml",
+    "politecnico-di-torino-surveys-api-openapi.yml",
+    "politecnico-di-torino-tickets-api-openapi.yml"
+  ],
+  "outputs": [
+    "politecnico-di-torino-announcements-api-openapi.yml",
+    "politecnico-di-torino-auth-api-openapi.yml",
+    "politecnico-di-torino-bookings-api-openapi.yml",
+    "politecnico-di-torino-courses-api-openapi.yml",
+    "politecnico-di-torino-esc-api-openapi.yml",
+    "politecnico-di-torino-exams-api-openapi.yml",
+    "politecnico-di-torino-job-offers-api-openapi.yml",
+    "politecnico-di-torino-lectures-api-openapi.yml",
+    "politecnico-di-torino-news-api-openapi.yml",
+    "politecnico-di-torino-offering-api-openapi.yml",
+    "politecnico-di-torino-people-api-openapi.yml",
+    "politecnico-di-torino-places-api-openapi.yml",
+    "politecnico-di-torino-student-api-openapi.yml",
+    "politecnico-di-torino-surveys-api-openapi.yml",
+    "politecnico-di-torino-tickets-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
