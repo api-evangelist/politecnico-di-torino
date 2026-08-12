@@ -394,6 +394,9 @@ apis:
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
 common:
+  - type: License
+    name: EUPL-1.2
+    url: https://github.com/polito/rn-apps/blob/main/LICENSE
   - type: AgenticAccess
     url: agentic-access/politecnico-di-torino-agentic-access.yml
   - type: DomainSecurity
