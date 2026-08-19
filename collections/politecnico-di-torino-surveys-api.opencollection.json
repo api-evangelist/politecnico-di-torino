@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polito Faculty Announcements Surveys API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Surveys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get surveys | Mostra survey",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/surveys"
+          },
+          "docs": "Get surveys | Mostra survey"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

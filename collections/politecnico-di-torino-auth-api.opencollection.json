@@ -1,0 +1,175 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polito Faculty Announcements Auth API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update client version fields | Aggiorna i campi di versione del client",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.didattica.polito.it/api/auth/client",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update client version fields | Aggiorna i campi di versione del client"
+        },
+        {
+          "info": {
+            "name": "Login",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.didattica.polito.it/api/auth/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Login"
+        },
+        {
+          "info": {
+            "name": "Logout",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.didattica.polito.it/api/auth/logout"
+          },
+          "docs": "Invalidates the provided token"
+        },
+        {
+          "info": {
+            "name": "Fetch pending challenge",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/auth/mfa/challenge"
+          },
+          "docs": "Fetch pending challenge"
+        },
+        {
+          "info": {
+            "name": "Enroll a new PUSH token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.didattica.polito.it/api/auth/mfa/enrol",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enroll a new PUSH token"
+        },
+        {
+          "info": {
+            "name": "Get MFA status for the current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/auth/mfa/status"
+          },
+          "docs": "Get MFA status for the current user"
+        },
+        {
+          "info": {
+            "name": "Validate a challenge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.didattica.polito.it/api/auth/mfa/validate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validate a challenge"
+        },
+        {
+          "info": {
+            "name": "Get authorised service link for LiveClass meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/auth/serviceLink/liveClass/:meetingID",
+            "params": [
+              {
+                "name": "meetingID",
+                "value": "",
+                "type": "path",
+                "description": "LiveClass meeting identifier"
+              }
+            ]
+          },
+          "docs": "Get authorised service link for LiveClass meeting"
+        },
+        {
+          "info": {
+            "name": "Get authorised service link for Mail",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/auth/serviceLink/mail"
+          },
+          "docs": "Get authorised service link for Mail"
+        },
+        {
+          "info": {
+            "name": "Get authorised service link for Moodle course",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/auth/serviceLink/moodle/:course",
+            "params": [
+              {
+                "name": "course",
+                "value": "",
+                "type": "path",
+                "description": "Moodle course identifier"
+              }
+            ]
+          },
+          "docs": "Get authorised service link for Moodle course"
+        },
+        {
+          "info": {
+            "name": "Switch career | Cambia carriera",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.didattica.polito.it/api/auth/switch-career",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Switch career | Cambia carriera"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

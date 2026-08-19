@@ -1,0 +1,235 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polito Faculty Announcements Tickets API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tickets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search ticket FAQs | Ricerca FAQ ticket",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/ticket-faqs",
+            "headers": [
+              {
+                "name": "accept-language",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Find FAQs containing 'search' in the question"
+              }
+            ]
+          },
+          "docs": "Search ticket FAQs | Ricerca FAQ ticket"
+        },
+        {
+          "info": {
+            "name": "List ticket topics | Elenca ambiti ticket",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/ticket-topics"
+          },
+          "docs": "List ticket topics | Elenca ambiti ticket"
+        },
+        {
+          "info": {
+            "name": "List tickets | Elenca ticket",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/tickets"
+          },
+          "docs": "List tickets | Elenca ticket"
+        },
+        {
+          "info": {
+            "name": "Create ticket | Crea ticket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.didattica.polito.it/api/tickets",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Create ticket | Crea ticket"
+        },
+        {
+          "info": {
+            "name": "Show a ticket | Mostra un ticket",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/tickets/:ticketId",
+            "params": [
+              {
+                "name": "ticketId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Show a ticket | Mostra un ticket"
+        },
+        {
+          "info": {
+            "name": "Download ticket attachment | Scarica allegato del ticket",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/tickets/:ticketId/attachments/:attachmentId",
+            "params": [
+              {
+                "name": "ticketId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "attachmentId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download ticket attachment | Scarica allegato del ticket"
+        },
+        {
+          "info": {
+            "name": "Mark a ticket as closed | Segna un ticket come chiuso",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.didattica.polito.it/api/tickets/:ticketId/close",
+            "params": [
+              {
+                "name": "ticketId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Mark a ticket as closed | Segna un ticket come chiuso"
+        },
+        {
+          "info": {
+            "name": "Mark a ticket as read | Segna un ticket come letto",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.didattica.polito.it/api/tickets/:ticketId/read",
+            "params": [
+              {
+                "name": "ticketId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Mark a ticket as read | Segna un ticket come letto"
+        },
+        {
+          "info": {
+            "name": "Reply to a ticket | Rispondi ad un ticket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.didattica.polito.it/api/tickets/:ticketId/replies",
+            "params": [
+              {
+                "name": "ticketId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Reply to a ticket | Rispondi ad un ticket"
+        },
+        {
+          "info": {
+            "name": "Download ticket reply attachment | Scarica allegato di una risposta al ticket",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/tickets/:ticketId/replies/:replyId/attachments/:attachmentId",
+            "params": [
+              {
+                "name": "ticketId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "replyId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "attachmentId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download ticket reply attachment | Scarica allegato di una risposta al ticket"
+        },
+        {
+          "info": {
+            "name": "Give feedback on a ticket reply | Fornisci feedback su una risposta al ticket",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.didattica.polito.it/api/tickets/:ticketId/replies/:replyId/feedback",
+            "params": [
+              {
+                "name": "ticketId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "replyId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "positive",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Give feedback on a ticket reply | Fornisci feedback su una risposta al ticket"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polito Faculty Announcements Lectures API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lectures",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List lectures | Elenca lezioni",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/lectures",
+            "params": [
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "First day - defaults to 7 days before today"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "Last day - defaults to 7 days after today"
+              },
+              {
+                "name": "courseIds[]",
+                "value": "",
+                "type": "query",
+                "description": "Only include lectures belonging to these courses"
+              }
+            ]
+          },
+          "docs": "List lectures | Elenca lezioni"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

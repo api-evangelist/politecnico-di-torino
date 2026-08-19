@@ -1,0 +1,889 @@
+{
+  "item": [
+    {
+      "id": "8788e34a-2f95-485b-8790-8b9880b316f6",
+      "name": "Offering",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1e2d590c-c476-43f6-8520-648ef5a13eed",
+          "name": "Get offering | Mostra offerta formativa",
+          "request": {
+            "name": "Get offering | Mostra offerta formativa",
+            "description": {},
+            "url": {
+              "path": [
+                "offering"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1df1e0a-6c9b-4feb-b794-bc709b127f84",
+              "name": "The request has succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offering"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"bachelor\": [\n      {\n        \"name\": \"Disegno industriale\",\n        \"code\": \"L-4\",\n        \"degrees\": [\n          {\n            \"id\": \"81-6\",\n            \"name\": \"Design e comunicazione\"\n          },\n          {\n            \"id\": \"81-6\",\n            \"name\": \"Design e comunicazione\"\n          }\n        ]\n      },\n      {\n        \"name\": \"Disegno industriale\",\n        \"code\": \"L-4\",\n        \"degrees\": [\n          {\n            \"id\": \"81-6\",\n            \"name\": \"Design e comunicazione\"\n          },\n          {\n            \"id\": \"81-6\",\n            \"name\": \"Design e comunicazione\"\n          }\n        ]\n      }\n    ],\n    \"master\": [\n      {\n        \"name\": \"Disegno industriale\",\n        \"code\": \"L-4\",\n        \"degrees\": [\n          {\n            \"id\": \"81-6\",\n            \"name\": \"Design e comunicazione\"\n          },\n          {\n            \"id\": \"81-6\",\n            \"name\": \"Design e comunicazione\"\n          }\n        ]\n      },\n      {\n        \"name\": \"Disegno industriale\",\n        \"code\": \"L-4\",\n        \"degrees\": [\n          {\n            \"id\": \"81-6\",\n            \"name\": \"Design e comunicazione\"\n          },\n          {\n            \"id\": \"81-6\",\n            \"name\": \"Design e comunicazione\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8d173ec-de1d-4ebb-a819-f010b68e0106",
+              "name": "The server could not understand the request due to invalid syntax.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offering"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 915,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ddfac1e4-d4c7-4079-8cd1-f1b92c6c44d9",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offering"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 915,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "738662cd-f19e-4e8b-a0d4-03caa1cf8040",
+          "name": "Show offering course | Mostra corso dell'offerta formativa",
+          "request": {
+            "name": "Show offering course | Mostra corso dell'offerta formativa",
+            "description": {},
+            "url": {
+              "path": [
+                "offering",
+                "courses",
+                ":courseShortcode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "year",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "courseShortcode",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4f1ae256-7da3-4fda-8493-29cd907f3999",
+              "name": "The request has succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offering",
+                    "courses",
+                    ":courseShortcode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "year",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "courseShortcode",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"name\": \"string\",\n    \"shortcode\": \"string\",\n    \"cfu\": 2926,\n    \"teachingPeriod\": \"string\",\n    \"languages\": [\n      \"en\",\n      \"it\"\n    ],\n    \"year\": \"string\",\n    \"hours\": {\n      \"lecture\": 9324,\n      \"tutoring\": 4484,\n      \"classroomExercise\": 9925,\n      \"labExercise\": 1658\n    },\n    \"editions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"staff\": [\n      {\n        \"role\": \"string\",\n        \"id\": 7135.19551292224,\n        \"courseId\": 1998.5993585293372\n      },\n      {\n        \"role\": \"string\",\n        \"id\": 6856.134807809653,\n        \"courseId\": 6572.2252770008035\n      }\n    ],\n    \"guide\": [\n      {\n        \"title\": \"Title\",\n        \"content\": \"HTML content\"\n      },\n      {\n        \"title\": \"Title\",\n        \"content\": \"HTML content\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f4c6c12-a9c7-4a03-b4bb-511085bbbd5e",
+              "name": "The server could not understand the request due to invalid syntax.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offering",
+                    "courses",
+                    ":courseShortcode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "year",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "courseShortcode",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 915,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99ae782a-a174-4623-9e92-c8be23b80b9b",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offering",
+                    "courses",
+                    ":courseShortcode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "year",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "courseShortcode",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 915,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c8583f5-06d5-4641-854e-7b765c10efe0",
+          "name": "Retrieve course statistics | Recupera le statistiche dell'insegnamento",
+          "request": {
+            "name": "Retrieve course statistics | Recupera le statistiche dell'insegnamento",
+            "description": {},
+            "url": {
+              "path": [
+                "offering",
+                "courses",
+                ":courseShortcode",
+                "statistics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "year",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "teacherId",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "courseShortcode",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6f7125a8-9d4e-49f6-891f-1abdb8126a73",
+              "name": "The request has succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offering",
+                    "courses",
+                    ":courseShortcode",
+                    "statistics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "year",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "teacherId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "courseShortcode",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"shortcode\": \"string\",\n    \"year\": 579,\n    \"teacher\": {\n      \"id\": 1194,\n      \"firstName\": \"string\",\n      \"lastName\": \"string\"\n    },\n    \"totalEnrolled\": 832,\n    \"totalSucceeded\": 1232,\n    \"totalFailed\": 2600,\n    \"firstYear\": {\n      \"succeeded\": 8132,\n      \"failed\": 9841,\n      \"grades\": [\n        {\n          \"grade\": \"29\",\n          \"count\": 8996\n        },\n        {\n          \"grade\": \"29\",\n          \"count\": 6956\n        }\n      ],\n      \"averageGrade\": 5011.004528963932\n    },\n    \"otherYears\": {\n      \"succeeded\": 9529,\n      \"failed\": 2816,\n      \"grades\": [\n        {\n          \"grade\": \"18\",\n          \"count\": 1985\n        },\n        {\n          \"grade\": \"26\",\n          \"count\": 1738\n        }\n      ],\n      \"averageGrade\": 5663.071182658712\n    },\n    \"previousYearsToCompare\": [\n      {\n        \"year\": 7869,\n        \"succeeded\": 491,\n        \"failed\": 2998\n      },\n      {\n        \"year\": 4305,\n        \"succeeded\": 5366,\n        \"failed\": 3404\n      }\n    ],\n    \"years\": [\n      7937,\n      7839\n    ],\n    \"teachers\": [\n      {\n        \"id\": 9629,\n        \"firstName\": \"string\",\n        \"lastName\": \"string\"\n      },\n      {\n        \"id\": 8245,\n        \"firstName\": \"string\",\n        \"lastName\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c7a8e34-ee83-4004-8abc-ef068eb932be",
+              "name": "The server could not understand the request due to invalid syntax.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offering",
+                    "courses",
+                    ":courseShortcode",
+                    "statistics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "year",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "teacherId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "courseShortcode",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 915,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99e10f88-e882-4aa9-b558-798b150ff837",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offering",
+                    "courses",
+                    ":courseShortcode",
+                    "statistics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "year",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "teacherId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "courseShortcode",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 915,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b652c22a-fd17-4e55-8ce5-04c51133de59",
+          "name": "Show a degree | Mostra un corso di laurea",
+          "request": {
+            "name": "Show a degree | Mostra un corso di laurea",
+            "description": {},
+            "url": {
+              "path": [
+                "offering",
+                "degrees",
+                ":degreeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "year",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "degreeId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "725059e6-406b-4611-9e5f-eb33d3711c8c",
+              "name": "The request has succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offering",
+                    "degrees",
+                    ":degreeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "year",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "degreeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"81-6\",\n    \"name\": \"Design e comunicazione\",\n    \"level\": \"string\",\n    \"department\": {\n      \"name\": \"string\"\n    },\n    \"faculty\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"location\": \"string\",\n    \"duration\": \"string\",\n    \"class\": {\n      \"code\": \"string\",\n      \"name\": \"string\"\n    },\n    \"year\": 3188.433257147454,\n    \"editions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"notes\": [\n      \"Corso tenuto in italiano\"\n    ],\n    \"objectives\": {\n      \"title\": \"Obiettivi formativi\",\n      \"content\": \"string\"\n    },\n    \"jobOpportunities\": {\n      \"title\": \"string\",\n      \"content\": \"string\"\n    },\n    \"tracks\": [\n      {\n        \"id\": 2060,\n        \"name\": \"Design per la comunicazione\",\n        \"courses\": [\n          {\n            \"name\": \"System and device programming\",\n            \"shortcode\": \"01NYHOV\",\n            \"cfu\": 10,\n            \"teachingYear\": 1,\n            \"language\": \"en\",\n            \"group\": \"Insegnamento a scelta 1\"\n          }\n        ]\n      },\n      {\n        \"id\": 2060,\n        \"name\": \"Design per la comunicazione\",\n        \"courses\": [\n          {\n            \"name\": \"System and device programming\",\n            \"shortcode\": \"01NYHOV\",\n            \"cfu\": 10,\n            \"teachingYear\": 1,\n            \"language\": \"en\",\n            \"group\": \"Insegnamento a scelta 1\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23bd589b-4aed-40fd-8125-c72ed6f7e38a",
+              "name": "The server could not understand the request due to invalid syntax.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offering",
+                    "degrees",
+                    ":degreeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "year",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "degreeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 915,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "102724ae-1351-465f-b1b5-b054ded4b9a0",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "offering",
+                    "degrees",
+                    ":degreeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "year",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "degreeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 915,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.didattica.polito.it/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "da254a32-b7e7-4ca6-ab8a-6f739295b7d9",
+    "name": "Polito Faculty Announcements Offering API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

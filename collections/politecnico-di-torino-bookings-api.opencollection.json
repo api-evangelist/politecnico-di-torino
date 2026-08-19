@@ -1,0 +1,148 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polito Faculty Announcements Bookings API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bookings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List booking topics | Elenca ambiti di prenotazione",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/booking-topics"
+          },
+          "docs": "List booking topics | Elenca ambiti di prenotazione"
+        },
+        {
+          "info": {
+            "name": "Show booking slots | Mostra turni prenotabili",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/booking-topics/:bookingTopicId/slots",
+            "params": [
+              {
+                "name": "bookingTopicId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "First day - defaults to monday of current week"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "Last day - defaults to sunday of current week"
+              }
+            ]
+          },
+          "docs": "Show booking slots | Mostra turni prenotabili"
+        },
+        {
+          "info": {
+            "name": "Show seats for a booking slots | Mostra posti prenotabili",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/booking-topics/:bookingTopicId/slots/:bookingSlotId/seats",
+            "params": [
+              {
+                "name": "bookingTopicId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "bookingSlotId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Show seats for a booking slots | Mostra posti prenotabili"
+        },
+        {
+          "info": {
+            "name": "List bookings | Elenca prenotazioni",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/bookings"
+          },
+          "docs": "List bookings | Elenca prenotazioni"
+        },
+        {
+          "info": {
+            "name": "Create booking | Crea prenotazione",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.didattica.polito.it/api/bookings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create booking | Crea prenotazione"
+        },
+        {
+          "info": {
+            "name": "Update booking | Aggiorna prenotazione",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.didattica.polito.it/api/bookings/:bookingId",
+            "params": [
+              {
+                "name": "bookingId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update booking | Aggiorna prenotazione"
+        },
+        {
+          "info": {
+            "name": "Delete booking | Cancella prenotazione",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.didattica.polito.it/api/bookings/:bookingId",
+            "params": [
+              {
+                "name": "bookingId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete booking | Cancella prenotazione"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

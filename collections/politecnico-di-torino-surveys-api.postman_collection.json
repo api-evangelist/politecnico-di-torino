@@ -1,0 +1,202 @@
+{
+  "item": [
+    {
+      "id": "489b88cb-0012-473b-841c-98c0272e5e65",
+      "name": "Surveys",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7e56f781-7078-4ccb-97cc-a96145e6e36e",
+          "name": "Get surveys | Mostra survey",
+          "request": {
+            "name": "Get surveys | Mostra survey",
+            "description": {},
+            "url": {
+              "path": [
+                "surveys"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e9ea272-1052-4d15-9681-bb343e244ead",
+              "name": "The request has succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "surveys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"title\": \"Survey title\",\n      \"subtitle\": \"Survey subtitle\",\n      \"category\": {\n        \"id\": \"CPD\",\n        \"name\": \"CPD\"\n      },\n      \"type\": {\n        \"id\": \"CPD\",\n        \"name\": \"CPD\"\n      },\n      \"period\": 2,\n      \"year\": \"2024\",\n      \"isMandatory\": true,\n      \"isCompiled\": false,\n      \"compileDate\": \"2022-08-31T14:00:00Z\",\n      \"url\": \"https://\",\n      \"startsAt\": \"2022-08-31T14:00:00Z\",\n      \"endsAt\": \"2022-08-31T14:00:00Z\",\n      \"course\": {\n        \"id\": 1,\n        \"name\": \"Course name\",\n        \"shortcode\": \"01NYHOV\"\n      }\n    },\n    {\n      \"id\": 1,\n      \"title\": \"Survey title\",\n      \"subtitle\": \"Survey subtitle\",\n      \"category\": {\n        \"id\": \"CPD\",\n        \"name\": \"CPD\"\n      },\n      \"type\": {\n        \"id\": \"CPD\",\n        \"name\": \"CPD\"\n      },\n      \"period\": 2,\n      \"year\": \"2024\",\n      \"isMandatory\": true,\n      \"isCompiled\": false,\n      \"compileDate\": \"2022-08-31T14:00:00Z\",\n      \"url\": \"https://\",\n      \"startsAt\": \"2022-08-31T14:00:00Z\",\n      \"endsAt\": \"2022-08-31T14:00:00Z\",\n      \"course\": {\n        \"id\": 1,\n        \"name\": \"Course name\",\n        \"shortcode\": \"01NYHOV\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59443534-62a8-4bb5-8ae6-036a1c76c2a3",
+              "name": "The server could not understand the request due to invalid syntax.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "surveys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8607,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8c4cbc9-5df3-4028-93e7-46e6863bd256",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "surveys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8607,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.didattica.polito.it/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1890a419-0dd5-4259-83b2-9647de781d82",
+    "name": "Polito Faculty Announcements Surveys API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

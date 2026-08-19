@@ -1,0 +1,269 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polito Faculty Announcements Student API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Student",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List deadlines | Elenca scadenze",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/deadlines",
+            "params": [
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "First day - defaults to 7 days before today"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "Last day - defaults to 7 days after today"
+              }
+            ]
+          },
+          "docs": "List deadlines | Elenca scadenze"
+        },
+        {
+          "info": {
+            "name": "Retrieve student grades | Recupera i voti dello studente",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/grades"
+          },
+          "docs": "Retrieve student grades | Recupera i voti dello studente"
+        },
+        {
+          "info": {
+            "name": "Get guides | Mostra guide",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/guides"
+          },
+          "docs": "Get guides | Mostra guide"
+        },
+        {
+          "info": {
+            "name": "Retrieve student profile | Recupera il profilo studente",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/me"
+          },
+          "docs": "Retrieve student profile | Recupera il profilo studente"
+        },
+        {
+          "info": {
+            "name": "List messages | Elenca messaggi",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/messages"
+          },
+          "docs": "List messages | Elenca messaggi"
+        },
+        {
+          "info": {
+            "name": "Delete a message | Cancella un messaggio",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.didattica.polito.it/api/messages/:messageId",
+            "params": [
+              {
+                "name": "messageId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a message | Cancella un messaggio"
+        },
+        {
+          "info": {
+            "name": "Mark a message as read | Segna un messaggio come letto",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.didattica.polito.it/api/messages/:messageId/read",
+            "params": [
+              {
+                "name": "messageId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Mark a message as read | Segna un messaggio come letto"
+        },
+        {
+          "info": {
+            "name": "List notifications | Elenca notifiche",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/notifications"
+          },
+          "docs": "List notifications | Elenca notifiche"
+        },
+        {
+          "info": {
+            "name": "Get notification preferences | Ottieni preferenze notifiche",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/notifications/preferences"
+          },
+          "docs": "Get notification preferences | Ottieni preferenze notifiche"
+        },
+        {
+          "info": {
+            "name": "Update notification preferences | Aggiorna preferenze notifiche",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.didattica.polito.it/api/notifications/preferences",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update notification preferences | Aggiorna preferenze notifiche"
+        },
+        {
+          "info": {
+            "name": "Delete a notification | Cancella una notifica",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.didattica.polito.it/api/notifications/:notificationId",
+            "params": [
+              {
+                "name": "notificationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a notification | Cancella una notifica"
+        },
+        {
+          "info": {
+            "name": "Mark a notification as read | Segna una notifica come letta",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.didattica.polito.it/api/notifications/:notificationId/read",
+            "params": [
+              {
+                "name": "notificationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Mark a notification as read | Segna una notifica come letta"
+        },
+        {
+          "info": {
+            "name": "Update device preferences | Aggiorna preferenze del dispositivo",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.didattica.polito.it/api/preferences",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update device preferences | Aggiorna preferenze del dispositivo"
+        },
+        {
+          "info": {
+            "name": "Retrieve student provisional grades | Recupera le valutazioni provvisorie dello studente",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/provisional-grades"
+          },
+          "docs": "Retrieve student provisional grades | Recupera le valutazioni provvisorie dello studente"
+        },
+        {
+          "info": {
+            "name": "Accept provisional grade | Accetta valutazione provvisoria",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.didattica.polito.it/api/provisional-grades/:provisionalGradeId/accept",
+            "params": [
+              {
+                "name": "provisionalGradeId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Accept provisional grade | Accetta valutazione provvisoria"
+        },
+        {
+          "info": {
+            "name": "Reject provisional grade | Rifiuta valutazione provvisoria",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.didattica.polito.it/api/provisional-grades/:provisionalGradeId/reject",
+            "params": [
+              {
+                "name": "provisionalGradeId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Reject provisional grade | Rifiuta valutazione provvisoria"
+        },
+        {
+          "info": {
+            "name": "Retrieve student's unread emails number | Recupera il numero di email non lette dello studente",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/unreadEmails"
+          },
+          "docs": "Retrieve student's unread emails number | Recupera il numero di email non lette dello studente"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

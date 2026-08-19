@@ -1,0 +1,1639 @@
+{
+  "item": [
+    {
+      "id": "058acc16-f4c3-4e0a-905f-686bb22e4f08",
+      "name": "Places",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c50ce88a-b5f5-42c6-9534-0c99bbf39cf2",
+          "name": "List departments | Elenca dipartimenti",
+          "request": {
+            "name": "List departments | Elenca dipartimenti",
+            "description": {},
+            "url": {
+              "path": [
+                "departments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "siteId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "departmentType",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ce6acf98-83f8-4b01-9b18-47f9e7737850",
+              "name": "The request has succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "departments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "siteId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "departmentType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"DAUIN\",\n      \"name\": \"Dipartimento di Automatica e Informatica\",\n      \"type\": \"DIP.\"\n    },\n    {\n      \"id\": \"DIMEAS\",\n      \"name\": \"Dipartimento di Ingegneria Meccanica e Aerospaziale\",\n      \"type\": \"DIP.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d870c11-f065-4df7-a8b0-be21415e152c",
+              "name": "The server could not understand the request due to invalid syntax.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "departments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "siteId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "departmentType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3164,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "039c31b9-d0f9-4a78-b45a-13af0509d7ed",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "departments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "siteId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "departmentType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3164,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0e6c37a2-5958-4f3e-aba9-4c457915dc07",
+          "name": "List place categories | Elenca categorie luoghi",
+          "request": {
+            "name": "List place categories | Elenca categorie luoghi",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "place-categories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "siteId",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1677e2d7-a1bb-44f9-b9a7-01b81fca8c74",
+              "name": "The request has succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "place-categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "siteId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"AULA\",\n      \"name\": \"Aula\",\n      \"showInMenu\": false,\n      \"color\": \"lightBlue\",\n      \"markerUrl\": \"string\",\n      \"priority\": 60,\n      \"highlighted\": false,\n      \"subCategories\": [\n        {\n          \"id\": \"AULA\",\n          \"name\": \"Aula\",\n          \"showInMenu\": true,\n          \"color\": \"lightBlue\",\n          \"markerUrl\": \"string\",\n          \"priority\": 60,\n          \"highlighted\": false\n        },\n        {\n          \"id\": \"AULA\",\n          \"name\": \"Aula\",\n          \"showInMenu\": false,\n          \"color\": \"lightBlue\",\n          \"markerUrl\": \"string\",\n          \"priority\": 60,\n          \"highlighted\": false\n        }\n      ]\n    },\n    {\n      \"id\": \"AULA\",\n      \"name\": \"Aula\",\n      \"showInMenu\": false,\n      \"color\": \"lightBlue\",\n      \"markerUrl\": \"string\",\n      \"priority\": 60,\n      \"highlighted\": false,\n      \"subCategories\": [\n        {\n          \"id\": \"AULA\",\n          \"name\": \"Aula\",\n          \"showInMenu\": true,\n          \"color\": \"lightBlue\",\n          \"markerUrl\": \"string\",\n          \"priority\": 60,\n          \"highlighted\": false\n        },\n        {\n          \"id\": \"AULA\",\n          \"name\": \"Aula\",\n          \"showInMenu\": false,\n          \"color\": \"lightBlue\",\n          \"markerUrl\": \"string\",\n          \"priority\": 60,\n          \"highlighted\": false\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb19d8a8-f467-44fd-9530-8c9b71e82f70",
+              "name": "The server could not understand the request due to invalid syntax.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "place-categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "siteId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3164,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2cb2a35-6236-494f-9089-5587a26e112b",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "place-categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "siteId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3164,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "05a6c2e3-2c91-4051-8589-22246cd2517a",
+          "name": "Search places | Cerca luoghi",
+          "request": {
+            "name": "Search places | Cerca luoghi",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "places"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Filter places containing 'search' in their name"
+                },
+                {
+                  "disabled": false,
+                  "key": "placeCategoryId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "placeSubCategoryId[]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "placeSubCategoryId[]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "siteId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "buildingId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "floorId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "departmentId",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5c9660d9-62f7-4208-b620-1d1fd8785157",
+              "name": "The request has succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "places"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeCategoryId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeSubCategoryId[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeSubCategoryId[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "siteId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "buildingId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "floorId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "departmentId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"latitude\": 45.064254,\n      \"longitude\": 7.657823,\n      \"id\": \"string\",\n      \"room\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"category\": {\n        \"id\": \"AULA\",\n        \"name\": \"Aula\",\n        \"showInMenu\": false,\n        \"color\": \"lightBlue\",\n        \"markerUrl\": \"string\",\n        \"priority\": 60,\n        \"highlighted\": false,\n        \"subCategory\": {\n          \"id\": \"AULA\",\n          \"name\": \"Aula\",\n          \"showInMenu\": true,\n          \"color\": \"lightBlue\",\n          \"markerUrl\": \"string\",\n          \"priority\": 60,\n          \"highlighted\": false\n        }\n      },\n      \"site\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"building\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"siteId\": \"string\",\n        \"category\": {\n          \"id\": \"AULA\",\n          \"name\": \"Aula\",\n          \"showInMenu\": true,\n          \"color\": \"lightBlue\",\n          \"markerUrl\": \"string\",\n          \"priority\": 60,\n          \"highlighted\": false,\n          \"subCategory\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"showInMenu\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"color\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"markerUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"priority\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"highlighted\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"geoJson\": {\n          \"type\": \"Feature\",\n          \"geometry\": {\n            \"type\": \"Polygon\",\n            \"coordinates\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        }\n      },\n      \"floor\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"level\": 9504.805604355144\n      },\n      \"department\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"type\": \"string\"\n      }\n    },\n    {\n      \"latitude\": 45.064254,\n      \"longitude\": 7.657823,\n      \"id\": \"string\",\n      \"room\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"category\": {\n        \"id\": \"AULA\",\n        \"name\": \"Aula\",\n        \"showInMenu\": true,\n        \"color\": \"lightBlue\",\n        \"markerUrl\": \"string\",\n        \"priority\": 60,\n        \"highlighted\": false,\n        \"subCategory\": {\n          \"id\": \"AULA\",\n          \"name\": \"Aula\",\n          \"showInMenu\": false,\n          \"color\": \"lightBlue\",\n          \"markerUrl\": \"string\",\n          \"priority\": 60,\n          \"highlighted\": false\n        }\n      },\n      \"site\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"building\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"siteId\": \"string\",\n        \"category\": {\n          \"id\": \"AULA\",\n          \"name\": \"Aula\",\n          \"showInMenu\": true,\n          \"color\": \"lightBlue\",\n          \"markerUrl\": \"string\",\n          \"priority\": 60,\n          \"highlighted\": false,\n          \"subCategory\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"showInMenu\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"color\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"markerUrl\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"priority\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"highlighted\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"geoJson\": {\n          \"type\": \"Feature\",\n          \"geometry\": {\n            \"type\": \"Polygon\",\n            \"coordinates\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        }\n      },\n      \"floor\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"level\": 5902.978517509204\n      },\n      \"department\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"type\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ebee99f-5f0e-43b9-bc2c-507f16e6be0b",
+              "name": "The server could not understand the request due to invalid syntax.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "places"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeCategoryId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeSubCategoryId[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeSubCategoryId[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "siteId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "buildingId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "floorId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "departmentId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3164,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f545579e-b7d3-40f0-9ad2-9f2b0879b019",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "places"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeCategoryId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeSubCategoryId[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeSubCategoryId[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "siteId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "buildingId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "floorId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "departmentId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3164,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8849352-cba0-4046-9b2c-4215c8b15495",
+          "name": "Show place | Mostra luogo",
+          "request": {
+            "name": "Show place | Mostra luogo",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "places",
+                ":placeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "placeId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cd43e673-81cc-40e7-bdcb-da78e5cb4e58",
+              "name": "The request has succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "places",
+                    ":placeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "placeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"latitude\": 45.064254,\n    \"longitude\": 7.657823,\n    \"id\": \"string\",\n    \"room\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"category\": {\n      \"id\": \"AULA\",\n      \"name\": \"Aula\",\n      \"showInMenu\": false,\n      \"color\": \"lightBlue\",\n      \"markerUrl\": \"string\",\n      \"priority\": 60,\n      \"highlighted\": false,\n      \"subCategory\": {\n        \"id\": \"AULA\",\n        \"name\": \"Aula\",\n        \"showInMenu\": false,\n        \"color\": \"lightBlue\",\n        \"markerUrl\": \"string\",\n        \"priority\": 60,\n        \"highlighted\": false\n      }\n    },\n    \"site\": {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    \"building\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"siteId\": \"string\",\n      \"category\": {\n        \"id\": \"AULA\",\n        \"name\": \"Aula\",\n        \"showInMenu\": true,\n        \"color\": \"lightBlue\",\n        \"markerUrl\": \"string\",\n        \"priority\": 60,\n        \"highlighted\": false,\n        \"subCategory\": {\n          \"id\": \"AULA\",\n          \"name\": \"Aula\",\n          \"showInMenu\": false,\n          \"color\": \"lightBlue\",\n          \"markerUrl\": \"string\",\n          \"priority\": 60,\n          \"highlighted\": false\n        }\n      },\n      \"geoJson\": {\n        \"type\": \"Feature\",\n        \"geometry\": {\n          \"type\": \"Polygon\",\n          \"coordinates\": [\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          ]\n        }\n      }\n    },\n    \"floor\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"level\": 9920.345285969091\n    },\n    \"department\": {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\"\n    },\n    \"geoJson\": {\n      \"type\": \"Feature\",\n      \"geometry\": {\n        \"type\": \"Polygon\",\n        \"coordinates\": [\n          [\n            [\n              9355.687642945117,\n              3044.5571707693853\n            ],\n            [\n              1647.4103496773685,\n              227.0103052292416\n            ]\n          ],\n          [\n            [\n              1389.2217495592429,\n              5787.536737337446\n            ],\n            [\n              6485.124973412657,\n              6069.953918088821\n            ]\n          ]\n        ]\n      }\n    },\n    \"capacity\": 300,\n    \"structure\": {\n      \"name\": \"string\",\n      \"shortName\": \"string\",\n      \"email\": \"string\",\n      \"phone\": \"string\"\n    },\n    \"resources\": [\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"category\": \"string\"\n      },\n      {\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"category\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c596484-334a-43c4-8704-3577f26756e5",
+              "name": "The server could not understand the request due to invalid syntax.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "places",
+                    ":placeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "placeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3164,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55c20529-437b-4eed-b4b9-1c0b06193266",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "places",
+                    ":placeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "placeId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3164,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb04ae89-0355-4b80-8ced-a8ee3c4256e8",
+          "name": "List sites | Elenca sedi",
+          "request": {
+            "name": "List sites | Elenca sedi",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "sites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fdcaad0a-d7c6-4cb5-8fe8-ab95ba97d700",
+              "name": "The request has succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"latitude\": 45.064254,\n      \"longitude\": 7.657823,\n      \"floors\": [\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"level\": 2457.3372026534603\n        },\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"level\": 5039.058715664524\n        }\n      ],\n      \"city\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"extent\": 2442.994169677678\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"latitude\": 45.064254,\n      \"longitude\": 7.657823,\n      \"floors\": [\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"level\": 9760.621600101518\n        },\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"level\": 8136.048732345117\n        }\n      ],\n      \"city\": {\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"extent\": 2111.1936843068393\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a147f8cf-82e8-4fca-b29c-e1884b259518",
+              "name": "The server could not understand the request due to invalid syntax.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3164,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94fc908d-9076-4f2e-9dad-3bf604f3ef1b",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3164,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c17b42b8-f230-4b9c-9a29-c3686c3dd254",
+          "name": "List buildings | Elenca edifici",
+          "request": {
+            "name": "List buildings | Elenca edifici",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "sites",
+                ":siteId",
+                "buildings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Filter buildings containing 'search' in their name"
+                },
+                {
+                  "disabled": false,
+                  "key": "placeCategoryId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "placeSubCategoryId[]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "placeSubCategoryId[]",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "siteId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f4d3b53f-b334-4b97-bb2b-219899ec76ea",
+              "name": "The request has succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sites",
+                    ":siteId",
+                    "buildings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeCategoryId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeSubCategoryId[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeSubCategoryId[]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "siteId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"siteId\": \"string\",\n      \"category\": {\n        \"id\": \"AULA\",\n        \"name\": \"Aula\",\n        \"showInMenu\": true,\n        \"color\": \"lightBlue\",\n        \"markerUrl\": \"string\",\n        \"priority\": 60,\n        \"highlighted\": false,\n        \"subCategory\": {\n          \"id\": \"AULA\",\n          \"name\": \"Aula\",\n          \"showInMenu\": true,\n          \"color\": \"lightBlue\",\n          \"markerUrl\": \"string\",\n          \"priority\": 60,\n          \"highlighted\": false\n        }\n      },\n      \"latitude\": 45.064254,\n      \"longitude\": 7.657823,\n      \"geoJson\": {\n        \"type\": \"Feature\",\n        \"geometry\": {\n          \"type\": \"Polygon\",\n          \"coordinates\": [\n            [\n              [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            ],\n            [\n              [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            ]\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"siteId\": \"string\",\n      \"category\": {\n        \"id\": \"AULA\",\n        \"name\": \"Aula\",\n        \"showInMenu\": false,\n        \"color\": \"lightBlue\",\n        \"markerUrl\": \"string\",\n        \"priority\": 60,\n        \"highlighted\": false,\n        \"subCategory\": {\n          \"id\": \"AULA\",\n          \"name\": \"Aula\",\n          \"showInMenu\": false,\n          \"color\": \"lightBlue\",\n          \"markerUrl\": \"string\",\n          \"priority\": 60,\n          \"highlighted\": false\n        }\n      },\n      \"latitude\": 45.064254,\n      \"longitude\": 7.657823,\n      \"geoJson\": {\n        \"type\": \"Feature\",\n        \"geometry\": {\n          \"type\": \"Polygon\",\n          \"coordinates\": [\n            [\n              [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            ],\n            [\n              [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            ]\n          ]\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0904bfb6-9e3e-45f3-bd44-405e13bae62f",
+              "name": "The server could not understand the request due to invalid syntax.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sites",
+                    ":siteId",
+                    "buildings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeCategoryId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeSubCategoryId[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeSubCategoryId[]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "siteId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3164,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cfea3d11-2e2a-490d-8a88-929001435aab",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sites",
+                    ":siteId",
+                    "buildings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeCategoryId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeSubCategoryId[]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placeSubCategoryId[]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "siteId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3164,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e18c93c-0907-4e61-853f-9dea9d1ffbcd",
+          "name": "List free rooms | Elenca aule libere",
+          "request": {
+            "name": "List free rooms | Elenca aule libere",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "sites",
+                ":siteId",
+                "free-rooms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<string>",
+                  "description": "(Required) Date"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeFrom",
+                  "value": "<string>",
+                  "description": "(Required) Start time"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeTo",
+                  "value": "<string>",
+                  "description": "(Required) End time"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "siteId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0dcf01a8-6a70-4bbf-b26c-0d746df29b54",
+              "name": "The request has succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sites",
+                    ":siteId",
+                    "free-rooms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeFrom",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeTo",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "siteId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"buildingId\": \"string\",\n      \"floorId\": \"string\",\n      \"roomId\": \"string\",\n      \"siteId\": \"string\",\n      \"name\": \"string\",\n      \"freeFrom\": \"1979-04-02T14:42:14.696Z\",\n      \"freeTo\": \"1978-06-09T13:57:09.816Z\",\n      \"id\": \"string\"\n    },\n    {\n      \"buildingId\": \"string\",\n      \"floorId\": \"string\",\n      \"roomId\": \"string\",\n      \"siteId\": \"string\",\n      \"name\": \"string\",\n      \"freeFrom\": \"1997-11-05T00:02:34.011Z\",\n      \"freeTo\": \"1977-06-25T11:13:31.893Z\",\n      \"id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbcd42af-a405-4da8-80ab-dc611144274c",
+              "name": "The server could not understand the request due to invalid syntax.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sites",
+                    ":siteId",
+                    "free-rooms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeFrom",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeTo",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "siteId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3164,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a63464e-cc4f-4556-8f3f-a8592aa24ca5",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "sites",
+                    ":siteId",
+                    "free-rooms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeFrom",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timeTo",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "siteId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3164,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.didattica.polito.it/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d300748d-b502-4a75-b212-376b61622745",
+    "name": "Polito Faculty Announcements Places API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

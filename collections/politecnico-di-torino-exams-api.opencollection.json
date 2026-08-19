@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polito Faculty Announcements Exams API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Exams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List exams | Elenca esami",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/exams"
+          },
+          "docs": "List exams | Elenca esami"
+        },
+        {
+          "info": {
+            "name": "Book exam | Prenota esame",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.didattica.polito.it/api/exams/:examId/booking",
+            "params": [
+              {
+                "name": "examId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Book exam | Prenota esame"
+        },
+        {
+          "info": {
+            "name": "Delete exam booking | Annulla prenotazione esame",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.didattica.polito.it/api/exams/:examId/booking",
+            "params": [
+              {
+                "name": "examId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete exam booking | Annulla prenotazione esame"
+        },
+        {
+          "info": {
+            "name": "Ask to reschedule an exam | Chiedi di spostare un esame",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.didattica.polito.it/api/exams/:examId/rescheduleRequest",
+            "params": [
+              {
+                "name": "examId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Ask to reschedule an exam | Chiedi di spostare un esame"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

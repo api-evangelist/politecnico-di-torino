@@ -1,0 +1,207 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polito Faculty Announcements Places API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Places",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List departments | Elenca dipartimenti",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/departments",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "departmentType",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List departments | Elenca dipartimenti"
+        },
+        {
+          "info": {
+            "name": "List place categories | Elenca categorie luoghi",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/v2/place-categories",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List place categories | Elenca categorie luoghi"
+        },
+        {
+          "info": {
+            "name": "Search places | Cerca luoghi",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/v2/places",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Filter places containing 'search' in their name"
+              },
+              {
+                "name": "placeCategoryId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "placeSubCategoryId[]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "buildingId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "floorId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "departmentId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search places | Cerca luoghi"
+        },
+        {
+          "info": {
+            "name": "Show place | Mostra luogo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/v2/places/:placeId",
+            "params": [
+              {
+                "name": "placeId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Show place | Mostra luogo"
+        },
+        {
+          "info": {
+            "name": "List sites | Elenca sedi",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/v2/sites"
+          },
+          "docs": "List sites | Elenca sedi"
+        },
+        {
+          "info": {
+            "name": "List buildings | Elenca edifici",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/v2/sites/:siteId/buildings",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Filter buildings containing 'search' in their name"
+              },
+              {
+                "name": "placeCategoryId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "placeSubCategoryId[]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List buildings | Elenca edifici"
+        },
+        {
+          "info": {
+            "name": "List free rooms | Elenca aule libere",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/v2/sites/:siteId/free-rooms",
+            "params": [
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Date"
+              },
+              {
+                "name": "timeFrom",
+                "value": "",
+                "type": "query",
+                "description": "Start time"
+              },
+              {
+                "name": "timeTo",
+                "value": "",
+                "type": "query",
+                "description": "End time"
+              },
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List free rooms | Elenca aule libere"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

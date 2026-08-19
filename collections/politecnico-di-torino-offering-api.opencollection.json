@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polito Faculty Announcements Offering API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Offering",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get offering | Mostra offerta formativa",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/offering"
+          },
+          "docs": "Get offering | Mostra offerta formativa"
+        },
+        {
+          "info": {
+            "name": "Show offering course | Mostra corso dell'offerta formativa",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/offering/courses/:courseShortcode",
+            "params": [
+              {
+                "name": "courseShortcode",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Show offering course | Mostra corso dell'offerta formativa"
+        },
+        {
+          "info": {
+            "name": "Retrieve course statistics | Recupera le statistiche dell'insegnamento",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/offering/courses/:courseShortcode/statistics",
+            "params": [
+              {
+                "name": "courseShortcode",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "teacherId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve course statistics | Recupera le statistiche dell'insegnamento"
+        },
+        {
+          "info": {
+            "name": "Show a degree | Mostra un corso di laurea",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/offering/degrees/:degreeId",
+            "params": [
+              {
+                "name": "degreeId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "year",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Show a degree | Mostra un corso di laurea"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

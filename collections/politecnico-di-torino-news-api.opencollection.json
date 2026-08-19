@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polito Faculty Announcements News API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "News",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List news | Lista news",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/news"
+          },
+          "docs": "List news | Lista news"
+        },
+        {
+          "info": {
+            "name": "Show news | Mostra news",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/news/:newsItemId",
+            "params": [
+              {
+                "name": "newsItemId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Show news | Mostra news"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

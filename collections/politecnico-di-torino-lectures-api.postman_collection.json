@@ -1,0 +1,278 @@
+{
+  "item": [
+    {
+      "id": "1be22410-4453-47f5-8d37-951644a224e9",
+      "name": "Lectures",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8dadbc65-6e2c-405d-bfa3-23779bf43df0",
+          "name": "List lectures | Elenca lezioni",
+          "request": {
+            "name": "List lectures | Elenca lezioni",
+            "description": {},
+            "url": {
+              "path": [
+                "lectures"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<date>",
+                  "description": "First day - defaults to 7 days before today"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<date>",
+                  "description": "Last day - defaults to 7 days after today"
+                },
+                {
+                  "disabled": false,
+                  "key": "courseIds[]",
+                  "value": "<number>",
+                  "description": "Only include lectures belonging to these courses"
+                },
+                {
+                  "disabled": false,
+                  "key": "courseIds[]",
+                  "value": "<number>",
+                  "description": "Only include lectures belonging to these courses"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ecf32321-7b20-4a6e-a728-4c64d7b81ee6",
+              "name": "The request has succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lectures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "courseIds[]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "courseIds[]",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 12131312,\n      \"startsAt\": \"2021-09-28T14:30:00Z\",\n      \"endsAt\": \"2021-09-28T17:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": [\n        {\n          \"id\": 149336,\n          \"title\": \"CYB / lecture 28.09.2021 (TLS, slides 1-40)\"\n        }\n      ]\n    },\n    {\n      \"id\": 12131313,\n      \"startsAt\": \"2021-10-01T10:00:00Z\",\n      \"endsAt\": \"2021-10-01T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": [\n        {\n          \"id\": 150397,\n          \"title\": \"CYB / lecture 01.10.2021 (TLS, slides 41-55)\"\n        }\n      ]\n    },\n    {\n      \"id\": 12131314,\n      \"startsAt\": \"2021-10-05T14:30:00Z\",\n      \"endsAt\": \"2021-10-05T17:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131315,\n      \"startsAt\": \"2021-10-08T10:00:00Z\",\n      \"endsAt\": \"2021-10-08T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Esercitazione aula\",\n      \"description\": \"Demos about TLS and SSH. Introduction to the laboratory.\",\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131316,\n      \"startsAt\": \"2021-10-12T08:30:00Z\",\n      \"endsAt\": \"2021-10-12T10:00:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131317,\n      \"startsAt\": \"2021-10-12T10:00:00Z\",\n      \"endsAt\": \"2021-10-12T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131318,\n      \"startsAt\": \"2021-10-12T14:30:00Z\",\n      \"endsAt\": \"2021-10-12T17:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131319,\n      \"startsAt\": \"2021-10-15T10:00:00Z\",\n      \"endsAt\": \"2021-10-15T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131320,\n      \"startsAt\": \"2021-10-19T08:30:00Z\",\n      \"endsAt\": \"2021-10-19T10:00:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131321,\n      \"startsAt\": \"2021-10-19T10:00:00Z\",\n      \"endsAt\": \"2021-10-19T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131322,\n      \"startsAt\": \"2021-10-19T14:30:00Z\",\n      \"endsAt\": \"2021-10-19T17:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131323,\n      \"startsAt\": \"2021-10-22T10:00:00Z\",\n      \"endsAt\": \"2021-10-22T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131324,\n      \"startsAt\": \"2021-10-26T08:30:00Z\",\n      \"endsAt\": \"2021-10-26T10:00:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131325,\n      \"startsAt\": \"2021-10-26T10:00:00Z\",\n      \"endsAt\": \"2021-10-26T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131326,\n      \"startsAt\": \"2021-10-26T14:30:00Z\",\n      \"endsAt\": \"2021-10-26T17:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131327,\n      \"startsAt\": \"2021-11-02T08:30:00Z\",\n      \"endsAt\": \"2021-11-02T10:00:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131328,\n      \"startsAt\": \"2021-11-02T10:00:00Z\",\n      \"endsAt\": \"2021-11-02T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131329,\n      \"startsAt\": \"2021-11-02T14:30:00Z\",\n      \"endsAt\": \"2021-11-02T17:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131330,\n      \"startsAt\": \"2021-11-05T10:00:00Z\",\n      \"endsAt\": \"2021-11-05T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131331,\n      \"startsAt\": \"2021-11-09T08:30:00Z\",\n      \"endsAt\": \"2021-11-09T10:00:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Esercitazione Laboratorio con titolo esageratamente lungo che poi boh\",\n      \"description\": \"squadra 1\",\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131332,\n      \"startsAt\": \"2021-11-09T10:00:00Z\",\n      \"endsAt\": \"2021-11-09T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Esercitazione Laboratorio\",\n      \"description\": \"squadra 1\",\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131333,\n      \"startsAt\": \"2021-11-09T14:30:00Z\",\n      \"endsAt\": \"2021-11-09T17:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131334,\n      \"startsAt\": \"2021-11-16T08:30:00Z\",\n      \"endsAt\": \"2021-11-16T10:00:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Esercitazione Laboratorio\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131335,\n      \"startsAt\": \"2021-11-16T10:00:00Z\",\n      \"endsAt\": \"2021-11-16T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Esercitazione Laboratorio\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131336,\n      \"startsAt\": \"2021-11-16T14:30:00Z\",\n      \"endsAt\": \"2021-11-16T17:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131337,\n      \"startsAt\": \"2021-11-23T08:30:00Z\",\n      \"endsAt\": \"2021-11-23T10:00:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Esercitazione Laboratorio\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131338,\n      \"startsAt\": \"2021-11-23T10:00:00Z\",\n      \"endsAt\": \"2021-11-23T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Esercitazione Laboratorio\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131339,\n      \"startsAt\": \"2021-11-23T14:30:00Z\",\n      \"endsAt\": \"2021-11-23T17:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131340,\n      \"startsAt\": \"2021-11-30T08:30:00Z\",\n      \"endsAt\": \"2021-11-30T10:00:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Esercitazione Laboratorio\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131341,\n      \"startsAt\": \"2021-11-30T10:00:00Z\",\n      \"endsAt\": \"2021-11-30T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Esercitazione Laboratorio\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131342,\n      \"startsAt\": \"2021-11-30T14:30:00Z\",\n      \"endsAt\": \"2021-11-30T17:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Esercitazione aula\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131343,\n      \"startsAt\": \"2021-12-03T10:00:00Z\",\n      \"endsAt\": \"2021-12-03T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131344,\n      \"startsAt\": \"2021-12-07T08:30:00Z\",\n      \"endsAt\": \"2021-12-07T10:00:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131345,\n      \"startsAt\": \"2021-12-07T10:00:00Z\",\n      \"endsAt\": \"2021-12-07T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131346,\n      \"startsAt\": \"2021-12-07T14:30:00Z\",\n      \"endsAt\": \"2021-12-07T17:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131347,\n      \"startsAt\": \"2021-12-10T10:00:00Z\",\n      \"endsAt\": \"2021-12-10T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131348,\n      \"startsAt\": \"2021-12-14T08:30:00Z\",\n      \"endsAt\": \"2021-12-14T10:00:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131349,\n      \"startsAt\": \"2021-12-14T10:00:00Z\",\n      \"endsAt\": \"2021-12-14T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131350,\n      \"startsAt\": \"2021-12-14T14:30:00Z\",\n      \"endsAt\": \"2021-12-14T17:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    },\n    {\n      \"id\": 12131351,\n      \"startsAt\": \"2021-12-17T10:00:00Z\",\n      \"endsAt\": \"2021-12-17T11:30:00Z\",\n      \"place\": {\n        \"buildingId\": \"TO_CIT22\",\n        \"floorId\": \"XPTE\",\n        \"name\": \"Aula 1P\",\n        \"roomId\": \"036\",\n        \"siteId\": \"TO_CIT\"\n      },\n      \"type\": \"Lezione / Esercitazione\",\n      \"description\": null,\n      \"courseId\": 252258,\n      \"courseName\": \"Human Computer Interaction\",\n      \"teacherId\": 1847,\n      \"virtualClassrooms\": []\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0580b351-5703-478a-8290-6a3a7f5905aa",
+              "name": "The server could not understand the request due to invalid syntax.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lectures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "courseIds[]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "courseIds[]",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5298,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dccc7ca3-466b-4b09-baa1-e9521e28e63e",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lectures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "courseIds[]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "courseIds[]",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5298,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.didattica.polito.it/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "665a5cb4-36da-4d5c-8b5f-1e0572da41d9",
+    "name": "Polito Faculty Announcements Lectures API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

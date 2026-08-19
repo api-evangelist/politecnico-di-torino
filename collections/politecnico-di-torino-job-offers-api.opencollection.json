@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polito Faculty Announcements Job offers API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Job offers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List job offers | Elenca offerte di lavoro",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/job-offers"
+          },
+          "docs": "List job offers | Elenca offerte di lavoro"
+        },
+        {
+          "info": {
+            "name": "Show a job offer | Mostra un'offerta di lavoro",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/job-offers/:jobOfferId",
+            "params": [
+              {
+                "name": "jobOfferId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Show a job offer | Mostra un'offerta di lavoro"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

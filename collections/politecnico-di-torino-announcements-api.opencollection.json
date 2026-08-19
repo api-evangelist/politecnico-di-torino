@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polito Faculty Announcements API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Announcements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List announcements | Lista annunci",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/announcements",
+            "params": [
+              {
+                "name": "new",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List announcements | Lista annunci"
+        },
+        {
+          "info": {
+            "name": "Mark announcement as read | Segna annuncio come letto",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.didattica.polito.it/api/announcements/:announcementId/read",
+            "params": [
+              {
+                "name": "announcementId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Mark announcement as read | Segna annuncio come letto"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

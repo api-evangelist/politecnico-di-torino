@@ -1,0 +1,273 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Polito Faculty Announcements Courses API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Courses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Show course | Mostra corso",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/courses/:courseId",
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Show course | Mostra corso"
+        },
+        {
+          "info": {
+            "name": "List assignments | Elenca elaborati",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/courses/:courseId/assignments",
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List assignments | Elenca elaborati"
+        },
+        {
+          "info": {
+            "name": "Upload assignment | Carica elaborato",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.didattica.polito.it/api/courses/:courseId/assignments",
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Upload assignment | Carica elaborato"
+        },
+        {
+          "info": {
+            "name": "Update assignment | Aggiorna elaborato",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.didattica.polito.it/api/courses/:courseId/assignments/:assignmentId",
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "assignmentId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update assignment | Aggiorna elaborato"
+        },
+        {
+          "info": {
+            "name": "List files | Elenca file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/courses/:courseId/files",
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List files | Elenca file"
+        },
+        {
+          "info": {
+            "name": "Download file | Scarica file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/courses/:courseId/files/:fileId",
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fileId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download file | Scarica file"
+        },
+        {
+          "info": {
+            "name": "Show guide | Mostra guida",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/courses/:courseId/guide",
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Show guide | Mostra guida"
+        },
+        {
+          "info": {
+            "name": "Get next lecture | Ottieni prossima lezione",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/courses/:courseId/nextLecture",
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get next lecture | Ottieni prossima lezione"
+        },
+        {
+          "info": {
+            "name": "List notices | Elenca avvisi",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/courses/:courseId/notices",
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List notices | Elenca avvisi"
+        },
+        {
+          "info": {
+            "name": "Update course preferences | Aggiorna preferenze del corso",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.didattica.polito.it/api/courses/:courseId/preferences",
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update course preferences | Aggiorna preferenze del corso"
+        },
+        {
+          "info": {
+            "name": "List videolectures | Elenca videolezioni",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/courses/:courseId/videolectures",
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List videolectures | Elenca videolezioni"
+        },
+        {
+          "info": {
+            "name": "List virtual classrooms | Elenca virtual classroom",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/courses/:courseId/virtual-classrooms",
+            "params": [
+              {
+                "name": "courseId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "live",
+                "value": "",
+                "type": "query",
+                "description": "Filter virtual classrooms by their live status"
+              }
+            ]
+          },
+          "docs": "List virtual classrooms | Elenca virtual classroom"
+        },
+        {
+          "info": {
+            "name": "List courses | Elenca corsi",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.didattica.polito.it/api/v2/courses"
+          },
+          "docs": "List courses | Elenca corsi"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
