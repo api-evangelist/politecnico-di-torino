@@ -54,6 +54,12 @@ apis:
   - University
   - Mobile
   - Students
+  - React Native
+  tags_raw:
+  - Education
+  - University
+  - Mobile
+  - Students
   - ReactNative
   properties:
   - type: Documentation
@@ -104,6 +110,8 @@ apis:
   description: The Auth API from Politecnico di Torino — 11 operation(s) for auth.
   humanURL: https://github.com/polito/api-spec
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
@@ -335,6 +343,8 @@ apis:
   description: The Student API from Politecnico di Torino — 16 operation(s) for student.
   humanURL: https://github.com/polito/api-spec
   tags:
+  - Students
+  tags_raw:
   - Student
   properties:
   - type: OpenAPI
