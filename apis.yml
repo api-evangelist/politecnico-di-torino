@@ -13,6 +13,20 @@ description: >-
   first-party apps and is not offered as a self-service public developer
   program.
 type: Index
+deliveryModel:
+  model: open-core
+  license: EUPL-1.2
+  open_source: true
+  commercial: true
+  callable_host: true
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: self-serve
@@ -404,6 +418,14 @@ apis:
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
 common:
+  - type: IssueTracker
+    url: https://github.com/polito/rn-apps/issues
+  - type: Releases
+    url: https://github.com/polito/rn-apps/releases
+  - type: SecurityPolicy
+    url: https://github.com/polito/rn-apps/blob/main/SECURITY.md
+  - type: ContributionGuide
+    url: https://github.com/polito/rn-apps/blob/main/CONTRIBUTING.md
   - type: License
     name: EUPL-1.2
     url: https://github.com/polito/rn-apps/blob/main/LICENSE
