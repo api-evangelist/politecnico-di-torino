@@ -1,0 +1,77 @@
+slug: politecnico-di-torino
+provider: Politecnico di Torino
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Education
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: Exams
+  spec_file: politecnico-di-torino-exams-api-openapi.yml
+  capability_id: BC-4740.20
+  capability_id_l1: BC-4740
+  capability_name: Examination Operations
+  confidence: 0.85
+  evidence: POST /exams/{examId}/booking 'Book exam'; POST /exams/{examId}/rescheduleRequest 'Ask to reschedule
+    an exam'
+  reason: Operations list, book, cancel and reschedule examinations — operational delivery/scheduling
+    of exams.
+- tag: Offering
+  spec_file: politecnico-di-torino-offering-api-openapi.yml
+  capability_id: BC-4700.40
+  capability_id_l1: BC-4700
+  capability_name: Programme Catalogue Management
+  confidence: 0.85
+  evidence: GET /offering 'Mostra offerta formativa'; GET /offering/courses/{courseShortcode} 'Show offering
+    course'; GET /offering/degrees/{degreeId} 'Show a degree'
+  reason: Exposes the institution's catalogue of degrees and courses (offerta formativa) with structure,
+    teachers and course hours — programme catalogue publication.
+- tag: Auth
+  spec_file: politecnico-di-torino-auth-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /auth/login  Auth_login  Login; GET /auth/mfa/status  Mfa_getMfaStatus  Get MFA status
+    for the current user; POST /auth/mfa/enrol  Enroll a new PUSH token
+  reason: Operations perform authentication, MFA enrolment/validation, SSO credentials and authorised
+    service links — identity and access management. Note this is technical plumbing for the app, so it
+    realises IAM rather than any education capability.
+- tag: Courses
+  spec_file: politecnico-di-torino-courses-api-openapi.yml
+  capability_id: BC-4730.30
+  capability_id_l1: BC-4730
+  capability_name: Learning Environment Management
+  confidence: 0.7
+  evidence: GET /courses/{courseId}/virtual-classrooms  List virtual classrooms; GET /courses/{courseId}/videolectures  List
+    videolectures; POST /courses/{courseId}/assignments  Upload assignment
+  reason: 'Operations deliver the running-course learning environment to students: course guide, files,
+    notices, next lecture, videolectures, virtual classrooms and assignment upload — LMS-style teaching
+    and learning operations. Sub-capability choice is somewhat ambiguous (assignments touch assessment,
+    catalogue data touches curriculum), hence 0.7.'
+- tag: Job offers
+  spec_file: politecnico-di-torino-job-offers-api-openapi.yml
+  capability_id: BC-4770.50
+  capability_id_l1: BC-4770
+  capability_name: Career Services & Placement
+  confidence: 0.7
+  evidence: GET /job-offers 'List job offers'; schema JobOffer, JobOfferOverview
+  reason: University student app surfacing job offers to students is career services / placement brokerage.
+    Thin context (read-only listing) so moderate confidence.
+- tag: Student
+  spec_file: politecnico-di-torino-student-api-openapi.yml
+  capability_id: BC-4720.20
+  capability_id_l1: BC-4720
+  capability_name: Academic Record Management
+  confidence: 0.7
+  evidence: GET /grades 'Retrieve student grades'; GET /me 'Retrieve student profile'; schemas ExamGrade,
+    ProvisionalGrade, Student, Deadline
+  reason: Core operations expose the student's authoritative profile, grades and deadlines — academic
+    record access. The tag also bundles messaging/notification plumbing, which lowers confidence.

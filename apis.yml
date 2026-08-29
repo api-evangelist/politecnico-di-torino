@@ -418,6 +418,9 @@ apis:
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
 common:
+  - type: CapabilityMap
+    url: capabilities/politecnico-di-torino-capability-edges.yml
+    name: Politecnico di Torino Business Capability Map
   - type: IssueTracker
     url: https://github.com/polito/rn-apps/issues
   - type: Releases
