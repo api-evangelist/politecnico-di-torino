@@ -1,74 +1,107 @@
 ---
 aid: politecnico-di-torino
 name: Politecnico di Torino
+x-type: university
+x-category: Technical University
 description: >-
-  Politecnico di Torino (PoliTO) is Italy's oldest technical university, founded
-  in 1859 in Turin, and a leading European institution for engineering,
-  architecture, and design, ranked #241 in the QS World University Rankings
-  2025. Its public developer footprint centers on an official OpenAPI
-  specification (polito/api-spec) for the REST API that powers the official
-  students mobile application, plus an institutional open-data portal publishing
-  academic datasets. Code is published openly under the verified @polito GitHub
-  organization, while the production API itself is consumed by official
-  first-party apps and is not offered as a self-service public developer
-  program.
+  Politecnico di Torino (PoliTO) is Italy's oldest technical university, founded in Turin in 1859, with
+  roughly 38,000 students across engineering, architecture and design. Unusually for this cohort, its
+  programmable footprint is genuinely its own rather than a vendor's: the university publishes the OpenAPI
+  definition of the REST API behind its official student and faculty mobile applications in the verified
+  @polito GitHub organisation (polito/api-spec, authored in TypeSpec and emitted as two client contracts,
+  Polito Faculty API and Polito Students API), and the React Native apps that consume it are open-sourced
+  under EUPL-1.2 in polito/rn-apps and polito/students-app. That API runs on the university's own host,
+  app.didattica.polito.it, and covers announcements, authentication with MFA, room and slot bookings,
+  courses, lectures, news, people, places, exams, grades, degree offering, job offers, surveys, support
+  tickets and the European Student Card. It is not a self-service developer programme: the production
+  base path returns 403 to an anonymous caller, every operation is bearer authenticated against a PoliTO
+  account, and no key can be requested by an outsider. Two further institution-operated machine-readable
+  surfaces exist and are recorded here for the first time — a Shibboleth SAML 2.0 identity provider
+  registered in IDEM GARR and eduGAIN since 2020, and an OAI-PMH 2.0 harvesting service over the IRIS
+  research repository, the latter a CINECA tenant deployment rather than PoliTO engineering. A fourth
+  institution-operated surface was found on 2026-08-30 and is the only one an outsider can actually call:
+  four keyless JSON web services behind the polito.it site search — staff, departments and teachings at
+  mypoli.polito.it/dotnet/ws_anagrafe and a campus room locator at legacyprod.polito.it — all returning
+  HTTP 200 and real data with no credential, on hosts inside the university's own GARR address space.
+  They are undocumented and unversioned, PoliTO does not present them as a developer product, and the
+  OpenAPI held here is derived from probing rather than published. The university also runs HPC@PoliTO,
+  an academic computing service managed in-house, whose allocation process is entirely by email with no
+  programmatic surface. The institutional open-data portal publishes downloadable datasets only, with no
+  API behind it, and there is no data.polito.it or api.polito.it host in service.
 type: Index
 deliveryModel:
-  model: open-core
+  model: open-source
   license: EUPL-1.2
   open_source: true
-  commercial: true
+  commercial: false
   callable_host: true
-  label: Open core · an OSS project plus a commercial hosted product
+  label: >-
+    Open source · specification and client applications published openly; no commercial product
   confidence: high
   source:
   - license
   - openapi
-  - pricing
-  generated: '2026-08-28'
-  method: derived
+  - github
+  generated: '2026-08-30'
+  method: probed
+  note: >-
+    Corrected on 2026-08-30. The prior stamp read open-core with commercial: true, which asserted a
+    paid hosted product Politecnico di Torino does not sell. The specification and both client applications
+    are EUPL-1.2; the API itself is an internal university service.
 accessModel:
   pricing: free
-  onboarding: self-serve
+  onboarding: none
   trial: false
-  try_now: true
+  try_now: false
   public: false
-  label: Free · Self-serve signup
+  label: No public onboarding · bearer token issued against a PoliTO institutional account
   confidence: high
   source:
-  - plans
   - authentication
-  generated: '2026-07-22'
-  method: derived
+  - openapi
+  - probe
+  generated: '2026-08-30'
+  method: probed
+  note: >-
+    Corrected on 2026-08-30. The prior stamp read onboarding: self-serve with try_now: true; there is
+    no signup surface. https://app.didattica.polito.it/api returns 403 to an anonymous caller and the
+    mock host at /mock/api returns 404, so neither production nor mock is callable by an outsider.
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/politecnico-di-torino.png
-url: https://raw.githubusercontent.com/api-evangelist/politecnico-di-torino/refs/heads/main/apis.yml
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/politecnico-di-torino/refs/heads/main/apis.yml
 tags:
-  - Education
-  - Higher Education
-  - University
-  - Italy
-  - Open Data
-  - Mobile
-  - OpenAPI
+- Education
+- Higher Education
+- University
+- Technical University
+- Italy
+- Course Catalog
+- Research Data
+- Identity Federation
+- Open Data
+- Mobile
+- OpenAPI
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-30'
 specificationVersion: '0.23'
 apis:
 - aid: politecnico-di-torino:students-app
   name: PoliTO Students App (mobile backend client)
+  x-operator: institution
   description: >-
-    Politecnico di Torino's official React Native mobile application for students, open-sourced under
-    EUPL 1.2. It is a reference consumer of the PoliTO REST API; its configuration points at the https://app.didattica.polito.it/mock/api
-    base host. Published in the polito/students-app and polito/rn-apps repositories.
+    Politecnico di Torino's official React Native mobile applications for students and faculty, open-sourced
+    under EUPL-1.2 in the verified @polito GitHub organisation. They are the reference consumers of
+    the PoliTO REST API and the reason the specification exists. Institution-authored and institution-operated:
+    the repository owner is the university, not a supplier.
   humanURL: https://github.com/polito/students-app
   tags:
   - Education
   - University
   - Mobile
   - Students
-  - React Native
+  - ReactNative
   tags_raw:
   - Education
   - University
@@ -84,11 +117,13 @@ apis:
     url: https://github.com/polito/rn-apps
 - aid: politecnico-di-torino:open-data
   name: PoliTO Open Data
+  x-operator: institution
   description: >-
-    Institutional open-data portal publishing freely reusable academic datasets (study programs and courses,
-    student enrollment, international students, graduates, mobility, and doctoral programs) under attribution
-    and share-alike terms. The portal lists downloadable datasets; no programmatic API or developer documentation
-    is published for it.
+    Institutional open-data portal publishing freely reusable academic datasets — study programmes and
+    courses, student enrolment, international students, graduates, mobility and doctoral programmes
+    — under attribution and share-alike terms. Verified live on 2026-08-30: the page lists downloadable
+    files only. There is no programmatic API, no CKAN or Socrata instance, and no data.polito.it host
+    in service (the name resolves to 130.192.91.235 but the port does not answer).
   humanURL: https://www.polito.it/open-data
   tags:
   - Education
@@ -98,10 +133,74 @@ apis:
   properties:
   - type: Documentation
     url: https://www.polito.it/open-data
+- aid: politecnico-di-torino:identity-federation
+  name: Politecnico di Torino Shibboleth Identity Provider (IDEM GARR / eduGAIN)
+  x-operator: institution
+  description: >-
+    Machine-readable SAML 2.0 identity-provider metadata for Politecnico di Torino, served from the
+    university's own address space at idp.polito.it (130.192.55.75) and mirrored at idem.polito.it.
+    Verified live on 2026-08-30: 13,373 bytes of application/xml carrying an IDPSSODescriptor and an
+    AttributeAuthorityDescriptor, protocol support for SAML 2.0 and SAML 1.1, HTTP-Redirect, HTTP-POST
+    and HTTP-POST-SimpleSign SSO bindings with matching SLO endpoints, and shibmd:Scope polito.it. The
+    entityID https://idem.polito.it/idp/shibboleth is registered in the Italian national federation
+    IDEM GARR and published to eduGAIN, first seen 2020-07-24, with the eduGAIN connectivity check passing
+    and Sirtfi asserted. A companion service provider, EduGateway Polito (https://idemidp.polito.it/shibboleth),
+    is registered under the GEANT Data Protection Code of Conduct. This is the surface class the university
+    cohort most consistently fails to record, and it is institution-operated by definition.
+  humanURL: https://idp.polito.it/idp/shibboleth
+  baseURL: https://idp.polito.it/idp/shibboleth
+  tags:
+  - Identity Federation
+  - SAML
+  - Shibboleth
+  - eduGAIN
+  - IDEM GARR
+  - Single Sign-On
+  - Metadata
+  properties:
+  - type: Documentation
+    url: https://www.idem.garr.it/
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
+- aid: politecnico-di-torino:iris-oai
+  name: IRIS PoliTO OAI-PMH Metadata Service (CINECA deployment)
+  x-operator: tenant
+  description: >-
+    OAI-PMH 2.0 harvesting service over IRIS, Politecnico di Torino's institutional research repository,
+    reachable at https://iris.polito.it/oai/request. Verified live on 2026-08-30 across Identify, ListMetadataFormats,
+    ListSets and ListRecords: repositoryName "IRIS - POLITO - prod", repositoryIdentifier iris.polito.it,
+    earliest datestamp 2015-06-30, three metadata prefixes (didl, ore, oai_dc), DSpace-style community
+    and collection sets under the 11583 handle prefix, and 100 real Dublin Core records with a resumptionToken
+    on the first page. Recorded as tenant rather than institution: iris.polito.it CNAMEs to polito.prod.iris.cineca.it
+    and the Identify response gives adminEmail noreply@cineca.it. IRIS is CINECA's research-information
+    product, deployed across most Italian universities. The research record is PoliTO's; the harvesting
+    contract is CINECA's, and no IRIS contract is saved into this repository.
+  humanURL: https://iris.polito.it/
+  baseURL: https://iris.polito.it/oai/request
+  tags:
+  - Research Data
+  - Research Repository
+  - OAI-PMH
+  - Metadata
+  - Harvesting
+  - Open Access
+  - Tenant Deployment
+  - CINECA
+  properties:
+  - type: Documentation
+    url: https://iris.polito.it/
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
 - aid: politecnico-di-torino:politecnico-di-torino-announcements-api
   name: Politecnico di Torino Announcements API
-  description: The Announcements API from Politecnico di Torino — 2 operation(s) for announcements.
+  x-operator: institution
+  description: >-
+    Announcements resources of the Polito Faculty API, split per tag from openapi/_original/. Operated
+    by Politecnico di Torino on app.didattica.polito.it; the contract is authored by the university
+    in TypeSpec and published at github.com/polito/api-spec. Bearer authentication against a PoliTO
+    account is required — the base path returns 403 anonymously.
   humanURL: https://github.com/polito/api-spec
+  baseURL: https://app.didattica.polito.it/api
   tags:
   - Announcements
   properties:
@@ -119,10 +218,18 @@ apis:
     url: rules/politecnico-di-torino-rules.yml
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
 - aid: politecnico-di-torino:politecnico-di-torino-auth-api
   name: Politecnico di Torino Auth API
-  description: The Auth API from Politecnico di Torino — 11 operation(s) for auth.
+  x-operator: institution
+  description: >-
+    Auth resources of the Polito Faculty API, split per tag from openapi/_original/. Operated by Politecnico
+    di Torino on app.didattica.polito.it; the contract is authored by the university in TypeSpec and
+    published at github.com/polito/api-spec. Bearer authentication against a PoliTO account is required
+    — the base path returns 403 anonymously.
   humanURL: https://github.com/polito/api-spec
+  baseURL: https://app.didattica.polito.it/api
   tags:
   - Authentication
   tags_raw:
@@ -142,10 +249,18 @@ apis:
     url: rules/politecnico-di-torino-rules.yml
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
 - aid: politecnico-di-torino:politecnico-di-torino-bookings-api
   name: Politecnico di Torino Bookings API
-  description: The Bookings API from Politecnico di Torino — 5 operation(s) for bookings.
+  x-operator: institution
+  description: >-
+    Bookings resources of the Polito Faculty API, split per tag from openapi/_original/. Operated by
+    Politecnico di Torino on app.didattica.polito.it; the contract is authored by the university in
+    TypeSpec and published at github.com/polito/api-spec. Bearer authentication against a PoliTO account
+    is required — the base path returns 403 anonymously.
   humanURL: https://github.com/polito/api-spec
+  baseURL: https://app.didattica.polito.it/api
   tags:
   - Bookings
   properties:
@@ -163,10 +278,18 @@ apis:
     url: rules/politecnico-di-torino-rules.yml
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
 - aid: politecnico-di-torino:politecnico-di-torino-courses-api
   name: Politecnico di Torino Courses API
-  description: The Courses API from Politecnico di Torino — 12 operation(s) for courses.
+  x-operator: institution
+  description: >-
+    Courses resources of the Polito Faculty API, split per tag from openapi/_original/. Operated by
+    Politecnico di Torino on app.didattica.polito.it; the contract is authored by the university in
+    TypeSpec and published at github.com/polito/api-spec. Bearer authentication against a PoliTO account
+    is required — the base path returns 403 anonymously.
   humanURL: https://github.com/polito/api-spec
+  baseURL: https://app.didattica.polito.it/api
   tags:
   - Courses
   properties:
@@ -184,10 +307,18 @@ apis:
     url: rules/politecnico-di-torino-rules.yml
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
 - aid: politecnico-di-torino:politecnico-di-torino-esc-api
   name: Politecnico di Torino Esc API
-  description: The Esc API from Politecnico di Torino — 2 operation(s) for esc.
+  x-operator: institution
+  description: >-
+    Esc resources of the Polito Students API, split per tag from openapi/_original/. Operated by Politecnico
+    di Torino on app.didattica.polito.it; the contract is authored by the university in TypeSpec and
+    published at github.com/polito/api-spec. Bearer authentication against a PoliTO account is required
+    — the base path returns 403 anonymously.
   humanURL: https://github.com/polito/api-spec
+  baseURL: https://app.didattica.polito.it/api
   tags:
   - Esc
   properties:
@@ -205,10 +336,18 @@ apis:
     url: rules/politecnico-di-torino-rules.yml
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
 - aid: politecnico-di-torino:politecnico-di-torino-exams-api
   name: Politecnico di Torino Exams API
-  description: The Exams API from Politecnico di Torino — 3 operation(s) for exams.
+  x-operator: institution
+  description: >-
+    Exams resources of the Polito Students API, split per tag from openapi/_original/. Operated by Politecnico
+    di Torino on app.didattica.polito.it; the contract is authored by the university in TypeSpec and
+    published at github.com/polito/api-spec. Bearer authentication against a PoliTO account is required
+    — the base path returns 403 anonymously.
   humanURL: https://github.com/polito/api-spec
+  baseURL: https://app.didattica.polito.it/api
   tags:
   - Exams
   properties:
@@ -226,10 +365,18 @@ apis:
     url: rules/politecnico-di-torino-rules.yml
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
 - aid: politecnico-di-torino:politecnico-di-torino-job-offers-api
   name: Politecnico di Torino Job offers API
-  description: The Job offers API from Politecnico di Torino — 2 operation(s) for job offers.
+  x-operator: institution
+  description: >-
+    Job Offers resources of the Polito Students API, split per tag from openapi/_original/. Operated
+    by Politecnico di Torino on app.didattica.polito.it; the contract is authored by the university
+    in TypeSpec and published at github.com/polito/api-spec. Bearer authentication against a PoliTO
+    account is required — the base path returns 403 anonymously.
   humanURL: https://github.com/polito/api-spec
+  baseURL: https://app.didattica.polito.it/api
   tags:
   - Job offers
   properties:
@@ -247,10 +394,18 @@ apis:
     url: rules/politecnico-di-torino-rules.yml
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
 - aid: politecnico-di-torino:politecnico-di-torino-lectures-api
   name: Politecnico di Torino Lectures API
-  description: The Lectures API from Politecnico di Torino — 1 operation(s) for lectures.
+  x-operator: institution
+  description: >-
+    Lectures resources of the Polito Faculty API, split per tag from openapi/_original/. Operated by
+    Politecnico di Torino on app.didattica.polito.it; the contract is authored by the university in
+    TypeSpec and published at github.com/polito/api-spec. Bearer authentication against a PoliTO account
+    is required — the base path returns 403 anonymously.
   humanURL: https://github.com/polito/api-spec
+  baseURL: https://app.didattica.polito.it/api
   tags:
   - Lectures
   properties:
@@ -268,10 +423,18 @@ apis:
     url: rules/politecnico-di-torino-rules.yml
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
 - aid: politecnico-di-torino:politecnico-di-torino-news-api
   name: Politecnico di Torino News API
-  description: The News API from Politecnico di Torino — 2 operation(s) for news.
+  x-operator: institution
+  description: >-
+    News resources of the Polito Faculty API, split per tag from openapi/_original/. Operated by Politecnico
+    di Torino on app.didattica.polito.it; the contract is authored by the university in TypeSpec and
+    published at github.com/polito/api-spec. Bearer authentication against a PoliTO account is required
+    — the base path returns 403 anonymously.
   humanURL: https://github.com/polito/api-spec
+  baseURL: https://app.didattica.polito.it/api
   tags:
   - News
   properties:
@@ -289,10 +452,18 @@ apis:
     url: rules/politecnico-di-torino-rules.yml
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
 - aid: politecnico-di-torino:politecnico-di-torino-offering-api
   name: Politecnico di Torino Offering API
-  description: The Offering API from Politecnico di Torino — 4 operation(s) for offering.
+  x-operator: institution
+  description: >-
+    Offering resources of the Polito Students API, split per tag from openapi/_original/. Operated by
+    Politecnico di Torino on app.didattica.polito.it; the contract is authored by the university in
+    TypeSpec and published at github.com/polito/api-spec. Bearer authentication against a PoliTO account
+    is required — the base path returns 403 anonymously.
   humanURL: https://github.com/polito/api-spec
+  baseURL: https://app.didattica.polito.it/api
   tags:
   - Offering
   properties:
@@ -310,10 +481,18 @@ apis:
     url: rules/politecnico-di-torino-rules.yml
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
 - aid: politecnico-di-torino:politecnico-di-torino-people-api
   name: Politecnico di Torino People API
-  description: The People API from Politecnico di Torino — 2 operation(s) for people.
+  x-operator: institution
+  description: >-
+    People resources of the Polito Faculty API, split per tag from openapi/_original/. Operated by Politecnico
+    di Torino on app.didattica.polito.it; the contract is authored by the university in TypeSpec and
+    published at github.com/polito/api-spec. Bearer authentication against a PoliTO account is required
+    — the base path returns 403 anonymously.
   humanURL: https://github.com/polito/api-spec
+  baseURL: https://app.didattica.polito.it/api
   tags:
   - People
   properties:
@@ -331,10 +510,18 @@ apis:
     url: rules/politecnico-di-torino-rules.yml
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
 - aid: politecnico-di-torino:politecnico-di-torino-places-api
   name: Politecnico di Torino Places API
-  description: The Places API from Politecnico di Torino — 7 operation(s) for places.
+  x-operator: institution
+  description: >-
+    Places resources of the Polito Faculty API, split per tag from openapi/_original/. Operated by Politecnico
+    di Torino on app.didattica.polito.it; the contract is authored by the university in TypeSpec and
+    published at github.com/polito/api-spec. Bearer authentication against a PoliTO account is required
+    — the base path returns 403 anonymously.
   humanURL: https://github.com/polito/api-spec
+  baseURL: https://app.didattica.polito.it/api
   tags:
   - Places
   properties:
@@ -352,12 +539,20 @@ apis:
     url: rules/politecnico-di-torino-rules.yml
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
 - aid: politecnico-di-torino:politecnico-di-torino-student-api
   name: Politecnico di Torino Student API
-  description: The Student API from Politecnico di Torino — 16 operation(s) for student.
+  x-operator: institution
+  description: >-
+    Student resources of the Polito Students API, split per tag from openapi/_original/. Operated by
+    Politecnico di Torino on app.didattica.polito.it; the contract is authored by the university in
+    TypeSpec and published at github.com/polito/api-spec. Bearer authentication against a PoliTO account
+    is required — the base path returns 403 anonymously.
   humanURL: https://github.com/polito/api-spec
+  baseURL: https://app.didattica.polito.it/api
   tags:
-  - Students
+  - Student
   tags_raw:
   - Student
   properties:
@@ -375,10 +570,18 @@ apis:
     url: rules/politecnico-di-torino-rules.yml
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
 - aid: politecnico-di-torino:politecnico-di-torino-surveys-api
   name: Politecnico di Torino Surveys API
-  description: The Surveys API from Politecnico di Torino — 1 operation(s) for surveys.
+  x-operator: institution
+  description: >-
+    Surveys resources of the Polito Students API, split per tag from openapi/_original/. Operated by
+    Politecnico di Torino on app.didattica.polito.it; the contract is authored by the university in
+    TypeSpec and published at github.com/polito/api-spec. Bearer authentication against a PoliTO account
+    is required — the base path returns 403 anonymously.
   humanURL: https://github.com/polito/api-spec
+  baseURL: https://app.didattica.polito.it/api
   tags:
   - Surveys
   properties:
@@ -396,10 +599,18 @@ apis:
     url: rules/politecnico-di-torino-rules.yml
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
 - aid: politecnico-di-torino:politecnico-di-torino-tickets-api
   name: Politecnico di Torino Tickets API
-  description: The Tickets API from Politecnico di Torino — 10 operation(s) for tickets.
+  x-operator: institution
+  description: >-
+    Tickets resources of the Polito Students API, split per tag from openapi/_original/. Operated by
+    Politecnico di Torino on app.didattica.polito.it; the contract is authored by the university in
+    TypeSpec and published at github.com/polito/api-spec. Bearer authentication against a PoliTO account
+    is required — the base path returns 403 anonymously.
   humanURL: https://github.com/polito/api-spec
+  baseURL: https://app.didattica.polito.it/api
   tags:
   - Tickets
   properties:
@@ -417,45 +628,241 @@ apis:
     url: rules/politecnico-di-torino-rules.yml
   - type: x-json-ld
     url: json-ld/politecnico-di-torino-context.jsonld
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
+- aid: politecnico-di-torino:public-search-services
+  name: PoliTO Public Search Web Services (people, departments, teachings, rooms)
+  x-operator: institution
+  description: >-
+    Four keyless JSON web services operated by Politecnico di Torino on its own hosts, found on
+    2026-08-30 in the client JavaScript behind https://www.polito.it/en/search and probed live.
+    search_people.ashx, search_departments.ashx and search_teachings.ashx run at
+    mypoli.polito.it/dotnet/ws_anagrafe (130.192.182.138); the campus room locator
+    motore-di-ricerca/localijson.php runs at legacyprod.polito.it (130.192.182.100). Both hosts sit
+    inside the university's own 130.192.0.0/16 GARR address space with no vendor CNAME, so this is
+    institution-operated engineering rather than a tenant deployment. All four returned HTTP 200 with
+    application/json and real institutional data to an anonymous caller carrying no credential, which
+    makes this the ONLY Politecnico di Torino API surface an outsider can actually call — the
+    documented app.didattica.polito.it REST API behind the official mobile apps returns 403 without a
+    PoliTO bearer token. The teachings service is the closest thing the university operates to a public
+    course-catalog API. Politecnico di Torino publishes no specification, documentation or terms of use
+    for any of them and does not present them as a developer product; the OpenAPI recorded here is
+    DERIVED from live probing by API Evangelist and is stamped as such. Paging is advertised and not
+    honoured — current_page and page_size echo back 1 and 5 whatever is sent — and omitting the
+    required q parameter returns HTTP 500 rather than 400. The people service returns personal data
+    about named staff including institutional email addresses; no real personal record is reproduced in
+    the derived contract.
+  humanURL: https://www.polito.it/en/search
+  baseURL: https://mypoli.polito.it/dotnet/ws_anagrafe
+  tags:
+  - Course Catalog
+  - Directory
+  - Search
+  - Campus
+  - Open Access
+  - Keyless
+  properties:
+  - type: OpenAPI
+    url: openapi/politecnico-di-torino-public-search-api-openapi.yml
+  - type: Documentation
+    url: https://www.polito.it/en/search
+  - type: x-conformance
+    url: conformance/politecnico-di-torino-conformance.yml
 common:
-  - type: CapabilityMap
-    url: capabilities/politecnico-di-torino-capability-edges.yml
-    name: Politecnico di Torino Business Capability Map
-  - type: IssueTracker
-    url: https://github.com/polito/rn-apps/issues
-  - type: Releases
-    url: https://github.com/polito/rn-apps/releases
-  - type: SecurityPolicy
-    url: https://github.com/polito/rn-apps/blob/main/SECURITY.md
-  - type: ContributionGuide
-    url: https://github.com/polito/rn-apps/blob/main/CONTRIBUTING.md
-  - type: License
-    name: EUPL-1.2
-    url: https://github.com/polito/rn-apps/blob/main/LICENSE
-  - type: AgenticAccess
-    url: agentic-access/politecnico-di-torino-agentic-access.yml
-  - type: DomainSecurity
-    url: security/politecnico-di-torino-domain-security.yml
-  - type: Authentication
-    url: authentication/politecnico-di-torino-authentication.yml
-  - type: Website
-    url: https://www.polito.it/en
-  - type: GitHub
-    url: https://github.com/polito
-  - type: LinkedIn
-    url: https://it.linkedin.com/school/politecnico-di-torino/
-  - type: OpenData
-    url: https://www.polito.it/open-data
-  - type: SourceCode
-    url: https://github.com/polito/api-spec
-  - type: Plans
-    url: plans/politecnico-di-torino-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/politecnico-di-torino-rate-limits.yml
-  - type: FinOps
-    url: finops/politecnico-di-torino-finops.yml
-  - type: Review
-    url: review.yml
+- type: CapabilityMap
+  url: capabilities/politecnico-di-torino-capability-edges.yml
+  name: Politecnico di Torino Business Capability Map
+- type: IssueTracker
+  url: https://github.com/polito/rn-apps/issues
+- type: Releases
+  url: https://github.com/polito/rn-apps/releases
+- type: SecurityPolicy
+  url: https://github.com/polito/rn-apps/blob/main/SECURITY.md
+- type: ContributionGuide
+  url: https://github.com/polito/rn-apps/blob/main/CONTRIBUTING.md
+- type: License
+  name: EUPL-1.2
+  url: https://github.com/polito/rn-apps/blob/main/LICENSE.md
+- type: AgenticAccess
+  url: agentic-access/politecnico-di-torino-agentic-access.yml
+- type: DomainSecurity
+  url: security/politecnico-di-torino-domain-security.yml
+- type: Authentication
+  url: authentication/politecnico-di-torino-authentication.yml
+- type: Website
+  url: https://www.polito.it/en
+- type: GitHub
+  url: https://github.com/polito
+- type: LinkedIn
+  url: https://it.linkedin.com/school/politecnico-di-torino/
+- type: OpenData
+  url: https://www.polito.it/open-data
+- type: SourceCode
+  url: https://github.com/polito/api-spec
+- type: Plans
+  url: plans/politecnico-di-torino-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/politecnico-di-torino-rate-limits.yml
+- type: FinOps
+  url: finops/politecnico-di-torino-finops.yml
+- type: Review
+  url: review.yml
+- type: Documentation
+  url: https://github.com/polito/api-spec
+- type: OpenAPI
+  url: https://raw.githubusercontent.com/polito/api-spec/master/dist/clients/student/openapi.yaml
+  name: Polito Students API (upstream, master)
+- type: OpenAPI
+  url: https://raw.githubusercontent.com/polito/api-spec/master/dist/clients/faculty/openapi.yaml
+  name: Polito Faculty API (upstream, master)
+- type: IdentityFederation
+  url: https://idp.polito.it/idp/shibboleth
+- type: ResearchRepository
+  url: https://iris.polito.it/
+- type: CourseCatalog
+  url: https://www.polito.it/en/education
+- type: Status
+  url: https://status.polito.it/
+- type: PrivacyPolicy
+  url: https://www.polito.it/en/privacy
+- type: x-conformance
+  url: conformance/politecnico-di-torino-conformance.yml
+- type: ResearchComputing
+  url: https://hpc.polito.it/
+  name: HPC@PoliTO academic computing service
+- type: CourseCatalog
+  url: https://mypoli.polito.it/dotnet/ws_anagrafe/search_teachings.ashx?_lang=en&q=ingegneria
+  name: PoliTO teaching catalog search service (keyless JSON)
+x-coverage:
+  state: covered
+  reason: covered
+  detail: >-
+    Every surface class the university pipeline hunts was probed on 2026-08-30, and Politecnico di Torino
+    is one of the few institutions in this cohort whose headline API is genuinely its own. The REST
+    API behind the official student and faculty apps runs on app.didattica.polito.it, its OpenAPI is
+    authored by the university in TypeSpec and published in the verified @polito GitHub organisation,
+    and no vendor appears anywhere in servers[], info.title, info.contact or info.termsOfService. Nothing
+    was removed for misattribution. What was repaired is ours: all 15 refined OpenAPIs wore the welded
+    title 'Polito Faculty Announcements <Tag> API' because refine-openapis carried the first split output's
+    identity onto every later one, and seven of them (Esc, Exams, Job offers, Offering, Student, Surveys,
+    Tickets) describe paths that exist only in the Polito Students API. Each was re-based from its true
+    parent and given an x-refined-from block; servers[] needed no repair because both parent contracts
+    declare the same two hosts. The 30 derived collections were re-titled to match. Two institution-operated
+    surfaces were found that this profile had never recorded: a Shibboleth SAML 2.0 identity provider
+    at idp.polito.it, registered in IDEM GARR and eduGAIN since 2020-07-24 with Sirtfi asserted, and
+    a status page at status.polito.it. One tenant relationship was recorded: the IRIS OAI-PMH service
+    at iris.polito.it, functional across all four verbs but CNAMEd to polito.prod.iris.cineca.it and
+    administered from noreply@cineca.it. The open-data portal is downloads-only with no API behind it;
+    data.polito.it resolves but does not answer, and api.polito.it does not resolve. There is no llms.txt
+    and no .well-known/security.txt. One dead pointer was repaired: the License pointer at rn-apps/blob/main/LICENSE
+    returned 404 and the file is LICENSE.md. Finally, a staleness finding: openapi/_original/ was harvested
+    on 2026-06-03 and upstream has since moved. Faculty grew 42 to 47 paths; student grew 80 to 86 net,
+    but that net figure hides the real drift — upstream ADDED 17 student paths and REMOVED 11, having
+    re-based the whole ticket tree from /tickets/* to /student/tickets/* and replaced /me with
+    /student/career, so 11 paths this repo still describes no longer exist. Both contracts also gained an
+    'Event Admissions' tag and /auth/profile, /auth/profile/picture, /auth/profile/token and
+    /auth/serviceLink/smartcard. The harvested contracts were deliberately NOT re-refined in this run:
+    refine-openapis is what welded the wrong identities on in the first place, and re-running it would
+    discard a verified hand repair. The staleness is recorded here instead and left for a controlled
+    re-harvest. Separately, a real surface this profile had never recorded was found on 2026-08-30 by
+    reading the JavaScript behind https://www.polito.it/en/search: four keyless JSON web services —
+    search_people.ashx, search_departments.ashx and search_teachings.ashx on mypoli.polito.it, and
+    motore-di-ricerca/localijson.php on legacyprod.polito.it — each returning HTTP 200, application/json
+    and real institutional data to an anonymous caller. Both hosts resolve into 130.192.182.x, the
+    university's own GARR space, with no vendor CNAME, so they are institution-operated. This materially
+    changes the profile: PoliTO does have an anonymously callable public API surface, it is simply
+    undocumented and unadvertised. A derived OpenAPI is saved for it, stamped method: derived and
+    not_published_by_provider: true, with synthetic examples only because search_people returns named
+    staff and their institutional email addresses. Finally, HPC@PoliTO at hpc.polito.it is a genuine
+    institution-run academic computing service — surface class 8 — recorded as a ResearchComputing
+    pointer; its allocation process is entirely mailto-based and it exposes no API.
+  evidence:
+  - url: https://www.polito.it/en
+    status: 200
+  - url: https://app.didattica.polito.it/api
+    status: 403
+  - url: https://app.didattica.polito.it/mock/api
+    status: 404
+  - url: https://github.com/polito
+    status: 200
+  - url: https://github.com/polito/api-spec
+    status: 200
+  - url: https://raw.githubusercontent.com/polito/api-spec/master/dist/clients/student/openapi.yaml
+    status: 200
+  - url: https://raw.githubusercontent.com/polito/api-spec/master/dist/clients/faculty/openapi.yaml
+    status: 200
+  - url: https://github.com/polito/students-app
+    status: 200
+  - url: https://github.com/polito/rn-apps
+    status: 200
+  - url: https://github.com/polito/rn-apps/blob/main/LICENSE
+    status: 404
+  - url: https://github.com/polito/rn-apps/blob/main/LICENSE.md
+    status: 200
+  - url: https://github.com/polito/rn-apps/blob/main/SECURITY.md
+    status: 200
+  - url: https://github.com/polito/rn-apps/blob/main/CONTRIBUTING.md
+    status: 200
+  - url: https://idp.polito.it/idp/shibboleth
+    status: 200
+  - url: https://idem.polito.it/idp/shibboleth
+    status: 200
+  - url: https://technical.edugain.org/api.php?action=list_entities&format=json
+    status: 200
+  - url: https://iris.polito.it/oai/request?verb=Identify
+    status: 200
+  - url: https://iris.polito.it/oai/request?verb=ListMetadataFormats
+    status: 200
+  - url: https://iris.polito.it/oai/request?verb=ListSets
+    status: 200
+  - url: https://iris.polito.it/oai/request?verb=ListRecords&metadataPrefix=oai_dc
+    status: 200
+  - url: https://iris.polito.it/rest/api
+    status: 401
+  - url: https://status.polito.it/
+    status: 200
+  - url: https://www.polito.it/open-data
+    status: 200
+  - url: https://www.polito.it/en/privacy
+    status: 200
+  - url: https://www.polito.it/en/education
+    status: 200
+  - url: https://www.polito.it/robots.txt
+    status: 200
+  - url: https://www.polito.it/llms.txt
+    status: 404
+  - url: https://www.polito.it/.well-known/security.txt
+    status: 404
+  - url: https://data.polito.it/
+    status: 0
+  - url: https://api.polito.it/
+    status: 0
+  - url: https://it.linkedin.com/school/politecnico-di-torino/
+    status: 999
+  - url: https://mypoli.polito.it/dotnet/ws_anagrafe/search_people.ashx?_lang=en&q=rossi
+    status: 200
+  - url: https://mypoli.polito.it/dotnet/ws_anagrafe/search_departments.ashx?_lang=en&q=ingegneria
+    status: 200
+  - url: https://mypoli.polito.it/dotnet/ws_anagrafe/search_teachings.ashx?_lang=en&q=intelligenza
+    status: 200
+  - url: https://mypoli.polito.it/dotnet/ws_anagrafe/search_teachings.ashx?_lang=en
+    status: 500
+  - url: https://legacyprod.polito.it/motore-di-ricerca/localijson.php?_lang=en&q=aula
+    status: 200
+  - url: https://hpc.polito.it/
+    status: 200
+  - url: https://hpc.polito.it/howtos.html
+    status: 200
+  - url: https://hpc.polito.it/docs/regolamento_it.pdf
+    status: 200
+  - url: https://didattica.polito.it/
+    status: 200
+  - url: https://opendata.polito.it/
+    status: 0
+  - url: https://developers.polito.it/
+    status: 0
+  generated: '2026-08-30'
+  method: probed
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
