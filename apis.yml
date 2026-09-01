@@ -101,7 +101,7 @@ apis:
   - University
   - Mobile
   - Students
-  - ReactNative
+  - React Native
   tags_raw:
   - Education
   - University
@@ -552,7 +552,7 @@ apis:
   humanURL: https://github.com/polito/api-spec
   baseURL: https://app.didattica.polito.it/api
   tags:
-  - Student
+  - Students
   tags_raw:
   - Student
   properties:
