@@ -66,7 +66,7 @@ accessModel:
     Corrected on 2026-08-30. The prior stamp read onboarding: self-serve with try_now: true; there is
     no signup surface. https://app.didattica.polito.it/api returns 403 to an anonymous caller and the
     mock host at /mock/api returns 404, so neither production nor mock is callable by an outsider.
-position: Consumer
+position: Consuming
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/politecnico-di-torino.png
 url: >-
