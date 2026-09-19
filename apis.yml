@@ -155,6 +155,14 @@ apis:
   - Shibboleth
   - eduGAIN
   - IDEM GARR
+  - SSO
+  - Metadata
+  tags_raw:
+  - Identity Federation
+  - SAML
+  - Shibboleth
+  - eduGAIN
+  - IDEM GARR
   - Single Sign-On
   - Metadata
   properties:
@@ -262,6 +270,8 @@ apis:
   humanURL: https://github.com/polito/api-spec
   baseURL: https://app.didattica.polito.it/api
   tags:
+  - Booking
+  tags_raw:
   - Bookings
   properties:
   - type: OpenAPI
