@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Polito Faculty Announcements Exams API
+  title: Polito Students Exams API
   version: 0.0.1
   license:
     name: CC BY-NC 4.0
@@ -188,6 +188,13 @@ paths:
               $ref: '#/components/schemas/RescheduleExamRequest'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     Exam:
       type: object
       required:
@@ -239,26 +246,31 @@ components:
           - requestRejected
           - unavailable
         bookingStartsAt:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         bookingEndsAt:
           type: string
           format: date-time
         examStartsAt:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         examEndsAt:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         bookedCount:
           type: integer
         availableCount:
           type: integer
         question:
-          type: object
+          type:
+          - object
+          - 'null'
           properties:
             id:
               type: integer
@@ -272,25 +284,56 @@ components:
           - id
           - statement
           - options
-          nullable: true
         feedback:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         isReschedulable:
           type: boolean
           description: If true, the student can ask the professor to reschedule the exam
         notes:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         moduleNumber:
           type: integer
           description: The module number, if this is a module
         requestReason:
+          type:
+          - string
+          - 'null'
+        requestDetails:
+          type:
+          - string
+          - 'null'
+    RescheduleExamRequest:
+      type: object
+      required:
+      - courseShortcode
+      - requestReason
+      - requestDetails
+      properties:
+        courseShortcode:
           type: string
-          nullable: true
+          example: 01UDROV
+        requestReason:
+          type: string
         requestDetails:
           type: string
-          nullable: true
+    BookExamRequest:
+      type: object
+      required:
+      - courseShortcode
+      properties:
+        courseShortcode:
+          type: string
+          example: 01UDROV
+        questionId:
+          type: integer
+        questionOption:
+          type: integer
+        requestReason:
+          type: string
     PlaceRef:
       type: object
       required:
@@ -309,41 +352,6 @@ components:
         siteId:
           type: string
         name:
-          type: string
-    BookExamRequest:
-      type: object
-      required:
-      - courseShortcode
-      properties:
-        courseShortcode:
-          type: string
-          example: 01UDROV
-        questionId:
-          type: integer
-        questionOption:
-          type: integer
-        requestReason:
-          type: string
-    RescheduleExamRequest:
-      type: object
-      required:
-      - courseShortcode
-      - requestReason
-      - requestDetails
-      properties:
-        courseShortcode:
-          type: string
-          example: 01UDROV
-        requestReason:
-          type: string
-        requestDetails:
-          type: string
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
           type: string
   securitySchemes:
     BearerAuth:

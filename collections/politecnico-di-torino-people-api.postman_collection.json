@@ -411,7 +411,7 @@
   },
   "info": {
     "_postman_id": "8adeff6b-82cc-4168-8f27-251c870b1cdd",
-    "name": "Polito Faculty Announcements People API",
+    "name": "Polito Faculty API — People",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "",

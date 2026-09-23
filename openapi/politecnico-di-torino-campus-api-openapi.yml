@@ -1,0 +1,102 @@
+openapi: 3.2.0
+info:
+  title: Polito Public Search Web Services Campus API
+  version: '2026-08-30'
+  summary: Keyless JSON web services behind the Politecnico di Torino website search — people, departments, teachings and campus rooms.
+  description: Four anonymously callable JSON endpoints operated by Politecnico di Torino on the university's own hosts, discovered on 2026-08-30 from the JavaScript that drives the search box at https://www.polito.it/en/search.
+  contact:
+    name: Politecnico di Torino
+    url: https://www.polito.it/en
+servers:
+- url: https://mypoli.polito.it/dotnet/ws_anagrafe
+  description: Directory web services (people, departments, teachings)
+tags:
+- name: Campus
+  description: Campus building and room lookup.
+paths:
+  /motore-di-ricerca/localijson.php:
+    servers:
+    - url: https://legacyprod.polito.it
+      description: Legacy campus locator host
+    get:
+      operationId: searchRooms
+      summary: Search campus buildings and rooms
+      description: Free-text search across Politecnico di Torino teaching rooms, laboratories and halls across the Turin and Mondovi campuses, returning building, floor and room identifiers. Requires no credential. Unlike the three directory services this endpoint returns a bare JSON array rather than an envelope, and repeats the total result count on every element.
+      tags:
+      - Campus
+      parameters:
+      - $ref: '#/components/parameters/Query'
+      - $ref: '#/components/parameters/Lang'
+      responses:
+        '200':
+          description: Matching rooms.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoomList'
+components:
+  parameters:
+    Lang:
+      name: _lang
+      in: query
+      required: false
+      description: Response language for localized fields. Observed values `it` and `en`. The teachings service echoes this back as `lang` rather than `_lang`.
+      schema:
+        type: string
+        enum:
+        - it
+        - en
+        default: it
+    Query:
+      name: q
+      in: query
+      required: true
+      description: Free-text search term. Required — the services return HTTP 500 without it.
+      schema:
+        type: string
+        minLength: 1
+      example: ingegneria
+  schemas:
+    Room:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total matches
+          repeated on every element.: null
+        bl_id:
+          type: string
+          description: Building identifier
+          e.g. TO_CIT09 or MD_COT01.: null
+        fl_id:
+          type: string
+          description: Floor identifier
+          e.g. XPTE or XP02.: null
+        rm_id:
+          type: string
+          description: Room number within the floor.
+        rm_name:
+          type: string
+          description: Human-readable room name.
+      example:
+        total: 215
+        bl_id: TO_LIN01
+        fl_id: XPTE
+        rm_id: '003'
+        rm_name: Aula Magna Lingotto
+    RoomList:
+      type: array
+      description: Bare array, not an envelope.
+      items:
+        $ref: '#/components/schemas/Room'
+x-operator: institution
+x-provenance:
+  generated: '2026-08-30'
+  method: derived
+  source: Derived by hand from live probes of https://mypoli.polito.it/dotnet/ws_anagrafe/ (search_people.ashx, search_departments.ashx, search_teachings.ashx) and https://legacyprod.polito.it/motore-di-ricerca/localijson.php on 2026-08-30. The endpoints were discovered in the client JavaScript of https://www.polito.it/en/search. Politecnico di Torino publishes no specification, documentation or terms for them.
+  authored_by: API Evangelist
+  not_published_by_provider: true
+  hosts_verified:
+    mypoli.polito.it: 130.192.182.138
+    legacyprod.polito.it: 130.192.182.100
+  note: Both hosts resolve inside Politecnico di Torino's own 130.192.0.0/16 GARR address space, with no vendor CNAME, so x-operator is institution. Only fields actually observed in a live response are described; nothing is inferred from documentation, because there is none.

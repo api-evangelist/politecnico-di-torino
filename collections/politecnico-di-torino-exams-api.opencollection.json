@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Polito Faculty Announcements Exams API",
+    "name": "Polito Students API — Exams",
     "version": "0.0.1"
   },
   "items": [

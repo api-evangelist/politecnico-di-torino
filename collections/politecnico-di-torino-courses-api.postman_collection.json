@@ -2952,7 +2952,7 @@
   },
   "info": {
     "_postman_id": "6f6294e8-9942-4cd5-838b-82db53d4aaab",
-    "name": "Polito Faculty Announcements Courses API",
+    "name": "Polito Faculty API — Courses",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "",

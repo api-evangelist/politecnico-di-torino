@@ -514,7 +514,7 @@
   },
   "info": {
     "_postman_id": "60b7111f-0ee6-4ed1-b21c-bffb53f91052",
-    "name": "Polito Faculty Announcements Esc API",
+    "name": "Polito Students API — Esc",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "",

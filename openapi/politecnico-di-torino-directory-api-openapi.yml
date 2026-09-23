@@ -1,0 +1,281 @@
+openapi: 3.2.0
+info:
+  title: Polito Public Search Web Services Directory API
+  version: '2026-08-30'
+  summary: Keyless JSON web services behind the Politecnico di Torino website search — people, departments, teachings and campus rooms.
+  description: Four anonymously callable JSON endpoints operated by Politecnico di Torino on the university's own hosts, discovered on 2026-08-30 from the JavaScript that drives the search box at https://www.polito.it/en/search.
+  contact:
+    name: Politecnico di Torino
+    url: https://www.polito.it/en
+servers:
+- url: https://mypoli.polito.it/dotnet/ws_anagrafe
+  description: Directory web services (people, departments, teachings)
+tags:
+- name: Directory
+  description: People, department and teaching lookup behind the polito.it site search.
+paths:
+  /search_people.ashx:
+    get:
+      operationId: searchPeople
+      summary: Search the staff directory
+      description: Free-text search across Politecnico di Torino staff. Returns identifying information about named individuals, including institutional email addresses. Requires no credential. Omitting `q` returns HTTP 500.
+      tags:
+      - Directory
+      parameters:
+      - $ref: '#/components/parameters/Query'
+      - $ref: '#/components/parameters/Lang'
+      responses:
+        '200':
+          description: Matching people.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PeopleResponse'
+        '500':
+          $ref: '#/components/responses/MissingQuery'
+  /search_departments.ashx:
+    get:
+      operationId: searchDepartments
+      summary: Search academic departments
+      description: Free-text search across Politecnico di Torino departments and research structures, returning the internal structure code, the Italian and English names, and the department's own website. Requires no credential.
+      tags:
+      - Directory
+      parameters:
+      - $ref: '#/components/parameters/Query'
+      - $ref: '#/components/parameters/Lang'
+      responses:
+        '200':
+          description: Matching departments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentsResponse'
+        '500':
+          $ref: '#/components/responses/MissingQuery'
+  /search_teachings.ashx:
+    get:
+      operationId: searchTeachings
+      summary: Search the teaching catalog
+      description: Free-text search across the Politecnico di Torino course/teaching catalog, returning the course code and the Italian and English course titles. This is the closest thing the university operates to a public course-catalog API. Requires no credential.
+      tags:
+      - Directory
+      parameters:
+      - $ref: '#/components/parameters/Query'
+      - $ref: '#/components/parameters/Lang'
+      responses:
+        '200':
+          description: Matching teachings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeachingsResponse'
+        '500':
+          $ref: '#/components/responses/MissingQuery'
+components:
+  parameters:
+    Lang:
+      name: _lang
+      in: query
+      required: false
+      description: Response language for localized fields. Observed values `it` and `en`. The teachings service echoes this back as `lang` rather than `_lang`.
+      schema:
+        type: string
+        enum:
+        - it
+        - en
+        default: it
+    Query:
+      name: q
+      in: query
+      required: true
+      description: Free-text search term. Required — the services return HTTP 500 without it.
+      schema:
+        type: string
+        minLength: 1
+      example: ingegneria
+  responses:
+    MissingQuery:
+      description: Returned when the required `q` parameter is absent. The services emit a server error rather than a 400, and the body is not JSON.
+  schemas:
+    DepartmentsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Pagination'
+      - type: object
+        properties:
+          _lang:
+            type: string
+            description: The language as received.
+          departments:
+            type: array
+            items:
+              $ref: '#/components/schemas/Department'
+    Department:
+      type: object
+      properties:
+        cod_struttura:
+          type: string
+          description: Internal structure code
+          e.g. D1090.: null
+        desc_struttura:
+          type: string
+          description: Italian name.
+        desc_struttura_en:
+          type: string
+          description: English name.
+        home_page_struttura:
+          type: string
+          format: uri
+          description: Department website.
+      example:
+        cod_struttura: D1030
+        desc_struttura: Dipartimento di Ingegneria Gestionale e della Produzione
+        desc_struttura_en: Department of Management and Production Engineering
+        home_page_struttura: http://www.digep.polito.it/
+    Teaching:
+      type: object
+      properties:
+        cod_ins:
+          type: string
+          description: Course code.
+        titolo_materia:
+          type: string
+          description: Italian course title.
+        nome_ins_eng:
+          type: string
+          description: English course title
+          often identical to the Italian.: null
+      example:
+        cod_ins: 01ABCDE
+        titolo_materia: Esempio di insegnamento
+        nome_ins_eng: Example teaching
+    Position:
+      type: object
+      description: An appointment held by a member of staff.
+      properties:
+        cod_posizione:
+          type: string
+          description: Position code
+          e.g. a fellowship or contract type.: null
+        tipo_ruolo:
+          type: string
+          description: Role type code.
+        inquadramento:
+          type: string
+          description: Role description
+          localized by _lang.: null
+        settore:
+          type: string
+          description: Administrative sector
+          present only for some roles.: null
+        acronimo_sede:
+          type: string
+          description: Department acronym
+          e.g. DISAT.: null
+        nome_sede:
+          type: string
+          description: Department name
+          localized by _lang.: null
+        url_sede:
+          type: string
+          format: uri
+          description: Department website.
+    PeopleResponse:
+      type: object
+      description: Staff search result. Unlike the department and teaching services this response carries no `q`, `current_page` or `page_size` envelope fields.
+      properties:
+        total:
+          type: integer
+          description: Total matching people.
+        people:
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+    Pagination:
+      type: object
+      description: 'Paging envelope echoed by the directory services. NOTE: `current_page` and `page_size` were observed to echo back the defaults 1 and 5 regardless of the values supplied, so paging appears to be advertised but not honored. `total` is the true match count and is larger than the number of elements returned.'
+      properties:
+        q:
+          type: string
+          description: The search term as received.
+        current_page:
+          type: integer
+          description: Always observed as 1.
+        page_size:
+          type: integer
+          description: Always observed as 5.
+        total:
+          type: integer
+          description: Total matches found
+          not the number returned.: null
+    Person:
+      type: object
+      description: A member of university staff. Contains personal data about a named individual.
+      properties:
+        matricola:
+          type: string
+          description: Internal staff number.
+        nome:
+          type: string
+          description: Given name.
+        cognome:
+          type: string
+          description: Family name.
+        nominativo:
+          type: string
+          description: Display name
+          family name first.: null
+        nome_scheda:
+          type: string
+          description: Slug used for the person's public profile page.
+        posizione:
+          type: array
+          description: One entry per appointment held.
+          items:
+            $ref: '#/components/schemas/Position'
+        contatti:
+          type: object
+          description: Contact block. Only an institutional email address was observed.
+          properties:
+            email:
+              type: string
+              format: email
+        foto:
+          type: string
+          description: Photograph reference; observed empty.
+        total:
+          type: integer
+          description: Repeated per element; purpose unclear.
+      example:
+        matricola: '000000'
+        nome: Esempio
+        cognome: Docente
+        nominativo: Docente Esempio
+        nome_scheda: esempio.docente
+        contatti:
+          email: esempio.docente@polito.it
+        foto: ''
+        total: 0
+    TeachingsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Pagination'
+      - type: object
+        properties:
+          lang:
+            type: string
+            description: The language as received. Named `lang`
+            not `_lang`.: null
+          teachings:
+            type: array
+            items:
+              $ref: '#/components/schemas/Teaching'
+x-operator: institution
+x-provenance:
+  generated: '2026-08-30'
+  method: derived
+  source: Derived by hand from live probes of https://mypoli.polito.it/dotnet/ws_anagrafe/ (search_people.ashx, search_departments.ashx, search_teachings.ashx) and https://legacyprod.polito.it/motore-di-ricerca/localijson.php on 2026-08-30. The endpoints were discovered in the client JavaScript of https://www.polito.it/en/search. Politecnico di Torino publishes no specification, documentation or terms for them.
+  authored_by: API Evangelist
+  not_published_by_provider: true
+  hosts_verified:
+    mypoli.polito.it: 130.192.182.138
+    legacyprod.polito.it: 130.192.182.100
+  note: Both hosts resolve inside Politecnico di Torino's own 130.192.0.0/16 GARR address space, with no vendor CNAME, so x-operator is institution. Only fields actually observed in a live response are described; nothing is inferred from documentation, because there is none.

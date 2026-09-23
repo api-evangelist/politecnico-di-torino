@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Polito Faculty Announcements News API
+  title: Polito Students News API
   version: 0.0.1
   license:
     name: CC BY-NC 4.0
@@ -110,14 +110,22 @@ components:
           - image
           example: image
         sizeInKiloBytes:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           example: 305
       example:
         url: https://
         description: Bando
         type: image
         sizeInKiloBytes: 305
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     NewsItem:
       type: object
       required:
@@ -176,12 +184,14 @@ components:
           type: string
           example: Seminario di presentazione del progetto
         eventStartTime:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: Dal 30 agosto 2023
         eventEndTime:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: Al 30 agosto 2023
         createdAt:
           type: string
@@ -195,13 +205,6 @@ components:
         eventStartTime: Dal 30 agosto 2023
         eventEndTime: Al 30 agosto 2023
         createdAt: '2022-08-31T14:00:00Z'
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http

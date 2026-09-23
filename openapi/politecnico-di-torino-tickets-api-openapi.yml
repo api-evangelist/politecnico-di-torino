@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Polito Faculty Announcements Tickets API
+  title: Polito Students Tickets API
   version: 0.0.1
   license:
     name: CC BY-NC 4.0
@@ -418,6 +418,26 @@ paths:
       - Tickets
 components:
   schemas:
+    TicketFAQ:
+      type: object
+      required:
+      - id
+      - question
+      - answer
+      properties:
+        id:
+          type: number
+          example: 3623
+        question:
+          type: string
+          example: Ho dimenticato il mio nome utente e/o la password e non riesco più ad accedere ad Apply@Polito. Come posso fare?
+        answer:
+          type: string
+          example: Clicca sul link &quot;<u>Codice e/o Password dimenticata</u>?&quot; presente sulla pagina di <a href="https://didattica.polito.it/pls/portal30/sviluppo.pkg_apply.login?p_lang=IT">Log-in</a>&nbsp;e segui le istruzioni.
+      example:
+        id: 3623
+        question: Ho dimenticato il mio nome utente e/o la password e non riesco più ad accedere ad Apply@Polito. Come posso fare?
+        answer: Clicca sul link &quot;<u>Codice e/o Password dimenticata</u>?&quot; presente sulla pagina di <a href="https://didattica.polito.it/pls/portal30/sviluppo.pkg_apply.login?p_lang=IT">Log-in</a>&nbsp;e segui le istruzioni.
     ReplyTicketRequest:
       type: object
       properties:
@@ -435,21 +455,12 @@ components:
           type: integer
         message:
           type: string
-    TicketSubtopic:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: number
-          example: 103
-        name:
-          type: string
-          example: Accesso studenti esterni
-      example:
-        id: 103
-        name: Accesso studenti esterni
+    TicketStatus:
+      type: string
+      enum:
+      - new
+      - pending
+      - closed
     TicketAttachment:
       type: object
       required:
@@ -475,6 +486,22 @@ components:
         filename: screenshot.png
         mimeType: image/png
         sizeInKiloBytes: 305
+    CreateTicketRequest:
+      type: object
+      properties:
+        subject:
+          type: string
+        message:
+          type: string
+        subtopicId:
+          type: number
+        attachment:
+          type: string
+          format: binary
+      required:
+      - subject
+      - message
+      - subtopicId
     Ticket:
       type: object
       required:
@@ -510,8 +537,9 @@ components:
           description: If true, this ticket was opened by an agent (not by the student)
           example: false
         agentId:
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         unreadCount:
           type: number
           example: 2
@@ -531,126 +559,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TicketAttachment'
-    TicketReply:
-      type: object
-      required:
-      - id
-      - message
-      - isFromAgent
-      - agentId
-      - isRead
-      - createdAt
-      - attachments
-      properties:
-        id:
-          type: number
-          example: 1145890
-        message:
-          type: string
-          example: Non si può fare.
-        isFromAgent:
-          type: boolean
-          description: If true, this reply was sent by an agent (not by the student)
-          example: true
-        agentId:
-          anyOf:
-          - allOf:
-            - $ref: '#/components/schemas/TicketSpecialAgent'
-            nullable: true
-          - type: number
-            nullable: true
-          example: 351
-        needsFeedback:
-          type: boolean
-          example: false
-        isRead:
-          type: boolean
-          example: true
-        createdAt:
-          type: string
-          format: date-time
-          example: '2022-08-31T14:00:00Z'
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/TicketAttachment'
-      example:
-        id: 1145890
-        message: Non si può fare.
-        isFromAgent: true
-        agentId: 351
-        isRead: true
-        createdAt: '2022-08-31T14:00:00Z'
-        attachments: []
-    TicketSpecialAgent:
-      type: string
-      enum:
-      - AIAgent
-    TicketFAQ:
-      type: object
-      required:
-      - id
-      - question
-      - answer
-      properties:
-        id:
-          type: number
-          example: 3623
-        question:
-          type: string
-          example: Ho dimenticato il mio nome utente e/o la password e non riesco più ad accedere ad Apply@Polito. Come posso fare?
-        answer:
-          type: string
-          example: Clicca sul link &quot;<u>Codice e/o Password dimenticata</u>?&quot; presente sulla pagina di <a href="https://didattica.polito.it/pls/portal30/sviluppo.pkg_apply.login?p_lang=IT">Log-in</a>&nbsp;e segui le istruzioni.
-      example:
-        id: 3623
-        question: Ho dimenticato il mio nome utente e/o la password e non riesco più ad accedere ad Apply@Polito. Come posso fare?
-        answer: Clicca sul link &quot;<u>Codice e/o Password dimenticata</u>?&quot; presente sulla pagina di <a href="https://didattica.polito.it/pls/portal30/sviluppo.pkg_apply.login?p_lang=IT">Log-in</a>&nbsp;e segui le istruzioni.
-    TicketTopic:
-      type: object
-      required:
-      - id
-      - name
-      - subtopics
-      properties:
-        id:
-          type: number
-          example: 103
-        name:
-          type: string
-          example: Accesso studenti esterni
-        subtopics:
-          type: array
-          items:
-            $ref: '#/components/schemas/TicketSubtopic'
-      example:
-        id: 61
-        name: ACCESSO LAUREE MAGISTRALI
-        subtopics:
-        - id: 103
-          name: Accesso studenti esterni
-    CreateTicketRequest:
-      type: object
-      properties:
-        subject:
-          type: string
-        message:
-          type: string
-        subtopicId:
-          type: number
-        attachment:
-          type: string
-          format: binary
-      required:
-      - subject
-      - message
-      - subtopicId
-    TicketStatus:
-      type: string
-      enum:
-      - new
-      - pending
-      - closed
     TicketOverview:
       type: object
       required:
@@ -684,8 +592,9 @@ components:
           description: If true, this ticket was opened by an agent (not by the student)
           example: false
         agentId:
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         unreadCount:
           type: number
           example: 2
@@ -708,6 +617,99 @@ components:
         unreadCount: 2
         createdAt: '2022-08-31T14:00:00Z'
         updatedAt: '2022-08-31T14:00:00Z'
+    TicketSpecialAgent:
+      type: string
+      enum:
+      - AIAgent
+    TicketSubtopic:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: number
+          example: 103
+        name:
+          type: string
+          example: Accesso studenti esterni
+      example:
+        id: 103
+        name: Accesso studenti esterni
+    TicketReply:
+      type: object
+      required:
+      - id
+      - message
+      - isFromAgent
+      - agentId
+      - isRead
+      - createdAt
+      - attachments
+      properties:
+        id:
+          type: number
+          example: 1145890
+        message:
+          type: string
+          example: Non si può fare.
+        isFromAgent:
+          type: boolean
+          description: If true, this reply was sent by an agent (not by the student)
+          example: true
+        agentId:
+          anyOf:
+          - allOf:
+            - $ref: '#/components/schemas/TicketSpecialAgent'
+          - type:
+            - number
+            - 'null'
+          example: 351
+        needsFeedback:
+          type: boolean
+          example: false
+        isRead:
+          type: boolean
+          example: true
+        createdAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketAttachment'
+      example:
+        id: 1145890
+        message: Non si può fare.
+        isFromAgent: true
+        agentId: 351
+        isRead: true
+        createdAt: '2022-08-31T14:00:00Z'
+        attachments: []
+    TicketTopic:
+      type: object
+      required:
+      - id
+      - name
+      - subtopics
+      properties:
+        id:
+          type: number
+          example: 103
+        name:
+          type: string
+          example: Accesso studenti esterni
+        subtopics:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketSubtopic'
+      example:
+        id: 61
+        name: ACCESSO LAUREE MAGISTRALI
+        subtopics:
+        - id: 103
+          name: Accesso studenti esterni
   securitySchemes:
     BearerAuth:
       type: http

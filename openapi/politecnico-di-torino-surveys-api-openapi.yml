@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Polito Faculty Announcements Surveys API
+  title: Polito Students Surveys API
   version: 0.0.1
   license:
     name: CC BY-NC 4.0
@@ -72,6 +72,13 @@ components:
         id: 1
         name: Course name
         shortcode: 01NYHOV
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     Survey:
       type: object
       required:
@@ -96,8 +103,9 @@ components:
           type: string
           example: Survey title
         subtitle:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: Survey subtitle
         category:
           $ref: '#/components/schemas/SurveyTaxonomy'
@@ -116,9 +124,10 @@ components:
           type: boolean
           example: false
         compileDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           example: '2022-08-31T14:00:00Z'
         url:
           type: string
@@ -132,10 +141,11 @@ components:
           format: date-time
           example: '2022-08-31T14:00:00Z'
         course:
-          type: object
+          type:
+          - object
+          - 'null'
           allOf:
           - $ref: '#/components/schemas/SurveyCourseRef'
-          nullable: true
       example:
         id: 1
         title: Survey title
@@ -173,13 +183,6 @@ components:
       example:
         id: CPD
         name: CPD
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http

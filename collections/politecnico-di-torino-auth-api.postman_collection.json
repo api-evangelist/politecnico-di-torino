@@ -2108,7 +2108,7 @@
   },
   "info": {
     "_postman_id": "b94c6ac4-e77b-4e5b-855e-e05dc82be6b0",
-    "name": "Polito Faculty Announcements Auth API",
+    "name": "Polito Faculty API — Auth",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "",

@@ -1,0 +1,165 @@
+---
+# authorship: written by API Evangelist tooling during the university pipeline
+# run of 2026-08-30. Every claim below was probed live against a Politecnico di
+# Torino host; nothing here is inferred from a prose statement on a polito.it
+# web page, and nothing is recorded that a probe did not return.
+generated: '2026-08-30'
+method: probed
+source: >-
+  Live probes of https://idp.polito.it/idp/shibboleth and
+  https://idem.polito.it/idp/shibboleth (SAML 2.0 IdP metadata), of
+  https://iris.polito.it/oai/request (OAI-PMH verbs Identify,
+  ListMetadataFormats, ListSets, ListRecords), and of the eduGAIN entity
+  register at https://technical.edugain.org/api.php?action=list_entities.
+provider: Politecnico di Torino
+providerId: politecnico-di-torino
+regime: education
+description: >-
+  Domain-standard conformance for Politecnico di Torino, measured against the
+  Kin Score `education` regulatory regime. Only standards for which a
+  machine-readable surface returned real evidence on 2026-08-30 are recorded.
+  Two of the three are institution-operated outright; the OAI-PMH service is
+  recorded as a tenant deployment because the host CNAMEs to CINECA and the
+  repository administrator address is noreply@cineca.it. ORCID, DataCite,
+  Crossref, LTI, SCIM, OneRoster, Ed-Fi, Caliper and QTI were looked for and
+  are deliberately absent: no probe returned evidence for any of them.
+
+conformance:
+
+- standard: saml
+  name: SAML 2.0 (and SAML 1.1) identity provider
+  status: conformant
+  operator: institution
+  evidence:
+    location: https://idp.polito.it/idp/shibboleth
+    status: 200
+    detail: >-
+      Returns 13,373 bytes of application/xml SAML metadata. The document is a
+      single EntityDescriptor with entityID https://idp.polito.it/idp/shibboleth
+      carrying both an IDPSSODescriptor and an AttributeAuthorityDescriptor, and
+      declaring protocolSupportEnumeration for both
+      urn:oasis:names:tc:SAML:2.0:protocol and
+      urn:oasis:names:tc:SAML:1.1:protocol.
+  supporting:
+  - location: https://idem.polito.it/idp/shibboleth
+    status: 200
+    detail: >-
+      The same identity provider is published a second time under the
+      idem.polito.it hostname, which is the entityID registered in the national
+      federation. Content type application/xml.
+  - location: https://idp.polito.it/idp/profile/SAML2/Redirect/SSO
+    status: n/a
+    detail: >-
+      SingleSignOnService endpoints are declared for HTTP-Redirect, HTTP-POST
+      and HTTP-POST-SimpleSign bindings, with matching SingleLogoutService
+      endpoints including the SOAP binding. Endpoints are declared in metadata
+      and were not exercised, because driving them requires a real
+      authentication attempt.
+
+- standard: shibboleth
+  name: Shibboleth identity provider, IDEM GARR / eduGAIN registered
+  status: conformant
+  operator: institution
+  evidence:
+    location: https://idp.polito.it/idp/shibboleth
+    status: 200
+    detail: >-
+      The metadata carries the Shibboleth-specific
+      urn:mace:shibboleth:metadata:1.0 namespace and declares
+      <shibmd:Scope regexp="false">polito.it</shibmd:Scope> on both the
+      IDPSSODescriptor and the AttributeAuthorityDescriptor. The generator
+      comment in the document identifies it as static Shibboleth IdP metadata.
+  supporting:
+  - location: 'https://technical.edugain.org/api.php?action=list_entities&format=json'
+    status: 200
+    detail: >-
+      The eduGAIN entity register (10,607 entities on 2026-08-30) lists entity
+      679663, entityID https://idem.polito.it/idp/shibboleth, display name
+      "Politecnico of Turin" / "Politecnico di Torino", registration authority
+      http://www.idem.garr.it/, scopes polito.it, first seen 2020-07-24. Its
+      eccs_status is 1 (eduGAIN Connectivity Check passing) and its
+      sirtfi_status is 1 (Sirtfi security incident response framework asserted).
+      Four entity categories are declared.
+  - location: 'https://technical.edugain.org/api.php?action=list_entities&format=json'
+    status: 200
+    detail: >-
+      The same register lists entity 679760, entityID
+      https://idemidp.polito.it/shibboleth, an SPSSODescriptor named
+      "EduGateway Polito" and described as "Resource provided by Politecnico di
+      Torino", registered through IDEM GARR on 2025-05-26 and carrying the
+      GEANT Data Protection Code of Conduct (coco_status 4). Politecnico di
+      Torino is therefore present in the federation on both sides, as an
+      identity provider and as a service provider.
+  note: >-
+    Identity federation is institution-operated by definition — an IdP asserts
+    the institution's own population — and it is the surface class this cohort
+    most consistently fails to record. idp.polito.it resolves to 130.192.55.75,
+    inside the university's own address space, with no vendor CNAME.
+
+- standard: oai-pmh
+  name: Open Archives Initiative Protocol for Metadata Harvesting 2.0
+  status: conformant
+  operator: tenant
+  evidence:
+    location: https://iris.polito.it/oai/request?verb=Identify
+    status: 200
+    detail: >-
+      Returns a valid OAI-PMH 2.0 Identify response (text/xml, 1,271 bytes)
+      declaring repositoryName "IRIS - POLITO - prod", baseURL
+      https://iris.polito.it/oai/request, protocolVersion 2.0, granularity
+      YYYY-MM-DDThh:mm:ssZ, deletedRecord transient, earliestDatestamp
+      2015-06-30T14:23:06Z, repositoryIdentifier iris.polito.it and
+      sampleIdentifier oai:iris.polito.it:11583/1234.
+  supporting:
+  - location: https://iris.polito.it/oai/request?verb=ListMetadataFormats
+    status: 200
+    detail: Three metadata prefixes offered — didl, ore and oai_dc.
+  - location: https://iris.polito.it/oai/request?verb=ListSets
+    status: 200
+    detail: >-
+      Sets are enumerated as DSpace-style community and collection specs
+      (com_11583_2614426, col_11583_2614384 and so on) under the 11583 handle
+      prefix.
+  - location: 'https://iris.polito.it/oai/request?verb=ListRecords&metadataPrefix=oai_dc'
+    status: 200
+    detail: >-
+      100 Dublin Core records returned in a 331KB first page with a
+      resumptionToken, so harvesting is genuinely functional rather than merely
+      advertised. No ORCID iDs appear in the oai_dc payload, which is why orcid
+      is NOT recorded as a conformance below.
+  note: >-
+    Recorded as tenant, not institution. iris.polito.it CNAMEs to
+    polito.prod.iris.cineca.it and then to fallback-iris-prod.cineca.it, and the
+    Identify response gives adminEmail noreply@cineca.it and repositoryName
+    "IRIS - POLITO - prod". IRIS is CINECA's research-information product,
+    deployed across most Italian universities. The research record is Politecnico
+    di Torino's; the harvesting contract is CINECA's.
+
+not_found:
+- standard: orcid
+  detail: >-
+    No ORCID iD appears anywhere in 100 oai_dc records harvested from
+    iris.polito.it, and no ORCID surface was found on a polito.it host.
+- standard: datacite
+  detail: >-
+    The IRIS OAI-PMH service offers didl, ore and oai_dc only; no datacite
+    metadata prefix is available. Three DOI references appear in the harvested
+    records but no DataCite API or member surface was found.
+- standard: crossref
+  detail: No Crossref-facing surface was found on any polito.it host.
+- standard: lti
+  detail: >-
+    Politecnico di Torino runs Moodle (the API exposes
+    /auth/serviceLink/moodle/{course}) and Moodle is LTI-capable, but no LTI
+    registration, platform configuration or tool-configuration endpoint was
+    reachable on a polito.it host, so nothing is recorded.
+- standard: scim
+  detail: No SCIM /Users or /ServiceProviderConfig endpoint was found.
+- standard: oneroster
+  detail: No OneRoster surface was found.
+- standard: ed-fi
+  detail: No Ed-Fi surface was found. Ed-Fi is a US K-12 standard and is not expected here.
+- standard: caliper
+  detail: No Caliper analytics endpoint was found.
+- standard: qti
+  detail: No QTI item or assessment bank surface was found.

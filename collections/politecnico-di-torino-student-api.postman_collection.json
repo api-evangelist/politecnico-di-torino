@@ -3090,7 +3090,7 @@
   },
   "info": {
     "_postman_id": "71f0e5d5-b904-4d65-8fc8-54aadbd8f87c",
-    "name": "Polito Faculty Announcements Student API",
+    "name": "Polito Students API — Student",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "",

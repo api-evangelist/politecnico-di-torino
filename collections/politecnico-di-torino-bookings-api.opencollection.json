@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Polito Faculty Announcements Bookings API",
+    "name": "Polito Faculty API — Bookings",
     "version": "0.0.1"
   },
   "items": [

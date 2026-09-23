@@ -192,7 +192,7 @@
   },
   "info": {
     "_postman_id": "1890a419-0dd5-4259-83b2-9647de781d82",
-    "name": "Polito Faculty Announcements Surveys API",
+    "name": "Polito Students API — Surveys",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "",

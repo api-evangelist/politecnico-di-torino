@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Polito Faculty Announcements Lectures API
+  title: Polito Students Lectures API
   version: 0.0.1
   license:
     name: CC BY-NC 4.0
@@ -682,6 +682,32 @@ paths:
       - Lectures
 components:
   schemas:
+    PlaceRef:
+      type: object
+      required:
+      - buildingId
+      - floorId
+      - roomId
+      - siteId
+      - name
+      properties:
+        buildingId:
+          type: string
+        floorId:
+          type: string
+        roomId:
+          type: string
+        siteId:
+          type: string
+        name:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     RelatedVirtualClassroom:
       type: object
       required:
@@ -723,8 +749,9 @@ components:
           items:
             $ref: '#/components/schemas/RelatedVirtualClassroom'
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         courseId:
           type: integer
         courseName:
@@ -734,32 +761,6 @@ components:
           example: 150157
         place:
           $ref: '#/components/schemas/PlaceRef'
-    PlaceRef:
-      type: object
-      required:
-      - buildingId
-      - floorId
-      - roomId
-      - siteId
-      - name
-      properties:
-        buildingId:
-          type: string
-        floorId:
-          type: string
-        roomId:
-          type: string
-        siteId:
-          type: string
-        name:
-          type: string
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http

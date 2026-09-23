@@ -1629,7 +1629,7 @@
   },
   "info": {
     "_postman_id": "d300748d-b502-4a75-b212-376b61622745",
-    "name": "Polito Faculty Announcements Places API",
+    "name": "Polito Faculty API — Places",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "",

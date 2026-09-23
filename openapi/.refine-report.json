@@ -1,23 +1,12 @@
 {
   "provider": "politecnico-di-torino",
   "sources": [
-    "politecnico-di-torino-announcements-api-openapi.yml",
-    "politecnico-di-torino-auth-api-openapi.yml",
-    "politecnico-di-torino-bookings-api-openapi.yml",
-    "politecnico-di-torino-courses-api-openapi.yml",
-    "politecnico-di-torino-esc-api-openapi.yml",
-    "politecnico-di-torino-exams-api-openapi.yml",
-    "politecnico-di-torino-job-offers-api-openapi.yml",
-    "politecnico-di-torino-lectures-api-openapi.yml",
-    "politecnico-di-torino-news-api-openapi.yml",
-    "politecnico-di-torino-offering-api-openapi.yml",
-    "politecnico-di-torino-people-api-openapi.yml",
-    "politecnico-di-torino-places-api-openapi.yml",
-    "politecnico-di-torino-student-api-openapi.yml",
-    "politecnico-di-torino-surveys-api-openapi.yml",
-    "politecnico-di-torino-tickets-api-openapi.yml"
+    "_original/politecnico-di-torino-public-search-api.yaml",
+    "_original/politecnico-di-torino-students-api.yaml"
   ],
   "outputs": [
+    "politecnico-di-torino-campus-api-openapi.yml",
+    "politecnico-di-torino-directory-api-openapi.yml",
     "politecnico-di-torino-announcements-api-openapi.yml",
     "politecnico-di-torino-auth-api-openapi.yml",
     "politecnico-di-torino-bookings-api-openapi.yml",
@@ -37,6 +26,31 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "politecnico-di-torino-public-search-api.yaml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "politecnico-di-torino-students-api.yaml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/politecnico-di-torino-faculty-api.yaml: archived document superseded by a larger archived document",
+    "politecnico-di-torino-announcements-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "politecnico-di-torino-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "politecnico-di-torino-bookings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "politecnico-di-torino-campus-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "politecnico-di-torino-courses-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "politecnico-di-torino-directory-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "politecnico-di-torino-esc-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "politecnico-di-torino-exams-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "politecnico-di-torino-job-offers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "politecnico-di-torino-lectures-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "politecnico-di-torino-news-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "politecnico-di-torino-offering-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "politecnico-di-torino-people-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "politecnico-di-torino-places-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "politecnico-di-torino-student-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "politecnico-di-torino-surveys-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "politecnico-di-torino-tickets-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Polito Faculty Announcements Auth API
+  title: Polito Students Auth API
   version: 0.0.1
   license:
     name: CC BY-NC 4.0
@@ -130,10 +130,11 @@ paths:
                 type: object
                 properties:
                   data:
-                    type: object
+                    type:
+                    - object
+                    - 'null'
                     allOf:
                     - $ref: '#/components/schemas/MfaChallenge'
-                    nullable: true
                 required:
                 - data
               example:
@@ -423,111 +424,6 @@ paths:
               $ref: '#/components/schemas/SwitchCareerRequest'
 components:
   schemas:
-    UpdatePreferencesRequest:
-      type: object
-      properties:
-        language:
-          type: string
-          enum:
-          - it
-          - en
-          example: it
-    LoginRequest:
-      type: object
-      oneOf:
-      - $ref: '#/components/schemas/LoginCredentialsBasic'
-      - $ref: '#/components/schemas/LoginCredentialsSSO'
-      discriminator:
-        propertyName: loginType
-        mapping:
-          basic: '#/components/schemas/LoginCredentialsBasic'
-          sso: '#/components/schemas/LoginCredentialsSSO'
-    EnrolMfaRequest:
-      type: object
-      required:
-      - description
-      - pubkey
-      properties:
-        description:
-          type: string
-          example: some identifier you chose
-        pubkey:
-          type: string
-          example: dGhpcyBzaG91bGQgYmUgYW4gZWNkcyBwdWJsaWMga2V5Li4uIHdoYXQgZGlkIHlvdSB0aGluayB0aGlzIHdhcz8hIPCfp5AK
-      example:
-        description: some identifier you chose
-        pubkey: dGhpcyBzaG91bGQgYmUgYW4gZWNkcyBwdWJsaWMga2V5Li4uIHdoYXQgZGlkIHlvdSB0aGluayB0aGlzIHdhcz8hIPCfp5AK
-    UpdateInfo:
-      type: object
-      required:
-      - suggestUpdate
-      properties:
-        suggestUpdate:
-          type: boolean
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-    MfaStatusResponse:
-      type: object
-      required:
-      - status
-      - details
-      properties:
-        status:
-          type: string
-          enum:
-          - active
-          - locked
-          - available
-          - unavailable
-          - needsReauth
-          description: Current MFA status for the user
-        details:
-          type: object
-          properties:
-            lastAuth:
-              type: string
-              format: date-time
-              example: '2021-09-30T00:00:00Z'
-            authCount:
-              type: integer
-              example: 1
-            serial:
-              type: string
-              example: EDUP0000123456
-            description:
-              type: string
-              example: My phone
-          required:
-          - lastAuth
-          - authCount
-          nullable: true
-          description: 'Additional information about the MFA session.
-
-            Present only if status is `active` or `locked`'
-    LoginCredentialsSSO:
-      type: object
-      required:
-      - uid
-      - key
-      - loginType
-      properties:
-        uid:
-          type: string
-          example: 123456-1234-5678-123456
-        key:
-          type: string
-          example: abcdef-abcd-efgh-abcdef
-        loginType:
-          type: string
-          enum:
-          - sso
-      allOf:
-      - $ref: '#/components/schemas/LoginRequestBase'
     Client:
       type: object
       required:
@@ -550,78 +446,45 @@ components:
         id:
           type: string
           example: 5a54f626-4b7e-488e-a0e3-300f54051510
-    Device:
+    MfaStatusResponse:
       type: object
       required:
-      - platform
-      - toothPicCompatible
+      - status
+      - details
       properties:
-        name:
-          type: string
-        platform:
-          type: string
-        version:
-          type: string
-        model:
-          type: string
-        manufacturer:
-          type: string
-        toothPicCompatible:
-          type: boolean
-    ValidateMfaRequest:
-      type: object
-      required:
-      - serial
-      - nonce
-      - signature
-      properties:
-        serial:
-          type: string
-          example: EDUP000123456
-        nonce:
-          type: string
-          example: 65ba9e0e5aac421a9150991638a9d697
-        signature:
-          type: string
-          example: 83e08d9fc4be3de046318eb3c2c9ae4ede1374a5423a1487b92febc70d106994
-        decline:
-          type: boolean
-          example: false
-      example:
-        serial: EDUP000123456
-        nonce: 65ba9e0e5aac421a9150991638a9d697
-        signature: 83e08d9fc4be3de046318eb3c2c9ae4ede1374a5423a1487b92febc70d106994
-        decline: false
-    LoginRequestBase:
-      type: object
-      required:
-      - preferences
-      properties:
-        client:
-          $ref: '#/components/schemas/Client'
-        device:
-          $ref: '#/components/schemas/Device'
-        preferences:
-          $ref: '#/components/schemas/UpdatePreferencesRequest'
-    LoginCredentialsBasic:
-      type: object
-      required:
-      - username
-      - password
-      - loginType
-      properties:
-        username:
-          type: string
-          example: s290683
-        password:
-          type: string
-          example: moreSecret
-        loginType:
+        status:
           type: string
           enum:
-          - basic
-      allOf:
-      - $ref: '#/components/schemas/LoginRequestBase'
+          - active
+          - locked
+          - available
+          - unavailable
+          - needsReauth
+          description: Current MFA status for the user
+        details:
+          type:
+          - object
+          - 'null'
+          properties:
+            lastAuth:
+              type: string
+              format: date-time
+              example: '2021-09-30T00:00:00Z'
+            authCount:
+              type: integer
+              example: 1
+            serial:
+              type: string
+              example: EDUP0000123456
+            description:
+              type: string
+              example: My phone
+          required:
+          - lastAuth
+          - authCount
+          description: 'Additional information about the MFA session.
+
+            Present only if status is `active` or `locked`'
     Identity:
       type: object
       required:
@@ -647,6 +510,72 @@ components:
         type: student
         clientId: 5a54f626-4b7e-488e-a0e3-300f54051510
         token: c679fa38ff665df6a676acd833194385
+    UpdatePreferencesRequest:
+      type: object
+      properties:
+        language:
+          type: string
+          enum:
+          - it
+          - en
+          example: it
+    ValidateMfaRequest:
+      type: object
+      required:
+      - serial
+      - nonce
+      - signature
+      properties:
+        serial:
+          type: string
+          example: EDUP000123456
+        nonce:
+          type: string
+          example: 65ba9e0e5aac421a9150991638a9d697
+        signature:
+          type: string
+          example: 83e08d9fc4be3de046318eb3c2c9ae4ede1374a5423a1487b92febc70d106994
+        decline:
+          type: boolean
+          example: false
+      example:
+        serial: EDUP000123456
+        nonce: 65ba9e0e5aac421a9150991638a9d697
+        signature: 83e08d9fc4be3de046318eb3c2c9ae4ede1374a5423a1487b92febc70d106994
+        decline: false
+    EnrolMfaRequest:
+      type: object
+      required:
+      - description
+      - pubkey
+      properties:
+        description:
+          type: string
+          example: some identifier you chose
+        pubkey:
+          type: string
+          example: dGhpcyBzaG91bGQgYmUgYW4gZWNkcyBwdWJsaWMga2V5Li4uIHdoYXQgZGlkIHlvdSB0aGluayB0aGlzIHdhcz8hIPCfp5AK
+      example:
+        description: some identifier you chose
+        pubkey: dGhpcyBzaG91bGQgYmUgYW4gZWNkcyBwdWJsaWMga2V5Li4uIHdoYXQgZGlkIHlvdSB0aGluayB0aGlzIHdhcz8hIPCfp5AK
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    LoginRequestBase:
+      type: object
+      required:
+      - preferences
+      properties:
+        client:
+          $ref: '#/components/schemas/Client'
+        device:
+          $ref: '#/components/schemas/Device'
+        preferences:
+          $ref: '#/components/schemas/UpdatePreferencesRequest'
     AppInfoRequest:
       type: object
       properties:
@@ -659,6 +588,25 @@ components:
         fcmRegistrationToken:
           type: string
           example: a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4
+    LoginCredentialsSSO:
+      type: object
+      required:
+      - uid
+      - key
+      - loginType
+      properties:
+        uid:
+          type: string
+          example: 123456-1234-5678-123456
+        key:
+          type: string
+          example: abcdef-abcd-efgh-abcdef
+        loginType:
+          type: string
+          enum:
+          - sso
+      allOf:
+      - $ref: '#/components/schemas/LoginRequestBase'
     MfaChallenge:
       type: object
       required:
@@ -681,6 +629,32 @@ components:
           type: string
           format: date-time
           example: '2025-01-01T01:00:00Z'
+    UpdateInfo:
+      type: object
+      required:
+      - suggestUpdate
+      properties:
+        suggestUpdate:
+          type: boolean
+    LoginCredentialsBasic:
+      type: object
+      required:
+      - username
+      - password
+      - loginType
+      properties:
+        username:
+          type: string
+          example: s290683
+        password:
+          type: string
+          example: moreSecret
+        loginType:
+          type: string
+          enum:
+          - basic
+      allOf:
+      - $ref: '#/components/schemas/LoginRequestBase'
     SwitchCareerRequest:
       type: object
       required:
@@ -702,6 +676,34 @@ components:
       properties:
         url:
           type: string
+    Device:
+      type: object
+      required:
+      - platform
+      - toothPicCompatible
+      properties:
+        name:
+          type: string
+        platform:
+          type: string
+        version:
+          type: string
+        model:
+          type: string
+        manufacturer:
+          type: string
+        toothPicCompatible:
+          type: boolean
+    LoginRequest:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/LoginCredentialsBasic'
+      - $ref: '#/components/schemas/LoginCredentialsSSO'
+      discriminator:
+        propertyName: loginType
+        mapping:
+          basic: '#/components/schemas/LoginCredentialsBasic'
+          sso: '#/components/schemas/LoginCredentialsSSO'
   securitySchemes:
     BearerAuth:
       type: http

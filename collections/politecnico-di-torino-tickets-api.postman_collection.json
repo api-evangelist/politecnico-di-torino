@@ -2750,7 +2750,7 @@
   },
   "info": {
     "_postman_id": "c1db239c-802c-4983-a65a-51458cad435a",
-    "name": "Polito Faculty Announcements Tickets API",
+    "name": "Polito Students API — Tickets",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "",

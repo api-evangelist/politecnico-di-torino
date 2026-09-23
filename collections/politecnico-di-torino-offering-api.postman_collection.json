@@ -879,7 +879,7 @@
   },
   "info": {
     "_postman_id": "da254a32-b7e7-4ca6-ab8a-6f739295b7d9",
-    "name": "Polito Faculty Announcements Offering API",
+    "name": "Polito Students API — Offering",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "",

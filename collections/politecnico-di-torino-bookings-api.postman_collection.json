@@ -1448,7 +1448,7 @@
   },
   "info": {
     "_postman_id": "256e59dd-28ca-4fa9-a9fb-5d5bb580fe82",
-    "name": "Polito Faculty Announcements Bookings API",
+    "name": "Polito Faculty API — Bookings",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "",
