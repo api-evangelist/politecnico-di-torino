@@ -418,49 +418,6 @@ paths:
       - Tickets
 components:
   schemas:
-    TicketFAQ:
-      type: object
-      required:
-      - id
-      - question
-      - answer
-      properties:
-        id:
-          type: number
-          example: 3623
-        question:
-          type: string
-          example: Ho dimenticato il mio nome utente e/o la password e non riesco più ad accedere ad Apply@Polito. Come posso fare?
-        answer:
-          type: string
-          example: Clicca sul link &quot;<u>Codice e/o Password dimenticata</u>?&quot; presente sulla pagina di <a href="https://didattica.polito.it/pls/portal30/sviluppo.pkg_apply.login?p_lang=IT">Log-in</a>&nbsp;e segui le istruzioni.
-      example:
-        id: 3623
-        question: Ho dimenticato il mio nome utente e/o la password e non riesco più ad accedere ad Apply@Polito. Come posso fare?
-        answer: Clicca sul link &quot;<u>Codice e/o Password dimenticata</u>?&quot; presente sulla pagina di <a href="https://didattica.polito.it/pls/portal30/sviluppo.pkg_apply.login?p_lang=IT">Log-in</a>&nbsp;e segui le istruzioni.
-    ReplyTicketRequest:
-      type: object
-      properties:
-        message:
-          type: string
-        attachment:
-          type: string
-          format: binary
-      required:
-      - message
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-    TicketStatus:
-      type: string
-      enum:
-      - new
-      - pending
-      - closed
     TicketAttachment:
       type: object
       required:
@@ -502,63 +459,21 @@ components:
       - subject
       - message
       - subtopicId
-    Ticket:
+    TicketSubtopic:
       type: object
       required:
       - id
-      - subject
-      - message
-      - status
-      - hasAttachments
-      - isFromAgent
-      - agentId
-      - unreadCount
-      - createdAt
-      - updatedAt
-      - replies
-      - attachments
+      - name
       properties:
         id:
           type: number
-          example: 1145890
-        subject:
+          example: 103
+        name:
           type: string
-          example: Sostituzione esame in piano carriera
-        message:
-          type: string
-          example: Buongiorno, vi contatto per sostituire A con B
-        status:
-          $ref: '#/components/schemas/TicketStatus'
-        hasAttachments:
-          type: boolean
-          example: true
-        isFromAgent:
-          type: boolean
-          description: If true, this ticket was opened by an agent (not by the student)
-          example: false
-        agentId:
-          type:
-          - number
-          - 'null'
-        unreadCount:
-          type: number
-          example: 2
-        createdAt:
-          type: string
-          format: date-time
-          example: '2022-08-31T14:00:00Z'
-        updatedAt:
-          type: string
-          format: date-time
-          example: '2022-08-31T14:00:00Z'
-        replies:
-          type: array
-          items:
-            $ref: '#/components/schemas/TicketReply'
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/TicketAttachment'
+          example: Accesso studenti esterni
+      example:
+        id: 103
+        name: Accesso studenti esterni
     TicketOverview:
       type: object
       required:
@@ -617,15 +532,12 @@ components:
         unreadCount: 2
         createdAt: '2022-08-31T14:00:00Z'
         updatedAt: '2022-08-31T14:00:00Z'
-    TicketSpecialAgent:
-      type: string
-      enum:
-      - AIAgent
-    TicketSubtopic:
+    TicketTopic:
       type: object
       required:
       - id
       - name
+      - subtopics
       properties:
         id:
           type: number
@@ -633,9 +545,16 @@ components:
         name:
           type: string
           example: Accesso studenti esterni
+        subtopics:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketSubtopic'
       example:
-        id: 103
-        name: Accesso studenti esterni
+        id: 61
+        name: ACCESSO LAUREE MAGISTRALI
+        subtopics:
+        - id: 103
+          name: Accesso studenti esterni
     TicketReply:
       type: object
       required:
@@ -687,29 +606,110 @@ components:
         isRead: true
         createdAt: '2022-08-31T14:00:00Z'
         attachments: []
-    TicketTopic:
+    TicketFAQ:
       type: object
       required:
       - id
-      - name
-      - subtopics
+      - question
+      - answer
       properties:
         id:
           type: number
-          example: 103
-        name:
+          example: 3623
+        question:
           type: string
-          example: Accesso studenti esterni
-        subtopics:
+          example: Ho dimenticato il mio nome utente e/o la password e non riesco più ad accedere ad Apply@Polito. Come posso fare?
+        answer:
+          type: string
+          example: Clicca sul link &quot;<u>Codice e/o Password dimenticata</u>?&quot; presente sulla pagina di <a href="https://didattica.polito.it/pls/portal30/sviluppo.pkg_apply.login?p_lang=IT">Log-in</a>&nbsp;e segui le istruzioni.
+      example:
+        id: 3623
+        question: Ho dimenticato il mio nome utente e/o la password e non riesco più ad accedere ad Apply@Polito. Come posso fare?
+        answer: Clicca sul link &quot;<u>Codice e/o Password dimenticata</u>?&quot; presente sulla pagina di <a href="https://didattica.polito.it/pls/portal30/sviluppo.pkg_apply.login?p_lang=IT">Log-in</a>&nbsp;e segui le istruzioni.
+    ReplyTicketRequest:
+      type: object
+      properties:
+        message:
+          type: string
+        attachment:
+          type: string
+          format: binary
+      required:
+      - message
+    TicketStatus:
+      type: string
+      enum:
+      - new
+      - pending
+      - closed
+    TicketSpecialAgent:
+      type: string
+      enum:
+      - AIAgent
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    Ticket:
+      type: object
+      required:
+      - id
+      - subject
+      - message
+      - status
+      - hasAttachments
+      - isFromAgent
+      - agentId
+      - unreadCount
+      - createdAt
+      - updatedAt
+      - replies
+      - attachments
+      properties:
+        id:
+          type: number
+          example: 1145890
+        subject:
+          type: string
+          example: Sostituzione esame in piano carriera
+        message:
+          type: string
+          example: Buongiorno, vi contatto per sostituire A con B
+        status:
+          $ref: '#/components/schemas/TicketStatus'
+        hasAttachments:
+          type: boolean
+          example: true
+        isFromAgent:
+          type: boolean
+          description: If true, this ticket was opened by an agent (not by the student)
+          example: false
+        agentId:
+          type:
+          - number
+          - 'null'
+        unreadCount:
+          type: number
+          example: 2
+        createdAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+        replies:
           type: array
           items:
-            $ref: '#/components/schemas/TicketSubtopic'
-      example:
-        id: 61
-        name: ACCESSO LAUREE MAGISTRALI
-        subtopics:
-        - id: 103
-          name: Accesso studenti esterni
+            $ref: '#/components/schemas/TicketReply'
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketAttachment'
   securitySchemes:
     BearerAuth:
       type: http

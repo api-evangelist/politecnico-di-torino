@@ -682,44 +682,6 @@ paths:
       - Lectures
 components:
   schemas:
-    PlaceRef:
-      type: object
-      required:
-      - buildingId
-      - floorId
-      - roomId
-      - siteId
-      - name
-      properties:
-        buildingId:
-          type: string
-        floorId:
-          type: string
-        roomId:
-          type: string
-        siteId:
-          type: string
-        name:
-          type: string
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-    RelatedVirtualClassroom:
-      type: object
-      required:
-      - id
-      - title
-      properties:
-        id:
-          type: integer
-          example: 150157
-        title:
-          type: string
-          example: Lecture 1
     Lecture:
       type: object
       required:
@@ -761,6 +723,44 @@ components:
           example: 150157
         place:
           $ref: '#/components/schemas/PlaceRef'
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    RelatedVirtualClassroom:
+      type: object
+      required:
+      - id
+      - title
+      properties:
+        id:
+          type: integer
+          example: 150157
+        title:
+          type: string
+          example: Lecture 1
+    PlaceRef:
+      type: object
+      required:
+      - buildingId
+      - floorId
+      - roomId
+      - siteId
+      - name
+      properties:
+        buildingId:
+          type: string
+        floorId:
+          type: string
+        roomId:
+          type: string
+        siteId:
+          type: string
+        name:
+          type: string
   securitySchemes:
     BearerAuth:
       type: http

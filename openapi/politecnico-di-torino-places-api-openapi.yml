@@ -374,28 +374,38 @@ paths:
       - Places
 components:
   schemas:
-    Department:
+    PlaceCategoryOverview:
       type: object
       required:
       - id
       - name
-      - type
       properties:
         id:
           type: string
+          example: AULA
         name:
-          type:
-          - string
-          - 'null'
-        type:
           type: string
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
+          example: Aula
+        showInMenu:
+          type: boolean
+        color:
           type: string
+          example: lightBlue
+          default: gray
+        markerUrl:
+          type: string
+          format: url
+        priority:
+          type: number
+          description: A MapBox style priority number. 0 means most important, larger numbers are less important
+          example: 60
+          default: 100
+        highlighted:
+          type: boolean
+          description: If true, markers of this category should be shown initially on the map
+          example: false
+        subCategory:
+          $ref: '#/components/schemas/PlaceCategory'
     GeoJsonPolygon:
       type: object
       required:
@@ -424,6 +434,19 @@ components:
           required:
           - type
           - coordinates
+    Floor:
+      type: object
+      required:
+      - id
+      - name
+      - level
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        level:
+          type: number
     RootPlaceCategory:
       type: object
       required:
@@ -458,51 +481,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PlaceCategory'
-    Floor:
-      type: object
-      required:
-      - id
-      - name
-      - level
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        level:
-          type: number
-    PlaceCategoryOverview:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          example: AULA
-        name:
-          type: string
-          example: Aula
-        showInMenu:
-          type: boolean
-        color:
-          type: string
-          example: lightBlue
-          default: gray
-        markerUrl:
-          type: string
-          format: url
-        priority:
-          type: number
-          description: A MapBox style priority number. 0 means most important, larger numbers are less important
-          example: 60
-          default: 100
-        highlighted:
-          type: boolean
-          description: If true, markers of this category should be shown initially on the map
-          example: false
-        subCategory:
-          $ref: '#/components/schemas/PlaceCategory'
     FreeRoom:
       type: object
       required:
@@ -532,72 +510,21 @@ components:
         freeTo:
           type: string
           format: date-time
-    Site:
+    Department:
       type: object
       required:
       - id
       - name
-      - latitude
-      - longitude
-      - floors
-      - city
-      - extent
+      - type
       properties:
         id:
           type: string
         name:
+          type:
+          - string
+          - 'null'
+        type:
           type: string
-        latitude:
-          type: number
-          example: 45.064254
-        longitude:
-          type: number
-          example: 7.657823
-        floors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Floor'
-        city:
-          type: object
-          properties:
-            id:
-              type: string
-            name:
-              type: string
-          required:
-          - id
-          - name
-        extent:
-          type: number
-          description: 'A delta in degrees that applied to the centroid
-
-            coordinates of the site determines its extent'
-    Building:
-      type: object
-      required:
-      - id
-      - name
-      - siteId
-      - category
-      - latitude
-      - longitude
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        siteId:
-          type: string
-        category:
-          $ref: '#/components/schemas/PlaceCategoryOverview'
-        geoJson:
-          $ref: '#/components/schemas/GeoJsonPolygon'
-        latitude:
-          type: number
-          example: 45.064254
-        longitude:
-          type: number
-          example: 7.657823
     PlaceOverview:
       type: object
       required:
@@ -665,43 +592,6 @@ components:
           $ref: '#/components/schemas/PlaceCategoryOverview'
         geoJson:
           $ref: '#/components/schemas/GeoJsonPolygon'
-    PlaceCategory:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          example: AULA
-        name:
-          type: string
-          example: Aula
-        showInMenu:
-          type: boolean
-        color:
-          type: string
-          example: lightBlue
-          default: gray
-        markerUrl:
-          type: string
-          format: url
-        priority:
-          type: number
-          description: A MapBox style priority number. 0 means most important, larger numbers are less important
-          example: 60
-          default: 100
-        highlighted:
-          type: boolean
-          description: If true, markers of this category should be shown initially on the map
-          example: false
-      example:
-        id: AULA
-        name: Aula
-        showInMenu: false
-        color: lightBlue
-        priority: 60
-        highlighted: false
     Place:
       type: object
       required:
@@ -797,6 +687,116 @@ components:
             - name
             - description
             - category
+    Site:
+      type: object
+      required:
+      - id
+      - name
+      - latitude
+      - longitude
+      - floors
+      - city
+      - extent
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        latitude:
+          type: number
+          example: 45.064254
+        longitude:
+          type: number
+          example: 7.657823
+        floors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Floor'
+        city:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+          required:
+          - id
+          - name
+        extent:
+          type: number
+          description: 'A delta in degrees that applied to the centroid
+
+            coordinates of the site determines its extent'
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    Building:
+      type: object
+      required:
+      - id
+      - name
+      - siteId
+      - category
+      - latitude
+      - longitude
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        siteId:
+          type: string
+        category:
+          $ref: '#/components/schemas/PlaceCategoryOverview'
+        geoJson:
+          $ref: '#/components/schemas/GeoJsonPolygon'
+        latitude:
+          type: number
+          example: 45.064254
+        longitude:
+          type: number
+          example: 7.657823
+    PlaceCategory:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          example: AULA
+        name:
+          type: string
+          example: Aula
+        showInMenu:
+          type: boolean
+        color:
+          type: string
+          example: lightBlue
+          default: gray
+        markerUrl:
+          type: string
+          format: url
+        priority:
+          type: number
+          description: A MapBox style priority number. 0 means most important, larger numbers are less important
+          example: 60
+          default: 100
+        highlighted:
+          type: boolean
+          description: If true, markers of this category should be shown initially on the map
+          example: false
+      example:
+        id: AULA
+        name: Aula
+        showInMenu: false
+        color: lightBlue
+        priority: 60
+        highlighted: false
   securitySchemes:
     BearerAuth:
       type: http

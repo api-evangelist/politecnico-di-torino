@@ -127,62 +127,6 @@ components:
         lastName: Corno
         picture: https://www.swas.polito.it/_library/image_pub.asp?matricola=002154
         role: Docente
-    PersonCourse:
-      type: object
-      required:
-      - id
-      - name
-      - role
-      - year
-      properties:
-        id:
-          type: integer
-          description: The identifier for this course
-          example: 258674
-        shortcode:
-          type: string
-          description: The shortcode for this course
-          example: 01NYHOV
-        name:
-          type: string
-          description: The name of the course
-          example: Computer sciences
-        role:
-          type: string
-          description: The role of the person in this course
-          example: Collaboratore
-        year:
-          type: number
-          description: The year this course was given in
-          example: 2021
-      example:
-        id: 258674
-        shortcode: 01NYHOV
-        name: Computer sciences
-        role: Collaboratore
-        year: 2021
-    PhoneNumber:
-      type: object
-      required:
-      - full
-      - internal
-      properties:
-        full:
-          type: string
-          example: 0110907053
-        internal:
-          type: string
-          example: '7053'
-      example:
-        full: 0110907053
-        internal: '7053'
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
     Person:
       type: object
       required:
@@ -233,6 +177,62 @@ components:
           name: Computer sciences
           role: Collaboratore
           year: 2021
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    PersonCourse:
+      type: object
+      required:
+      - id
+      - name
+      - role
+      - year
+      properties:
+        id:
+          type: integer
+          description: The identifier for this course
+          example: 258674
+        shortcode:
+          type: string
+          description: The shortcode for this course
+          example: 01NYHOV
+        name:
+          type: string
+          description: The name of the course
+          example: Computer sciences
+        role:
+          type: string
+          description: The role of the person in this course
+          example: Collaboratore
+        year:
+          type: number
+          description: The year this course was given in
+          example: 2021
+      example:
+        id: 258674
+        shortcode: 01NYHOV
+        name: Computer sciences
+        role: Collaboratore
+        year: 2021
+    PhoneNumber:
+      type: object
+      required:
+      - full
+      - internal
+      properties:
+        full:
+          type: string
+          example: 0110907053
+        internal:
+          type: string
+          example: '7053'
+      example:
+        full: 0110907053
+        internal: '7053'
   securitySchemes:
     BearerAuth:
       type: http

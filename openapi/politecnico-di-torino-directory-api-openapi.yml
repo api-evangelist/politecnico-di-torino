@@ -72,124 +72,10 @@ paths:
         '500':
           $ref: '#/components/responses/MissingQuery'
 components:
-  parameters:
-    Lang:
-      name: _lang
-      in: query
-      required: false
-      description: Response language for localized fields. Observed values `it` and `en`. The teachings service echoes this back as `lang` rather than `_lang`.
-      schema:
-        type: string
-        enum:
-        - it
-        - en
-        default: it
-    Query:
-      name: q
-      in: query
-      required: true
-      description: Free-text search term. Required — the services return HTTP 500 without it.
-      schema:
-        type: string
-        minLength: 1
-      example: ingegneria
   responses:
     MissingQuery:
       description: Returned when the required `q` parameter is absent. The services emit a server error rather than a 400, and the body is not JSON.
   schemas:
-    DepartmentsResponse:
-      allOf:
-      - $ref: '#/components/schemas/Pagination'
-      - type: object
-        properties:
-          _lang:
-            type: string
-            description: The language as received.
-          departments:
-            type: array
-            items:
-              $ref: '#/components/schemas/Department'
-    Department:
-      type: object
-      properties:
-        cod_struttura:
-          type: string
-          description: Internal structure code
-          e.g. D1090.: null
-        desc_struttura:
-          type: string
-          description: Italian name.
-        desc_struttura_en:
-          type: string
-          description: English name.
-        home_page_struttura:
-          type: string
-          format: uri
-          description: Department website.
-      example:
-        cod_struttura: D1030
-        desc_struttura: Dipartimento di Ingegneria Gestionale e della Produzione
-        desc_struttura_en: Department of Management and Production Engineering
-        home_page_struttura: http://www.digep.polito.it/
-    Teaching:
-      type: object
-      properties:
-        cod_ins:
-          type: string
-          description: Course code.
-        titolo_materia:
-          type: string
-          description: Italian course title.
-        nome_ins_eng:
-          type: string
-          description: English course title
-          often identical to the Italian.: null
-      example:
-        cod_ins: 01ABCDE
-        titolo_materia: Esempio di insegnamento
-        nome_ins_eng: Example teaching
-    Position:
-      type: object
-      description: An appointment held by a member of staff.
-      properties:
-        cod_posizione:
-          type: string
-          description: Position code
-          e.g. a fellowship or contract type.: null
-        tipo_ruolo:
-          type: string
-          description: Role type code.
-        inquadramento:
-          type: string
-          description: Role description
-          localized by _lang.: null
-        settore:
-          type: string
-          description: Administrative sector
-          present only for some roles.: null
-        acronimo_sede:
-          type: string
-          description: Department acronym
-          e.g. DISAT.: null
-        nome_sede:
-          type: string
-          description: Department name
-          localized by _lang.: null
-        url_sede:
-          type: string
-          format: uri
-          description: Department website.
-    PeopleResponse:
-      type: object
-      description: Staff search result. Unlike the department and teaching services this response carries no `q`, `current_page` or `page_size` envelope fields.
-      properties:
-        total:
-          type: integer
-          description: Total matching people.
-        people:
-          type: array
-          items:
-            $ref: '#/components/schemas/Person'
     Pagination:
       type: object
       description: 'Paging envelope echoed by the directory services. NOTE: `current_page` and `page_size` were observed to echo back the defaults 1 and 5 regardless of the values supplied, so paging appears to be advertised but not honored. `total` is the true match count and is larger than the number of elements returned.'
@@ -268,6 +154,120 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Teaching'
+    PeopleResponse:
+      type: object
+      description: Staff search result. Unlike the department and teaching services this response carries no `q`, `current_page` or `page_size` envelope fields.
+      properties:
+        total:
+          type: integer
+          description: Total matching people.
+        people:
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+    Position:
+      type: object
+      description: An appointment held by a member of staff.
+      properties:
+        cod_posizione:
+          type: string
+          description: Position code
+          e.g. a fellowship or contract type.: null
+        tipo_ruolo:
+          type: string
+          description: Role type code.
+        inquadramento:
+          type: string
+          description: Role description
+          localized by _lang.: null
+        settore:
+          type: string
+          description: Administrative sector
+          present only for some roles.: null
+        acronimo_sede:
+          type: string
+          description: Department acronym
+          e.g. DISAT.: null
+        nome_sede:
+          type: string
+          description: Department name
+          localized by _lang.: null
+        url_sede:
+          type: string
+          format: uri
+          description: Department website.
+    Department:
+      type: object
+      properties:
+        cod_struttura:
+          type: string
+          description: Internal structure code
+          e.g. D1090.: null
+        desc_struttura:
+          type: string
+          description: Italian name.
+        desc_struttura_en:
+          type: string
+          description: English name.
+        home_page_struttura:
+          type: string
+          format: uri
+          description: Department website.
+      example:
+        cod_struttura: D1030
+        desc_struttura: Dipartimento di Ingegneria Gestionale e della Produzione
+        desc_struttura_en: Department of Management and Production Engineering
+        home_page_struttura: http://www.digep.polito.it/
+    Teaching:
+      type: object
+      properties:
+        cod_ins:
+          type: string
+          description: Course code.
+        titolo_materia:
+          type: string
+          description: Italian course title.
+        nome_ins_eng:
+          type: string
+          description: English course title
+          often identical to the Italian.: null
+      example:
+        cod_ins: 01ABCDE
+        titolo_materia: Esempio di insegnamento
+        nome_ins_eng: Example teaching
+    DepartmentsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Pagination'
+      - type: object
+        properties:
+          _lang:
+            type: string
+            description: The language as received.
+          departments:
+            type: array
+            items:
+              $ref: '#/components/schemas/Department'
+  parameters:
+    Lang:
+      name: _lang
+      in: query
+      required: false
+      description: Response language for localized fields. Observed values `it` and `en`. The teachings service echoes this back as `lang` rather than `_lang`.
+      schema:
+        type: string
+        enum:
+        - it
+        - en
+        default: it
+    Query:
+      name: q
+      in: query
+      required: true
+      description: Free-text search term. Required — the services return HTTP 500 without it.
+      schema:
+        type: string
+        minLength: 1
+      example: ingegneria
 x-operator: institution
 x-provenance:
   generated: '2026-08-30'
