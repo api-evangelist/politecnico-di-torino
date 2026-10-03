@@ -88,6 +88,13 @@ paths:
       - News
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     NewsItemOverview:
       type: object
       required:
@@ -133,13 +140,6 @@ components:
         eventStartTime: Dal 30 agosto 2023
         eventEndTime: Al 30 agosto 2023
         createdAt: '2022-08-31T14:00:00Z'
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
     NewsItemExtra:
       type: object
       required:

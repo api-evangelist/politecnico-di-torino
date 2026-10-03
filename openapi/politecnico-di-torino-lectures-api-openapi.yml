@@ -682,6 +682,13 @@ paths:
       - Lectures
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     Lecture:
       type: object
       required:
@@ -723,13 +730,6 @@ components:
           example: 150157
         place:
           $ref: '#/components/schemas/PlaceRef'
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
     RelatedVirtualClassroom:
       type: object
       required:

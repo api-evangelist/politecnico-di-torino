@@ -109,25 +109,6 @@ paths:
       - Esc
 components:
   schemas:
-    EscError:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 500
-        message:
-          type: string
-          example: An error occurred
-        careerId:
-          type: integer
-          example: 123456
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
     EuropeanStudentCard:
       type: object
       required:
@@ -163,6 +144,25 @@ components:
           - cardNumber
           - expiresAt
           - qrCode
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    EscError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 500
+        message:
+          type: string
+          example: An error occurred
+        careerId:
+          type: integer
+          example: 123456
   securitySchemes:
     BearerAuth:
       type: http

@@ -52,6 +52,26 @@ paths:
       - Surveys
 components:
   schemas:
+    SurveyCourseRef:
+      type: object
+      required:
+      - id
+      - name
+      - shortcode
+      properties:
+        id:
+          type: number
+          example: 1
+        name:
+          type: string
+          example: Course name
+        shortcode:
+          type: string
+          example: 01NYHOV
+      example:
+        id: 1
+        name: Course name
+        shortcode: 01NYHOV
     Survey:
       type: object
       required:
@@ -141,26 +161,6 @@ components:
           id: 1
           name: Course name
           shortcode: 01NYHOV
-    SurveyCourseRef:
-      type: object
-      required:
-      - id
-      - name
-      - shortcode
-      properties:
-        id:
-          type: number
-          example: 1
-        name:
-          type: string
-          example: Course name
-        shortcode:
-          type: string
-          example: 01NYHOV
-      example:
-        id: 1
-        name: Course name
-        shortcode: 01NYHOV
     ErrorResponse:
       type: object
       properties:

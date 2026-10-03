@@ -182,51 +182,6 @@ paths:
       - Offering
 components:
   schemas:
-    GradeCount:
-      type: object
-      required:
-      - grade
-      - count
-      properties:
-        grade:
-          type: string
-          enum:
-          - '18'
-          - '19'
-          - '20'
-          - '21'
-          - '22'
-          - '23'
-          - '24'
-          - '25'
-          - '26'
-          - '27'
-          - '28'
-          - '29'
-          - '30'
-          - 30L
-        count:
-          type: integer
-    YearStatistics:
-      type: object
-      required:
-      - succeeded
-      - failed
-      - grades
-      - averageGrade
-      properties:
-        succeeded:
-          type: integer
-        failed:
-          type: integer
-        grades:
-          type: array
-          items:
-            $ref: '#/components/schemas/GradeCount'
-        averageGrade:
-          type:
-          - number
-          - 'null'
     OfferingClass:
       type: object
       required:
@@ -250,107 +205,19 @@ components:
         degrees:
         - id: 81-6
           name: Design e comunicazione
-    Teacher:
+    OfferingCourseStaff:
       type: object
       required:
+      - role
       - id
-      - firstName
-      - lastName
+      - courseId
       properties:
+        role:
+          type: string
         id:
-          type: integer
-        firstName:
-          type: string
-        lastName:
-          type: string
-    OfferingCourseOverview:
-      type: object
-      required:
-      - name
-      - shortcode
-      - cfu
-      - teachingYear
-      - language
-      - group
-      properties:
-        name:
-          type: string
-          example: System and device programming
-        shortcode:
-          type: string
-          example: 01NYHOV
-        cfu:
-          type: integer
-          example: 10
-        teachingYear:
-          type: integer
-          description: The year this course belongs to in this degree
-          example: 1
-        language:
-          type: string
-          enum:
-          - it
-          - en
-          example: en
-        group:
-          type:
-          - string
-          - 'null'
-          example: Insegnamento a scelta 1
-      example:
-        name: System and device programming
-        shortcode: 01NYHOV
-        cfu: 10
-        teachingYear: 1
-        language: en
-        group: Insegnamento a scelta 1
-    OfferingCourse:
-      type: object
-      required:
-      - name
-      - shortcode
-      - cfu
-      - teachingPeriod
-      - languages
-      - year
-      - hours
-      - editions
-      - staff
-      - guide
-      properties:
-        name:
-          type: string
-        shortcode:
-          type: string
-        cfu:
-          type: integer
-        teachingPeriod:
-          type: string
-          description: The semester(s) this course belongs to
-        languages:
-          type: array
-          items:
-            type: string
-            enum:
-            - it
-            - en
-        year:
-          type: string
-        hours:
-          $ref: '#/components/schemas/CourseHours'
-        editions:
-          type: array
-          items:
-            type: string
-          description: All the available editions of this course
-        staff:
-          type: array
-          items:
-            $ref: '#/components/schemas/OfferingCourseStaff'
-        guide:
-          type: array
-          items:
-            $ref: '#/components/schemas/GuideSection'
+          type: number
+        courseId:
+          type: number
     Degree:
       type: object
       required:
@@ -443,18 +310,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Track'
-    GuideSection:
-      type: object
-      required:
-      - title
-      - content
-      properties:
-        title:
-          type: string
-          example: Title
-        content:
-          type: string
-          example: HTML content
     Track:
       type: object
       required:
@@ -482,17 +337,151 @@ components:
           teachingYear: 1
           language: en
           group: Insegnamento a scelta 1
-    OfferingResponse:
+    YearStatistics:
       type: object
+      required:
+      - succeeded
+      - failed
+      - grades
+      - averageGrade
       properties:
-        bachelor:
+        succeeded:
+          type: integer
+        failed:
+          type: integer
+        grades:
           type: array
           items:
-            $ref: '#/components/schemas/OfferingClass'
-        master:
+            $ref: '#/components/schemas/GradeCount'
+        averageGrade:
+          type:
+          - number
+          - 'null'
+    OfferingCourseOverview:
+      type: object
+      required:
+      - name
+      - shortcode
+      - cfu
+      - teachingYear
+      - language
+      - group
+      properties:
+        name:
+          type: string
+          example: System and device programming
+        shortcode:
+          type: string
+          example: 01NYHOV
+        cfu:
+          type: integer
+          example: 10
+        teachingYear:
+          type: integer
+          description: The year this course belongs to in this degree
+          example: 1
+        language:
+          type: string
+          enum:
+          - it
+          - en
+          example: en
+        group:
+          type:
+          - string
+          - 'null'
+          example: Insegnamento a scelta 1
+      example:
+        name: System and device programming
+        shortcode: 01NYHOV
+        cfu: 10
+        teachingYear: 1
+        language: en
+        group: Insegnamento a scelta 1
+    OfferingCourse:
+      type: object
+      required:
+      - name
+      - shortcode
+      - cfu
+      - teachingPeriod
+      - languages
+      - year
+      - hours
+      - editions
+      - staff
+      - guide
+      properties:
+        name:
+          type: string
+        shortcode:
+          type: string
+        cfu:
+          type: integer
+        teachingPeriod:
+          type: string
+          description: The semester(s) this course belongs to
+        languages:
           type: array
           items:
-            $ref: '#/components/schemas/OfferingClass'
+            type: string
+            enum:
+            - it
+            - en
+        year:
+          type: string
+        hours:
+          $ref: '#/components/schemas/CourseHours'
+        editions:
+          type: array
+          items:
+            type: string
+          description: All the available editions of this course
+        staff:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferingCourseStaff'
+        guide:
+          type: array
+          items:
+            $ref: '#/components/schemas/GuideSection'
+    GuideSection:
+      type: object
+      required:
+      - title
+      - content
+      properties:
+        title:
+          type: string
+          example: Title
+        content:
+          type: string
+          example: HTML content
+    GradeCount:
+      type: object
+      required:
+      - grade
+      - count
+      properties:
+        grade:
+          type: string
+          enum:
+          - '18'
+          - '19'
+          - '20'
+          - '21'
+          - '22'
+          - '23'
+          - '24'
+          - '25'
+          - '26'
+          - '27'
+          - '28'
+          - '29'
+          - '30'
+          - 30L
+        count:
+          type: integer
     PreviousYearsToCompare:
       type: object
       required:
@@ -517,6 +506,45 @@ components:
           type: integer
         labExercise:
           type: integer
+    DegreeOverview:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          example: 81-6
+        name:
+          type: string
+          example: Design e comunicazione
+      example:
+        id: 81-6
+        name: Design e comunicazione
+    OfferingResponse:
+      type: object
+      properties:
+        bachelor:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferingClass'
+        master:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferingClass'
+    Teacher:
+      type: object
+      required:
+      - id
+      - firstName
+      - lastName
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
     CourseStatistics:
       type: object
       required:
@@ -560,21 +588,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Teacher'
-    DegreeOverview:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          example: 81-6
-        name:
-          type: string
-          example: Design e comunicazione
-      example:
-        id: 81-6
-        name: Design e comunicazione
     ErrorResponse:
       type: object
       properties:
@@ -582,19 +595,6 @@ components:
           type: integer
         message:
           type: string
-    OfferingCourseStaff:
-      type: object
-      required:
-      - role
-      - id
-      - courseId
-      properties:
-        role:
-          type: string
-        id:
-          type: number
-        courseId:
-          type: number
   securitySchemes:
     BearerAuth:
       type: http

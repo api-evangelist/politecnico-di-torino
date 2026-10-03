@@ -188,20 +188,6 @@ paths:
               $ref: '#/components/schemas/RescheduleExamRequest'
 components:
   schemas:
-    RescheduleExamRequest:
-      type: object
-      required:
-      - courseShortcode
-      - requestReason
-      - requestDetails
-      properties:
-        courseShortcode:
-          type: string
-          example: 01UDROV
-        requestReason:
-          type: string
-        requestDetails:
-          type: string
     BookExamRequest:
       type: object
       required:
@@ -215,32 +201,6 @@ components:
         questionOption:
           type: integer
         requestReason:
-          type: string
-    PlaceRef:
-      type: object
-      required:
-      - buildingId
-      - floorId
-      - roomId
-      - siteId
-      - name
-      properties:
-        buildingId:
-          type: string
-        floorId:
-          type: string
-        roomId:
-          type: string
-        siteId:
-          type: string
-        name:
-          type: string
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
           type: string
     Exam:
       type: object
@@ -353,6 +313,46 @@ components:
           type:
           - string
           - 'null'
+    PlaceRef:
+      type: object
+      required:
+      - buildingId
+      - floorId
+      - roomId
+      - siteId
+      - name
+      properties:
+        buildingId:
+          type: string
+        floorId:
+          type: string
+        roomId:
+          type: string
+        siteId:
+          type: string
+        name:
+          type: string
+    RescheduleExamRequest:
+      type: object
+      required:
+      - courseShortcode
+      - requestReason
+      - requestDetails
+      properties:
+        courseShortcode:
+          type: string
+          example: 01UDROV
+        requestReason:
+          type: string
+        requestDetails:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
   securitySchemes:
     BearerAuth:
       type: http

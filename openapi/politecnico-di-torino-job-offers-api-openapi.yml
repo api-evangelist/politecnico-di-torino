@@ -88,40 +88,6 @@ paths:
       - Job offers
 components:
   schemas:
-    JobOfferOverview:
-      type: object
-      required:
-      - id
-      - title
-      - location
-      - companyId
-      - companyName
-      - createdAtDate
-      - endsAtDate
-      properties:
-        id:
-          type: number
-        title:
-          type: string
-        location:
-          type: string
-        companyId:
-          type: number
-        companyName:
-          type: string
-        createdAtDate:
-          type: string
-          format: date
-        endsAtDate:
-          type: string
-          format: date
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
     JobOffer:
       type: object
       required:
@@ -165,6 +131,40 @@ components:
           example: 2
       allOf:
       - $ref: '#/components/schemas/JobOfferOverview'
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    JobOfferOverview:
+      type: object
+      required:
+      - id
+      - title
+      - location
+      - companyId
+      - companyName
+      - createdAtDate
+      - endsAtDate
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        location:
+          type: string
+        companyId:
+          type: number
+        companyName:
+          type: string
+        createdAtDate:
+          type: string
+          format: date
+        endsAtDate:
+          type: string
+          format: date
   securitySchemes:
     BearerAuth:
       type: http

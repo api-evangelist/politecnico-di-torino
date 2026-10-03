@@ -418,31 +418,6 @@ paths:
       - Tickets
 components:
   schemas:
-    TicketAttachment:
-      type: object
-      required:
-      - id
-      - filename
-      - mimeType
-      - sizeInKiloBytes
-      properties:
-        id:
-          type: number
-          example: 0
-        filename:
-          type: string
-          example: screenshot.png
-        mimeType:
-          type: string
-          example: image/png
-        sizeInKiloBytes:
-          type: integer
-          example: 305
-      example:
-        id: 0
-        filename: screenshot.png
-        mimeType: image/png
-        sizeInKiloBytes: 305
     CreateTicketRequest:
       type: object
       properties:
@@ -474,6 +449,128 @@ components:
       example:
         id: 103
         name: Accesso studenti esterni
+    TicketStatus:
+      type: string
+      enum:
+      - new
+      - pending
+      - closed
+    Ticket:
+      type: object
+      required:
+      - id
+      - subject
+      - message
+      - status
+      - hasAttachments
+      - isFromAgent
+      - agentId
+      - unreadCount
+      - createdAt
+      - updatedAt
+      - replies
+      - attachments
+      properties:
+        id:
+          type: number
+          example: 1145890
+        subject:
+          type: string
+          example: Sostituzione esame in piano carriera
+        message:
+          type: string
+          example: Buongiorno, vi contatto per sostituire A con B
+        status:
+          $ref: '#/components/schemas/TicketStatus'
+        hasAttachments:
+          type: boolean
+          example: true
+        isFromAgent:
+          type: boolean
+          description: If true, this ticket was opened by an agent (not by the student)
+          example: false
+        agentId:
+          type:
+          - number
+          - 'null'
+        unreadCount:
+          type: number
+          example: 2
+        createdAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+        replies:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketReply'
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketAttachment'
+    ReplyTicketRequest:
+      type: object
+      properties:
+        message:
+          type: string
+        attachment:
+          type: string
+          format: binary
+      required:
+      - message
+    TicketFAQ:
+      type: object
+      required:
+      - id
+      - question
+      - answer
+      properties:
+        id:
+          type: number
+          example: 3623
+        question:
+          type: string
+          example: Ho dimenticato il mio nome utente e/o la password e non riesco più ad accedere ad Apply@Polito. Come posso fare?
+        answer:
+          type: string
+          example: Clicca sul link &quot;<u>Codice e/o Password dimenticata</u>?&quot; presente sulla pagina di <a href="https://didattica.polito.it/pls/portal30/sviluppo.pkg_apply.login?p_lang=IT">Log-in</a>&nbsp;e segui le istruzioni.
+      example:
+        id: 3623
+        question: Ho dimenticato il mio nome utente e/o la password e non riesco più ad accedere ad Apply@Polito. Come posso fare?
+        answer: Clicca sul link &quot;<u>Codice e/o Password dimenticata</u>?&quot; presente sulla pagina di <a href="https://didattica.polito.it/pls/portal30/sviluppo.pkg_apply.login?p_lang=IT">Log-in</a>&nbsp;e segui le istruzioni.
+    TicketSpecialAgent:
+      type: string
+      enum:
+      - AIAgent
+    TicketAttachment:
+      type: object
+      required:
+      - id
+      - filename
+      - mimeType
+      - sizeInKiloBytes
+      properties:
+        id:
+          type: number
+          example: 0
+        filename:
+          type: string
+          example: screenshot.png
+        mimeType:
+          type: string
+          example: image/png
+        sizeInKiloBytes:
+          type: integer
+          example: 305
+      example:
+        id: 0
+        filename: screenshot.png
+        mimeType: image/png
+        sizeInKiloBytes: 305
     TicketOverview:
       type: object
       required:
@@ -555,6 +652,13 @@ components:
         subtopics:
         - id: 103
           name: Accesso studenti esterni
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     TicketReply:
       type: object
       required:
@@ -606,110 +710,6 @@ components:
         isRead: true
         createdAt: '2022-08-31T14:00:00Z'
         attachments: []
-    TicketFAQ:
-      type: object
-      required:
-      - id
-      - question
-      - answer
-      properties:
-        id:
-          type: number
-          example: 3623
-        question:
-          type: string
-          example: Ho dimenticato il mio nome utente e/o la password e non riesco più ad accedere ad Apply@Polito. Come posso fare?
-        answer:
-          type: string
-          example: Clicca sul link &quot;<u>Codice e/o Password dimenticata</u>?&quot; presente sulla pagina di <a href="https://didattica.polito.it/pls/portal30/sviluppo.pkg_apply.login?p_lang=IT">Log-in</a>&nbsp;e segui le istruzioni.
-      example:
-        id: 3623
-        question: Ho dimenticato il mio nome utente e/o la password e non riesco più ad accedere ad Apply@Polito. Come posso fare?
-        answer: Clicca sul link &quot;<u>Codice e/o Password dimenticata</u>?&quot; presente sulla pagina di <a href="https://didattica.polito.it/pls/portal30/sviluppo.pkg_apply.login?p_lang=IT">Log-in</a>&nbsp;e segui le istruzioni.
-    ReplyTicketRequest:
-      type: object
-      properties:
-        message:
-          type: string
-        attachment:
-          type: string
-          format: binary
-      required:
-      - message
-    TicketStatus:
-      type: string
-      enum:
-      - new
-      - pending
-      - closed
-    TicketSpecialAgent:
-      type: string
-      enum:
-      - AIAgent
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-    Ticket:
-      type: object
-      required:
-      - id
-      - subject
-      - message
-      - status
-      - hasAttachments
-      - isFromAgent
-      - agentId
-      - unreadCount
-      - createdAt
-      - updatedAt
-      - replies
-      - attachments
-      properties:
-        id:
-          type: number
-          example: 1145890
-        subject:
-          type: string
-          example: Sostituzione esame in piano carriera
-        message:
-          type: string
-          example: Buongiorno, vi contatto per sostituire A con B
-        status:
-          $ref: '#/components/schemas/TicketStatus'
-        hasAttachments:
-          type: boolean
-          example: true
-        isFromAgent:
-          type: boolean
-          description: If true, this ticket was opened by an agent (not by the student)
-          example: false
-        agentId:
-          type:
-          - number
-          - 'null'
-        unreadCount:
-          type: number
-          example: 2
-        createdAt:
-          type: string
-          format: date-time
-          example: '2022-08-31T14:00:00Z'
-        updatedAt:
-          type: string
-          format: date-time
-          example: '2022-08-31T14:00:00Z'
-        replies:
-          type: array
-          items:
-            $ref: '#/components/schemas/TicketReply'
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/TicketAttachment'
   securitySchemes:
     BearerAuth:
       type: http

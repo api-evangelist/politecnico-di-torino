@@ -100,6 +100,13 @@ paths:
       - Announcements
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     AnnouncementScope:
       type: string
       enum:
@@ -149,13 +156,6 @@ components:
         scope: onboarding
         seen: false
         date: '2026-01-01T12:00:00Z'
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http

@@ -177,13 +177,6 @@ components:
           name: Computer sciences
           role: Collaboratore
           year: 2021
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
     PersonCourse:
       type: object
       required:
@@ -233,6 +226,13 @@ components:
       example:
         full: 0110907053
         internal: '7053'
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
   securitySchemes:
     BearerAuth:
       type: http

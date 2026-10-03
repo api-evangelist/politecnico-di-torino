@@ -570,6 +570,42 @@ paths:
       - Student
 components:
   schemas:
+    Notification:
+      type: object
+      required:
+      - id
+      - title
+      - message
+      - sentAt
+      - isRead
+      properties:
+        id:
+          type: number
+          example: 123
+        title:
+          type: string
+          example: Nuovo avviso da System and device programming
+        message:
+          type:
+          - string
+          - 'null'
+          example: Ricordati di...
+        scope:
+          type: array
+          items:
+            type: string
+          description: An array representing the hierarchical path to the object this notification is related to (replicates the navigation/modules structure)
+          example:
+          - courses
+          - '258674'
+          - notices
+        sentAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+        isRead:
+          type: boolean
+          example: false
     EuropeanStudentCard:
       type: object
       required:
@@ -605,32 +641,38 @@ components:
           - cardNumber
           - expiresAt
           - qrCode
-    Guide:
+    NotificationPreferences:
       type: object
       required:
-      - id
-      - listTitle
-      - title
-      - intro
-      - fields
-      - sections
+      - notices
+      - files
+      - lectures
+      - bookings
+      - tickets
       properties:
-        id:
+        notices:
+          type: boolean
+          example: true
+        files:
+          type: boolean
+          example: true
+        lectures:
+          type: boolean
+          example: true
+        bookings:
+          type: boolean
+          example: true
+        tickets:
+          type: boolean
+          example: true
+    EmailBadge:
+      type: object
+      required:
+      - unreadEmails
+      properties:
+        unreadEmails:
           type: string
-        listTitle:
-          type: string
-        title:
-          type: string
-        intro:
-          type: string
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/GuideField'
-        sections:
-          type: array
-          items:
-            $ref: '#/components/schemas/GuideSection'
+          example: 99+
     UpdatePreferencesRequest:
       type: object
       properties:
@@ -640,52 +682,69 @@ components:
           - it
           - en
           example: it
-    EmailBadge:
+    ExamGrade:
       type: object
       required:
-      - unreadEmails
+      - courseName
+      - credits
+      - grade
+      - date
+      - teacherId
+      - onTimeExamPoints
+      - shortcode
+      - academicYear
+      - creditsCountTowardsDegree
       properties:
-        unreadEmails:
+        courseName:
           type: string
-          example: 99+
-    Message:
-      type: object
-      required:
-      - id
-      - title
-      - message
-      - type
-      - senderId
-      - sentAt
-      - isRead
-      properties:
-        id:
+          example: System and device programming
+        credits:
           type: number
-          example: 123
-        title:
+          example: 10
+        grade:
           type: string
-          example: Nuovo avviso da System and device programming
-        message:
+          example: 30L
+        date:
+          type: string
+          format: date
+          example: '2022-07-15'
+        teacherId:
           type:
-          - string
+          - integer
           - 'null'
-          example: Ricordati di...
-        type:
-          allOf:
-          - $ref: '#/components/schemas/MessageType'
-          example: teacher
-        senderId:
+          example: 2893
+        onTimeExamPoints:
           type:
           - number
           - 'null'
-          example: 2893
-        sentAt:
+          description: Points for "on-time" exams - null the student is not eligible for on-time exams or the exam does not grant on-time points
+          example: 2
+        shortcode:
           type: string
-          format: date-time
-          example: '2022-08-31T14:00:00Z'
-        isRead:
+          example: 01NYHOV
+        academicYear:
+          type: integer
+          example: 2021
+        creditsCountTowardsDegree:
           type: boolean
-          example: false
+          description: Defines whether the credits from the exam count toward the total required for graduation
+          example: true
+    ProvisionalGradeState:
+      type: object
+      required:
+      - id
+      - name
+      - description
+      properties:
+        id:
+          type: string
+          example: published
+        name:
+          type: string
+          example: Pubblicata
+        description:
+          type: string
+          example: La valutazione è stata pubblicata dal docente
     GuideSection:
       type: object
       required:
@@ -698,6 +757,29 @@ components:
         content:
           type: string
           example: HTML content
+    MessageType:
+      type: string
+      enum:
+      - emergency
+      - event
+      - personal
+      - teacher
+      - secretariat
+      - exams
+      - mfa
+      example: secretariat
+    GuideField:
+      type: object
+      required:
+      - label
+      - value
+      properties:
+        label:
+          type: string
+        value:
+          type: string
+        isCopyEnabled:
+          type: boolean
     ProvisionalGrade:
       type: object
       required:
@@ -785,6 +867,30 @@ components:
           type: string
           format: date-time
           example: '2022-07-31T23:59:59Z'
+    Deadline:
+      type: object
+      required:
+      - name
+      - type
+      - url
+      - date
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+          example: Termine per l'iscrizione e pagamento della prima rata
+        type:
+          type: string
+          example: Iscrizioni e pagamento tasse
+        url:
+          type:
+          - string
+          - 'null'
+        date:
+          type: string
+          format: date
+          example: '2022-10-11'
     UpdateNotificationPreferencesRequest:
       type: object
       properties:
@@ -806,22 +912,6 @@ components:
             tickets:
               type: boolean
               example: true
-    ProvisionalGradeState:
-      type: object
-      required:
-      - id
-      - name
-      - description
-      properties:
-        id:
-          type: string
-          example: published
-        name:
-          type: string
-          example: Pubblicata
-        description:
-          type: string
-          example: La valutazione è stata pubblicata dal docente
     Student:
       type: object
       required:
@@ -961,100 +1051,6 @@ components:
           - 'null'
         europeanStudentCard:
           $ref: '#/components/schemas/EuropeanStudentCard'
-    Deadline:
-      type: object
-      required:
-      - name
-      - type
-      - url
-      - date
-      properties:
-        id:
-          type: number
-        name:
-          type: string
-          example: Termine per l'iscrizione e pagamento della prima rata
-        type:
-          type: string
-          example: Iscrizioni e pagamento tasse
-        url:
-          type:
-          - string
-          - 'null'
-        date:
-          type: string
-          format: date
-          example: '2022-10-11'
-    GuideField:
-      type: object
-      required:
-      - label
-      - value
-      properties:
-        label:
-          type: string
-        value:
-          type: string
-        isCopyEnabled:
-          type: boolean
-    ExamGrade:
-      type: object
-      required:
-      - courseName
-      - credits
-      - grade
-      - date
-      - teacherId
-      - onTimeExamPoints
-      - shortcode
-      - academicYear
-      - creditsCountTowardsDegree
-      properties:
-        courseName:
-          type: string
-          example: System and device programming
-        credits:
-          type: number
-          example: 10
-        grade:
-          type: string
-          example: 30L
-        date:
-          type: string
-          format: date
-          example: '2022-07-15'
-        teacherId:
-          type:
-          - integer
-          - 'null'
-          example: 2893
-        onTimeExamPoints:
-          type:
-          - number
-          - 'null'
-          description: Points for "on-time" exams - null the student is not eligible for on-time exams or the exam does not grant on-time points
-          example: 2
-        shortcode:
-          type: string
-          example: 01NYHOV
-        academicYear:
-          type: integer
-          example: 2021
-        creditsCountTowardsDegree:
-          type: boolean
-          description: Defines whether the credits from the exam count toward the total required for graduation
-          example: true
-    MessageType:
-      type: string
-      enum:
-      - emergency
-      - event
-      - personal
-      - teacher
-      - secretariat
-      - exams
-      - mfa
-      example: secretariat
     ErrorResponse:
       type: object
       properties:
@@ -1062,36 +1058,14 @@ components:
           type: integer
         message:
           type: string
-    NotificationPreferences:
-      type: object
-      required:
-      - notices
-      - files
-      - lectures
-      - bookings
-      - tickets
-      properties:
-        notices:
-          type: boolean
-          example: true
-        files:
-          type: boolean
-          example: true
-        lectures:
-          type: boolean
-          example: true
-        bookings:
-          type: boolean
-          example: true
-        tickets:
-          type: boolean
-          example: true
-    Notification:
+    Message:
       type: object
       required:
       - id
       - title
       - message
+      - type
+      - senderId
       - sentAt
       - isRead
       properties:
@@ -1106,15 +1080,15 @@ components:
           - string
           - 'null'
           example: Ricordati di...
-        scope:
-          type: array
-          items:
-            type: string
-          description: An array representing the hierarchical path to the object this notification is related to (replicates the navigation/modules structure)
-          example:
-          - courses
-          - '258674'
-          - notices
+        type:
+          allOf:
+          - $ref: '#/components/schemas/MessageType'
+          example: teacher
+        senderId:
+          type:
+          - number
+          - 'null'
+          example: 2893
         sentAt:
           type: string
           format: date-time
@@ -1122,6 +1096,32 @@ components:
         isRead:
           type: boolean
           example: false
+    Guide:
+      type: object
+      required:
+      - id
+      - listTitle
+      - title
+      - intro
+      - fields
+      - sections
+      properties:
+        id:
+          type: string
+        listTitle:
+          type: string
+        title:
+          type: string
+        intro:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/GuideField'
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/GuideSection'
   securitySchemes:
     BearerAuth:
       type: http

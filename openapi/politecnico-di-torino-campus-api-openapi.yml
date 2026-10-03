@@ -36,6 +36,15 @@ paths:
                 $ref: '#/components/schemas/RoomList'
 components:
   parameters:
+    Query:
+      name: q
+      in: query
+      required: true
+      description: Free-text search term. Required — the services return HTTP 500 without it.
+      schema:
+        type: string
+        minLength: 1
+      example: ingegneria
     Lang:
       name: _lang
       in: query
@@ -47,16 +56,12 @@ components:
         - it
         - en
         default: it
-    Query:
-      name: q
-      in: query
-      required: true
-      description: Free-text search term. Required — the services return HTTP 500 without it.
-      schema:
-        type: string
-        minLength: 1
-      example: ingegneria
   schemas:
+    RoomList:
+      type: array
+      description: Bare array, not an envelope.
+      items:
+        $ref: '#/components/schemas/Room'
     Room:
       type: object
       properties:
@@ -84,11 +89,6 @@ components:
         fl_id: XPTE
         rm_id: '003'
         rm_name: Aula Magna Lingotto
-    RoomList:
-      type: array
-      description: Bare array, not an envelope.
-      items:
-        $ref: '#/components/schemas/Room'
 x-operator: institution
 x-provenance:
   generated: '2026-08-30'
