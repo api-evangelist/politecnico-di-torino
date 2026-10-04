@@ -791,123 +791,38 @@ paths:
       - Courses
 components:
   schemas:
-    GuideSection:
+    CourseDirectoryEntry:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/CourseDirectory'
+      - $ref: '#/components/schemas/CourseFileOverview'
+      discriminator:
+        propertyName: type
+        mapping:
+          directory: '#/components/schemas/CourseDirectory'
+          file: '#/components/schemas/CourseFileOverview'
+    VirtualClassroomRecording:
       type: object
       required:
-      - title
-      - content
-      properties:
-        title:
-          type: string
-          example: Title
-        content:
-          type: string
-          example: HTML content
-    VideoLecture:
-      type: object
-      required:
-      - id
-      - title
-      - teacherId
-      - abstract
       - coverUrl
       - videoUrl
-      - audioUrl
-      - createdAt
       - duration
-      properties:
-        id:
-          type: integer
-        title:
-          type: string
-        teacherId:
-          type: integer
-        abstract:
-          type: string
-        coverUrl:
-          type: string
-        videoUrl:
-          type: string
-        audioUrl:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-        duration:
-          type: string
-    CoursePreferencesRequest:
-      type: object
-      properties:
-        notifications:
-          type: object
-          properties:
-            notices:
-              type: boolean
-              example: true
-            files:
-              type: boolean
-              example: true
-            lectures:
-              type: boolean
-              example: true
-    Lecture:
-      type: object
-      required:
-      - id
-      - startsAt
-      - endsAt
       - type
-      - virtualClassrooms
-      - description
-      - courseId
-      - courseName
-      - teacherId
-      - place
       properties:
-        id:
-          type: number
-        startsAt:
-          type: string
-          format: date-time
-        endsAt:
-          type: string
-          format: date-time
-        type:
-          type: string
-        virtualClassrooms:
-          type: array
-          items:
-            $ref: '#/components/schemas/RelatedVirtualClassroom'
-        description:
+        coverUrl:
           type:
           - string
           - 'null'
-        courseId:
-          type: integer
-        courseName:
+        videoUrl:
           type: string
-        teacherId:
-          type: integer
-          example: 150157
-        place:
-          $ref: '#/components/schemas/PlaceRef'
-    VirtualClassroomLive:
-      type: object
-      required:
-      - type
-      properties:
-        meetingId:
+        duration:
           type: string
         type:
           type: string
           enum:
-          - live
+          - recording
       allOf:
       - $ref: '#/components/schemas/VirtualClassroomBase'
-    CourseDirectoryContent:
-      type: array
-      items:
-        $ref: '#/components/schemas/CourseDirectoryEntry'
     CourseFileOverview:
       type: object
       required:
@@ -950,6 +865,52 @@ components:
         mimeType: application/pdf
         createdAt: '2024-06-01T10:00:00Z'
         checksum: deadbeefcafebabe0000000000000000
+    CourseAssignment:
+      type: object
+      required:
+      - id
+      - description
+      - mimeType
+      - filename
+      - uploadedAt
+      - deletedAt
+      - url
+      - sizeInKiloBytes
+      properties:
+        id:
+          type: integer
+          example: 947503
+        description:
+          type: string
+          example: laboratorio 3
+        mimeType:
+          type: string
+          example: application/x-zip-compressed
+        filename:
+          type: string
+          example: lab_03.zip
+        uploadedAt:
+          type: string
+          format: date-time
+          example: '2022-09-02T14:00:00Z'
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        url:
+          type: string
+          example: https://file.didattica.polito.it/down/ELABORATI_PRE/1003948/S290683/6791f0016c78599138828211522fa84d/62cebc94
+        sizeInKiloBytes:
+          type: integer
+          example: 305
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     CourseModule:
       type: object
       required:
@@ -1012,33 +973,21 @@ components:
         isOverBooking: false
         enrollmentRole: student
         year: '2025'
-    CourseDirectory:
+    CourseModuleOverview:
       type: object
       required:
-      - id
-      - name
-      - files
-      - type
+      - previousEditions
       properties:
-        id:
-          type: string
-        name:
-          type: string
-        files:
-          $ref: '#/components/schemas/CourseDirectoryContent'
-        type:
-          type: string
-          enum:
-          - directory
-      example:
-        name: Root
-        id: '1234'
-        type: directory
-        files:
-        - type: directory
-          id: '1'
-          name: Week 1
-          files: []
+        previousEditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CourseModuleEdition'
+          description: Previous editions of this course that were part of the student's PSP
+          example:
+          - id: 244577
+            year: '2021'
+      allOf:
+      - $ref: '#/components/schemas/CourseModule'
     CourseOverview:
       type: object
       required:
@@ -1056,116 +1005,6 @@ components:
             $ref: '#/components/schemas/CourseModuleOverview'
       allOf:
       - $ref: '#/components/schemas/CourseModuleOverview'
-    RelatedVirtualClassroom:
-      type: object
-      required:
-      - id
-      - title
-      properties:
-        id:
-          type: integer
-          example: 150157
-        title:
-          type: string
-          example: Lecture 1
-    PlaceRef:
-      type: object
-      required:
-      - buildingId
-      - floorId
-      - roomId
-      - siteId
-      - name
-      properties:
-        buildingId:
-          type: string
-        floorId:
-          type: string
-        roomId:
-          type: string
-        siteId:
-          type: string
-        name:
-          type: string
-    CourseEnrollmentRole:
-      type: string
-      enum:
-      - student
-      - viewer
-      - teacher
-      - collaborator
-    VirtualClassroomRecording:
-      type: object
-      required:
-      - coverUrl
-      - videoUrl
-      - duration
-      - type
-      properties:
-        coverUrl:
-          type:
-          - string
-          - 'null'
-        videoUrl:
-          type: string
-        duration:
-          type: string
-        type:
-          type: string
-          enum:
-          - recording
-      allOf:
-      - $ref: '#/components/schemas/VirtualClassroomBase'
-    CourseAssignment:
-      type: object
-      required:
-      - id
-      - description
-      - mimeType
-      - filename
-      - uploadedAt
-      - deletedAt
-      - url
-      - sizeInKiloBytes
-      properties:
-        id:
-          type: integer
-          example: 947503
-        description:
-          type: string
-          example: laboratorio 3
-        mimeType:
-          type: string
-          example: application/x-zip-compressed
-        filename:
-          type: string
-          example: lab_03.zip
-        uploadedAt:
-          type: string
-          format: date-time
-          example: '2022-09-02T14:00:00Z'
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        url:
-          type: string
-          example: https://file.didattica.polito.it/down/ELABORATI_PRE/1003948/S290683/6791f0016c78599138828211522fa84d/62cebc94
-        sizeInKiloBytes:
-          type: integer
-          example: 305
-    CourseAssignmentUpload:
-      type: object
-      properties:
-        description:
-          type: string
-        file:
-          type: string
-          format: binary
-      required:
-      - description
-      - file
     CourseNotices:
       type: object
       required:
@@ -1201,43 +1040,72 @@ components:
         id:
           type: integer
           example: 244577
-    VirtualClassroom:
+    VirtualClassroomLive:
       type: object
-      oneOf:
-      - $ref: '#/components/schemas/VirtualClassroomLive'
-      - $ref: '#/components/schemas/VirtualClassroomRecording'
-      discriminator:
-        propertyName: type
-        mapping:
-          live: '#/components/schemas/VirtualClassroomLive'
-          recording: '#/components/schemas/VirtualClassroomRecording'
-    UpdateAssignmentRequest:
-      type: object
+      required:
+      - type
       properties:
-        delivery:
-          type: boolean
-        state:
+        meetingId:
+          type: string
+        type:
           type: string
           enum:
-          - submitted
-          - uploaded
-    ErrorResponse:
+          - live
+      allOf:
+      - $ref: '#/components/schemas/VirtualClassroomBase'
+    Lecture:
       type: object
+      required:
+      - id
+      - startsAt
+      - endsAt
+      - type
+      - virtualClassrooms
+      - description
+      - courseId
+      - courseName
+      - teacherId
+      - place
       properties:
-        code:
-          type: integer
-        message:
+        id:
+          type: number
+        startsAt:
           type: string
-    CourseDirectoryEntry:
+          format: date-time
+        endsAt:
+          type: string
+          format: date-time
+        type:
+          type: string
+        virtualClassrooms:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedVirtualClassroom'
+        description:
+          type:
+          - string
+          - 'null'
+        courseId:
+          type: integer
+        courseName:
+          type: string
+        teacherId:
+          type: integer
+          example: 150157
+        place:
+          $ref: '#/components/schemas/PlaceRef'
+    RelatedVirtualClassroom:
       type: object
-      oneOf:
-      - $ref: '#/components/schemas/CourseDirectory'
-      - $ref: '#/components/schemas/CourseFileOverview'
-      discriminator:
-        propertyName: type
-        mapping:
-          directory: '#/components/schemas/CourseDirectory'
-          file: '#/components/schemas/CourseFileOverview'
+      required:
+      - id
+      - title
+      properties:
+        id:
+          type: integer
+          example: 150157
+        title:
+          type: string
+          example: Lecture 1
     Course:
       type: object
       required:
@@ -1335,21 +1203,16 @@ components:
             - id
       allOf:
       - $ref: '#/components/schemas/CourseModule'
-    CourseModuleOverview:
+    UpdateAssignmentRequest:
       type: object
-      required:
-      - previousEditions
       properties:
-        previousEditions:
-          type: array
-          items:
-            $ref: '#/components/schemas/CourseModuleEdition'
-          description: Previous editions of this course that were part of the student's PSP
-          example:
-          - id: 244577
-            year: '2021'
-      allOf:
-      - $ref: '#/components/schemas/CourseModule'
+        delivery:
+          type: boolean
+        state:
+          type: string
+          enum:
+          - submitted
+          - uploaded
     VirtualClassroomBase:
       type: object
       required:
@@ -1367,6 +1230,143 @@ components:
           format: date-time
         teacherId:
           type: integer
+    GuideSection:
+      type: object
+      required:
+      - title
+      - content
+      properties:
+        title:
+          type: string
+          example: Title
+        content:
+          type: string
+          example: HTML content
+    CourseAssignmentUpload:
+      type: object
+      properties:
+        description:
+          type: string
+        file:
+          type: string
+          format: binary
+      required:
+      - description
+      - file
+    VideoLecture:
+      type: object
+      required:
+      - id
+      - title
+      - teacherId
+      - abstract
+      - coverUrl
+      - videoUrl
+      - audioUrl
+      - createdAt
+      - duration
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        teacherId:
+          type: integer
+        abstract:
+          type: string
+        coverUrl:
+          type: string
+        videoUrl:
+          type: string
+        audioUrl:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        duration:
+          type: string
+    CourseDirectory:
+      type: object
+      required:
+      - id
+      - name
+      - files
+      - type
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        files:
+          $ref: '#/components/schemas/CourseDirectoryContent'
+        type:
+          type: string
+          enum:
+          - directory
+      example:
+        name: Root
+        id: '1234'
+        type: directory
+        files:
+        - type: directory
+          id: '1'
+          name: Week 1
+          files: []
+    CourseDirectoryContent:
+      type: array
+      items:
+        $ref: '#/components/schemas/CourseDirectoryEntry'
+    CoursePreferencesRequest:
+      type: object
+      properties:
+        notifications:
+          type: object
+          properties:
+            notices:
+              type: boolean
+              example: true
+            files:
+              type: boolean
+              example: true
+            lectures:
+              type: boolean
+              example: true
+    CourseEnrollmentRole:
+      type: string
+      enum:
+      - student
+      - viewer
+      - teacher
+      - collaborator
+    PlaceRef:
+      type: object
+      required:
+      - buildingId
+      - floorId
+      - roomId
+      - siteId
+      - name
+      properties:
+        buildingId:
+          type: string
+        floorId:
+          type: string
+        roomId:
+          type: string
+        siteId:
+          type: string
+        name:
+          type: string
+    VirtualClassroom:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/VirtualClassroomLive'
+      - $ref: '#/components/schemas/VirtualClassroomRecording'
+      discriminator:
+        propertyName: type
+        mapping:
+          live: '#/components/schemas/VirtualClassroomLive'
+          recording: '#/components/schemas/VirtualClassroomRecording'
   securitySchemes:
     BearerAuth:
       type: http

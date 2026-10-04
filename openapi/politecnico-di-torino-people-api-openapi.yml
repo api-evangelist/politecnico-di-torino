@@ -95,38 +95,6 @@ paths:
       - People
 components:
   schemas:
-    PersonOverview:
-      type: object
-      required:
-      - id
-      - firstName
-      - lastName
-      - picture
-      - role
-      properties:
-        id:
-          type: number
-          example: 2154
-        firstName:
-          type: string
-          example: Fulvio
-        lastName:
-          type: string
-          example: Corno
-        picture:
-          type:
-          - string
-          - 'null'
-          example: https://www.swas.polito.it/_library/image_pub.asp?matricola=002154
-        role:
-          type: string
-          example: Docente
-      example:
-        id: 2154
-        firstName: Fulvio
-        lastName: Corno
-        picture: https://www.swas.polito.it/_library/image_pub.asp?matricola=002154
-        role: Docente
     Person:
       type: object
       required:
@@ -226,6 +194,38 @@ components:
       example:
         full: 0110907053
         internal: '7053'
+    PersonOverview:
+      type: object
+      required:
+      - id
+      - firstName
+      - lastName
+      - picture
+      - role
+      properties:
+        id:
+          type: number
+          example: 2154
+        firstName:
+          type: string
+          example: Fulvio
+        lastName:
+          type: string
+          example: Corno
+        picture:
+          type:
+          - string
+          - 'null'
+          example: https://www.swas.polito.it/_library/image_pub.asp?matricola=002154
+        role:
+          type: string
+          example: Docente
+      example:
+        id: 2154
+        firstName: Fulvio
+        lastName: Corno
+        picture: https://www.swas.polito.it/_library/image_pub.asp?matricola=002154
+        role: Docente
     ErrorResponse:
       type: object
       properties:

@@ -188,19 +188,19 @@ paths:
               $ref: '#/components/schemas/RescheduleExamRequest'
 components:
   schemas:
-    BookExamRequest:
+    RescheduleExamRequest:
       type: object
       required:
       - courseShortcode
+      - requestReason
+      - requestDetails
       properties:
         courseShortcode:
           type: string
           example: 01UDROV
-        questionId:
-          type: integer
-        questionOption:
-          type: integer
         requestReason:
+          type: string
+        requestDetails:
           type: string
     Exam:
       type: object
@@ -332,19 +332,19 @@ components:
           type: string
         name:
           type: string
-    RescheduleExamRequest:
+    BookExamRequest:
       type: object
       required:
       - courseShortcode
-      - requestReason
-      - requestDetails
       properties:
         courseShortcode:
           type: string
           example: 01UDROV
+        questionId:
+          type: integer
+        questionOption:
+          type: integer
         requestReason:
-          type: string
-        requestDetails:
           type: string
     ErrorResponse:
       type: object

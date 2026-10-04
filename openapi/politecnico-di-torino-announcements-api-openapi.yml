@@ -100,6 +100,11 @@ paths:
       - Announcements
 components:
   schemas:
+    AnnouncementScope:
+      type: string
+      enum:
+      - onboarding
+      - appInfo
     ErrorResponse:
       type: object
       properties:
@@ -107,11 +112,6 @@ components:
           type: integer
         message:
           type: string
-    AnnouncementScope:
-      type: string
-      enum:
-      - onboarding
-      - appInfo
     Announcement:
       type: object
       required:

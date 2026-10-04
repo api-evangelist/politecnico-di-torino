@@ -52,6 +52,21 @@ paths:
       - Surveys
 components:
   schemas:
+    SurveyTaxonomy:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          example: CPD
+        name:
+          type: string
+          example: CPD
+      example:
+        id: CPD
+        name: CPD
     SurveyCourseRef:
       type: object
       required:
@@ -168,21 +183,6 @@ components:
           type: integer
         message:
           type: string
-    SurveyTaxonomy:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          example: CPD
-        name:
-          type: string
-          example: CPD
-      example:
-        id: CPD
-        name: CPD
   securitySchemes:
     BearerAuth:
       type: http

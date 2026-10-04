@@ -57,11 +57,6 @@ components:
         - en
         default: it
   schemas:
-    RoomList:
-      type: array
-      description: Bare array, not an envelope.
-      items:
-        $ref: '#/components/schemas/Room'
     Room:
       type: object
       properties:
@@ -89,6 +84,11 @@ components:
         fl_id: XPTE
         rm_id: '003'
         rm_name: Aula Magna Lingotto
+    RoomList:
+      type: array
+      description: Bare array, not an envelope.
+      items:
+        $ref: '#/components/schemas/Room'
 x-operator: institution
 x-provenance:
   generated: '2026-08-30'

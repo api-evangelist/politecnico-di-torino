@@ -88,13 +88,71 @@ paths:
       - News
 components:
   schemas:
-    ErrorResponse:
+    NewsItem:
       type: object
+      required:
+      - location
+      - htmlContent
+      - extras
       properties:
-        code:
-          type: integer
-        message:
+        location:
           type: string
+          example: Energy Center - Via Paolo Borsellino 38, Torino
+        htmlContent:
+          type: string
+          example: Martedì <strong>18 aprile 2023 - </strong>presso l'<strong>Auditorium dell'Energy Center del Politecnico</strong>...
+        extras:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsItemExtra'
+      allOf:
+      - $ref: '#/components/schemas/NewsItemOverview'
+      example:
+        id: 123
+        title: Partecipazione, co-progettazione e impatto sociale. Sfide e opportunità per l'inclusione sociale
+        isEvent: false
+        shortDescription: Seminario di presentazione del progetto
+        eventStartTime: Dal 30 agosto 2023
+        eventEndTime: Al 30 agosto 2023
+        createdAt: '2022-08-31T14:00:00Z'
+        location: Energy Center - Via Paolo Borsellino 38, Torino
+        htmlContent: Martedì <strong>18 aprile 2023 - </strong>presso l'<strong>Auditorium dell'Energy Center del Politecnico</strong>...
+        extras:
+        - url: https://
+          description: Bando
+          type: image
+          sizeInKiloBytes: 305
+    NewsItemExtra:
+      type: object
+      required:
+      - url
+      - description
+      - type
+      - sizeInKiloBytes
+      properties:
+        url:
+          type: string
+          example: https://
+        description:
+          type: string
+          example: Bando
+        type:
+          type: string
+          enum:
+          - link
+          - file
+          - image
+          example: image
+        sizeInKiloBytes:
+          type:
+          - integer
+          - 'null'
+          example: 305
+      example:
+        url: https://
+        description: Bando
+        type: image
+        sizeInKiloBytes: 305
     NewsItemOverview:
       type: object
       required:
@@ -140,71 +198,13 @@ components:
         eventStartTime: Dal 30 agosto 2023
         eventEndTime: Al 30 agosto 2023
         createdAt: '2022-08-31T14:00:00Z'
-    NewsItemExtra:
+    ErrorResponse:
       type: object
-      required:
-      - url
-      - description
-      - type
-      - sizeInKiloBytes
       properties:
-        url:
+        code:
+          type: integer
+        message:
           type: string
-          example: https://
-        description:
-          type: string
-          example: Bando
-        type:
-          type: string
-          enum:
-          - link
-          - file
-          - image
-          example: image
-        sizeInKiloBytes:
-          type:
-          - integer
-          - 'null'
-          example: 305
-      example:
-        url: https://
-        description: Bando
-        type: image
-        sizeInKiloBytes: 305
-    NewsItem:
-      type: object
-      required:
-      - location
-      - htmlContent
-      - extras
-      properties:
-        location:
-          type: string
-          example: Energy Center - Via Paolo Borsellino 38, Torino
-        htmlContent:
-          type: string
-          example: Martedì <strong>18 aprile 2023 - </strong>presso l'<strong>Auditorium dell'Energy Center del Politecnico</strong>...
-        extras:
-          type: array
-          items:
-            $ref: '#/components/schemas/NewsItemExtra'
-      allOf:
-      - $ref: '#/components/schemas/NewsItemOverview'
-      example:
-        id: 123
-        title: Partecipazione, co-progettazione e impatto sociale. Sfide e opportunità per l'inclusione sociale
-        isEvent: false
-        shortDescription: Seminario di presentazione del progetto
-        eventStartTime: Dal 30 agosto 2023
-        eventEndTime: Al 30 agosto 2023
-        createdAt: '2022-08-31T14:00:00Z'
-        location: Energy Center - Via Paolo Borsellino 38, Torino
-        htmlContent: Martedì <strong>18 aprile 2023 - </strong>presso l'<strong>Auditorium dell'Energy Center del Politecnico</strong>...
-        extras:
-        - url: https://
-          description: Bando
-          type: image
-          sizeInKiloBytes: 305
   securitySchemes:
     BearerAuth:
       type: http

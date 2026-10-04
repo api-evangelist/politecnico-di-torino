@@ -374,70 +374,6 @@ paths:
       - Places
 components:
   schemas:
-    Department:
-      type: object
-      required:
-      - id
-      - name
-      - type
-      properties:
-        id:
-          type: string
-        name:
-          type:
-          - string
-          - 'null'
-        type:
-          type: string
-    PlaceOverview:
-      type: object
-      required:
-      - latitude
-      - longitude
-      - id
-      - room
-      - category
-      - site
-      - building
-      - floor
-      - department
-      properties:
-        latitude:
-          type: number
-          example: 45.064254
-        longitude:
-          type: number
-          example: 7.657823
-        id:
-          type: string
-        room:
-          type: object
-          properties:
-            id:
-              type: string
-            name:
-              type: string
-          required:
-          - id
-          - name
-        category:
-          $ref: '#/components/schemas/PlaceCategoryOverview'
-        site:
-          type: object
-          properties:
-            id:
-              type: string
-            name:
-              type: string
-          required:
-          - id
-          - name
-        building:
-          $ref: '#/components/schemas/BuildingOverview'
-        floor:
-          $ref: '#/components/schemas/Floor'
-        department:
-          $ref: '#/components/schemas/Department'
     Site:
       type: object
       required:
@@ -478,32 +414,6 @@ components:
           description: 'A delta in degrees that applied to the centroid
 
             coordinates of the site determines its extent'
-    Building:
-      type: object
-      required:
-      - id
-      - name
-      - siteId
-      - category
-      - latitude
-      - longitude
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        siteId:
-          type: string
-        category:
-          $ref: '#/components/schemas/PlaceCategoryOverview'
-        geoJson:
-          $ref: '#/components/schemas/GeoJsonPolygon'
-        latitude:
-          type: number
-          example: 45.064254
-        longitude:
-          type: number
-          example: 7.657823
     Place:
       type: object
       required:
@@ -599,6 +509,159 @@ components:
             - name
             - description
             - category
+    PlaceCategoryOverview:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          example: AULA
+        name:
+          type: string
+          example: Aula
+        showInMenu:
+          type: boolean
+        color:
+          type: string
+          example: lightBlue
+          default: gray
+        markerUrl:
+          type: string
+          format: url
+        priority:
+          type: number
+          description: A MapBox style priority number. 0 means most important, larger numbers are less important
+          example: 60
+          default: 100
+        highlighted:
+          type: boolean
+          description: If true, markers of this category should be shown initially on the map
+          example: false
+        subCategory:
+          $ref: '#/components/schemas/PlaceCategory'
+    PlaceOverview:
+      type: object
+      required:
+      - latitude
+      - longitude
+      - id
+      - room
+      - category
+      - site
+      - building
+      - floor
+      - department
+      properties:
+        latitude:
+          type: number
+          example: 45.064254
+        longitude:
+          type: number
+          example: 7.657823
+        id:
+          type: string
+        room:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+          required:
+          - id
+          - name
+        category:
+          $ref: '#/components/schemas/PlaceCategoryOverview'
+        site:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+          required:
+          - id
+          - name
+        building:
+          $ref: '#/components/schemas/BuildingOverview'
+        floor:
+          $ref: '#/components/schemas/Floor'
+        department:
+          $ref: '#/components/schemas/Department'
+    Department:
+      type: object
+      required:
+      - id
+      - name
+      - type
+      properties:
+        id:
+          type: string
+        name:
+          type:
+          - string
+          - 'null'
+        type:
+          type: string
+    GeoJsonPolygon:
+      type: object
+      required:
+      - type
+      - geometry
+      properties:
+        type:
+          type: string
+          enum:
+          - Feature
+        geometry:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - Polygon
+            coordinates:
+              type: array
+              items:
+                type: array
+                items:
+                  type: array
+                  items:
+                    type: number
+          required:
+          - type
+          - coordinates
+    FreeRoom:
+      type: object
+      required:
+      - buildingId
+      - floorId
+      - roomId
+      - siteId
+      - name
+      - freeFrom
+      - freeTo
+      properties:
+        buildingId:
+          type: string
+        floorId:
+          type: string
+        roomId:
+          type: string
+        siteId:
+          type: string
+        name:
+          type: string
+        id:
+          type: string
+        freeFrom:
+          type: string
+          format: date-time
+        freeTo:
+          type: string
+          format: date-time
     RootPlaceCategory:
       type: object
       required:
@@ -633,6 +696,57 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PlaceCategory'
+    BuildingOverview:
+      type: object
+      required:
+      - id
+      - name
+      - siteId
+      - category
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        siteId:
+          type: string
+        category:
+          $ref: '#/components/schemas/PlaceCategoryOverview'
+        geoJson:
+          $ref: '#/components/schemas/GeoJsonPolygon'
+    Building:
+      type: object
+      required:
+      - id
+      - name
+      - siteId
+      - category
+      - latitude
+      - longitude
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        siteId:
+          type: string
+        category:
+          $ref: '#/components/schemas/PlaceCategoryOverview'
+        geoJson:
+          $ref: '#/components/schemas/GeoJsonPolygon'
+        latitude:
+          type: number
+          example: 45.064254
+        longitude:
+          type: number
+          example: 7.657823
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     Floor:
       type: object
       required:
@@ -646,38 +760,6 @@ components:
           type: string
         level:
           type: number
-    PlaceCategoryOverview:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          example: AULA
-        name:
-          type: string
-          example: Aula
-        showInMenu:
-          type: boolean
-        color:
-          type: string
-          example: lightBlue
-          default: gray
-        markerUrl:
-          type: string
-          format: url
-        priority:
-          type: number
-          description: A MapBox style priority number. 0 means most important, larger numbers are less important
-          example: 60
-          default: 100
-        highlighted:
-          type: boolean
-          description: If true, markers of this category should be shown initially on the map
-          example: false
-        subCategory:
-          $ref: '#/components/schemas/PlaceCategory'
     PlaceCategory:
       type: object
       required:
@@ -715,88 +797,6 @@ components:
         color: lightBlue
         priority: 60
         highlighted: false
-    BuildingOverview:
-      type: object
-      required:
-      - id
-      - name
-      - siteId
-      - category
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        siteId:
-          type: string
-        category:
-          $ref: '#/components/schemas/PlaceCategoryOverview'
-        geoJson:
-          $ref: '#/components/schemas/GeoJsonPolygon'
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-    FreeRoom:
-      type: object
-      required:
-      - buildingId
-      - floorId
-      - roomId
-      - siteId
-      - name
-      - freeFrom
-      - freeTo
-      properties:
-        buildingId:
-          type: string
-        floorId:
-          type: string
-        roomId:
-          type: string
-        siteId:
-          type: string
-        name:
-          type: string
-        id:
-          type: string
-        freeFrom:
-          type: string
-          format: date-time
-        freeTo:
-          type: string
-          format: date-time
-    GeoJsonPolygon:
-      type: object
-      required:
-      - type
-      - geometry
-      properties:
-        type:
-          type: string
-          enum:
-          - Feature
-        geometry:
-          type: object
-          properties:
-            type:
-              type: string
-              enum:
-              - Polygon
-            coordinates:
-              type: array
-              items:
-                type: array
-                items:
-                  type: array
-                  items:
-                    type: number
-          required:
-          - type
-          - coordinates
   securitySchemes:
     BearerAuth:
       type: http

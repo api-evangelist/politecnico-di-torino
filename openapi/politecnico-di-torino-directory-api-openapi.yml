@@ -72,76 +72,28 @@ paths:
         '500':
           $ref: '#/components/responses/MissingQuery'
 components:
+  parameters:
+    Query:
+      name: q
+      in: query
+      required: true
+      description: Free-text search term. Required — the services return HTTP 500 without it.
+      schema:
+        type: string
+        minLength: 1
+      example: ingegneria
+    Lang:
+      name: _lang
+      in: query
+      required: false
+      description: Response language for localized fields. Observed values `it` and `en`. The teachings service echoes this back as `lang` rather than `_lang`.
+      schema:
+        type: string
+        enum:
+        - it
+        - en
+        default: it
   schemas:
-    Department:
-      type: object
-      properties:
-        cod_struttura:
-          type: string
-          description: Internal structure code
-          e.g. D1090.: null
-        desc_struttura:
-          type: string
-          description: Italian name.
-        desc_struttura_en:
-          type: string
-          description: English name.
-        home_page_struttura:
-          type: string
-          format: uri
-          description: Department website.
-      example:
-        cod_struttura: D1030
-        desc_struttura: Dipartimento di Ingegneria Gestionale e della Produzione
-        desc_struttura_en: Department of Management and Production Engineering
-        home_page_struttura: http://www.digep.polito.it/
-    Pagination:
-      type: object
-      description: 'Paging envelope echoed by the directory services. NOTE: `current_page` and `page_size` were observed to echo back the defaults 1 and 5 regardless of the values supplied, so paging appears to be advertised but not honored. `total` is the true match count and is larger than the number of elements returned.'
-      properties:
-        q:
-          type: string
-          description: The search term as received.
-        current_page:
-          type: integer
-          description: Always observed as 1.
-        page_size:
-          type: integer
-          description: Always observed as 5.
-        total:
-          type: integer
-          description: Total matches found
-          not the number returned.: null
-    TeachingsResponse:
-      allOf:
-      - $ref: '#/components/schemas/Pagination'
-      - type: object
-        properties:
-          lang:
-            type: string
-            description: The language as received. Named `lang`
-            not `_lang`.: null
-          teachings:
-            type: array
-            items:
-              $ref: '#/components/schemas/Teaching'
-    Teaching:
-      type: object
-      properties:
-        cod_ins:
-          type: string
-          description: Course code.
-        titolo_materia:
-          type: string
-          description: Italian course title.
-        nome_ins_eng:
-          type: string
-          description: English course title
-          often identical to the Italian.: null
-      example:
-        cod_ins: 01ABCDE
-        titolo_materia: Esempio di insegnamento
-        nome_ins_eng: Example teaching
     Person:
       type: object
       description: A member of university staff. Contains personal data about a named individual.
@@ -190,6 +142,98 @@ components:
           email: esempio.docente@polito.it
         foto: ''
         total: 0
+    PeopleResponse:
+      type: object
+      description: Staff search result. Unlike the department and teaching services this response carries no `q`, `current_page` or `page_size` envelope fields.
+      properties:
+        total:
+          type: integer
+          description: Total matching people.
+        people:
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+    Department:
+      type: object
+      properties:
+        cod_struttura:
+          type: string
+          description: Internal structure code
+          e.g. D1090.: null
+        desc_struttura:
+          type: string
+          description: Italian name.
+        desc_struttura_en:
+          type: string
+          description: English name.
+        home_page_struttura:
+          type: string
+          format: uri
+          description: Department website.
+      example:
+        cod_struttura: D1030
+        desc_struttura: Dipartimento di Ingegneria Gestionale e della Produzione
+        desc_struttura_en: Department of Management and Production Engineering
+        home_page_struttura: http://www.digep.polito.it/
+    Teaching:
+      type: object
+      properties:
+        cod_ins:
+          type: string
+          description: Course code.
+        titolo_materia:
+          type: string
+          description: Italian course title.
+        nome_ins_eng:
+          type: string
+          description: English course title
+          often identical to the Italian.: null
+      example:
+        cod_ins: 01ABCDE
+        titolo_materia: Esempio di insegnamento
+        nome_ins_eng: Example teaching
+    TeachingsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Pagination'
+      - type: object
+        properties:
+          lang:
+            type: string
+            description: The language as received. Named `lang`
+            not `_lang`.: null
+          teachings:
+            type: array
+            items:
+              $ref: '#/components/schemas/Teaching'
+    DepartmentsResponse:
+      allOf:
+      - $ref: '#/components/schemas/Pagination'
+      - type: object
+        properties:
+          _lang:
+            type: string
+            description: The language as received.
+          departments:
+            type: array
+            items:
+              $ref: '#/components/schemas/Department'
+    Pagination:
+      type: object
+      description: 'Paging envelope echoed by the directory services. NOTE: `current_page` and `page_size` were observed to echo back the defaults 1 and 5 regardless of the values supplied, so paging appears to be advertised but not honored. `total` is the true match count and is larger than the number of elements returned.'
+      properties:
+        q:
+          type: string
+          description: The search term as received.
+        current_page:
+          type: integer
+          description: Always observed as 1.
+        page_size:
+          type: integer
+          description: Always observed as 5.
+        total:
+          type: integer
+          description: Total matches found
+          not the number returned.: null
     Position:
       type: object
       description: An appointment held by a member of staff.
@@ -221,50 +265,6 @@ components:
           type: string
           format: uri
           description: Department website.
-    PeopleResponse:
-      type: object
-      description: Staff search result. Unlike the department and teaching services this response carries no `q`, `current_page` or `page_size` envelope fields.
-      properties:
-        total:
-          type: integer
-          description: Total matching people.
-        people:
-          type: array
-          items:
-            $ref: '#/components/schemas/Person'
-    DepartmentsResponse:
-      allOf:
-      - $ref: '#/components/schemas/Pagination'
-      - type: object
-        properties:
-          _lang:
-            type: string
-            description: The language as received.
-          departments:
-            type: array
-            items:
-              $ref: '#/components/schemas/Department'
-  parameters:
-    Query:
-      name: q
-      in: query
-      required: true
-      description: Free-text search term. Required — the services return HTTP 500 without it.
-      schema:
-        type: string
-        minLength: 1
-      example: ingegneria
-    Lang:
-      name: _lang
-      in: query
-      required: false
-      description: Response language for localized fields. Observed values `it` and `en`. The teachings service echoes this back as `lang` rather than `_lang`.
-      schema:
-        type: string
-        enum:
-        - it
-        - en
-        default: it
   responses:
     MissingQuery:
       description: Returned when the required `q` parameter is absent. The services emit a server error rather than a 400, and the body is not JSON.
