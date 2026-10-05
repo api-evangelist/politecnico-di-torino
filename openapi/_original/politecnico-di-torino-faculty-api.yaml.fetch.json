@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/polito/api-spec/master/dist/clients/faculty/openapi.yaml",
+ "requested_url": "https://raw.githubusercontent.com/polito/api-spec/master/dist/clients/faculty/openapi.yaml",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 152487,
+ "sha256": "b7eb050dcc9995fbe997367b3238a0cdb0386d6bab24ec0246c225c4d8f22398",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.9), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
