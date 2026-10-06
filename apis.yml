@@ -84,7 +84,7 @@ tags:
 - Mobile
 - OpenAPI
 created: '2026-06-03'
-modified: '2026-08-30'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: politecnico-di-torino:students-app
@@ -671,6 +671,8 @@ apis:
   - type: x-conformance
     url: conformance/politecnico-di-torino-conformance.yml
 common:
+- url: https://www.polito.it/rss.xml
+  type: BlogRSS
 - type: CapabilityMap
   url: capabilities/politecnico-di-torino-capability-edges.yml
   name: Politecnico di Torino Business Capability Map
