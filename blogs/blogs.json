@@ -1,0 +1,14 @@
+{
+  "repo": "politecnico-di-torino",
+  "feeds": [
+    {
+      "source": "https://www.polito.it/rss.xml",
+      "feed_url": "https://www.polito.it/rss.xml",
+      "title": "",
+      "saved": 10,
+      "method": "feed"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-10-10T13:15:00Z"
+}
