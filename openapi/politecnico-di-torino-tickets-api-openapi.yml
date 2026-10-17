@@ -418,67 +418,21 @@ paths:
       - Tickets
 components:
   schemas:
-    TicketReply:
+    TicketSubtopic:
       type: object
       required:
       - id
-      - message
-      - isFromAgent
-      - agentId
-      - isRead
-      - createdAt
-      - attachments
+      - name
       properties:
         id:
           type: number
-          example: 1145890
-        message:
+          example: 103
+        name:
           type: string
-          example: Non si può fare.
-        isFromAgent:
-          type: boolean
-          description: If true, this reply was sent by an agent (not by the student)
-          example: true
-        agentId:
-          anyOf:
-          - allOf:
-            - $ref: '#/components/schemas/TicketSpecialAgent'
-          - type:
-            - number
-            - 'null'
-          example: 351
-        needsFeedback:
-          type: boolean
-          example: false
-        isRead:
-          type: boolean
-          example: true
-        createdAt:
-          type: string
-          format: date-time
-          example: '2022-08-31T14:00:00Z'
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/TicketAttachment'
+          example: Accesso studenti esterni
       example:
-        id: 1145890
-        message: Non si può fare.
-        isFromAgent: true
-        agentId: 351
-        isRead: true
-        createdAt: '2022-08-31T14:00:00Z'
-        attachments: []
-    ReplyTicketRequest:
-      type: object
-      properties:
-        message:
-          type: string
-        attachment:
-          type: string
-          format: binary
-      required:
-      - message
+        id: 103
+        name: Accesso studenti esterni
     CreateTicketRequest:
       type: object
       properties:
@@ -495,31 +449,79 @@ components:
       - subject
       - message
       - subtopicId
-    TicketAttachment:
+    Ticket:
       type: object
       required:
       - id
-      - filename
-      - mimeType
-      - sizeInKiloBytes
+      - subject
+      - message
+      - status
+      - hasAttachments
+      - isFromAgent
+      - agentId
+      - unreadCount
+      - createdAt
+      - updatedAt
+      - replies
+      - attachments
       properties:
         id:
           type: number
-          example: 0
-        filename:
+          example: 1145890
+        subject:
           type: string
-          example: screenshot.png
-        mimeType:
+          example: Sostituzione esame in piano carriera
+        message:
           type: string
-          example: image/png
-        sizeInKiloBytes:
-          type: integer
-          example: 305
-      example:
-        id: 0
-        filename: screenshot.png
-        mimeType: image/png
-        sizeInKiloBytes: 305
+          example: Buongiorno, vi contatto per sostituire A con B
+        status:
+          $ref: '#/components/schemas/TicketStatus'
+        hasAttachments:
+          type: boolean
+          example: true
+        isFromAgent:
+          type: boolean
+          description: If true, this ticket was opened by an agent (not by the student)
+          example: false
+        agentId:
+          type:
+          - number
+          - 'null'
+        unreadCount:
+          type: number
+          example: 2
+        createdAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2022-08-31T14:00:00Z'
+        replies:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketReply'
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketAttachment'
+    ReplyTicketRequest:
+      type: object
+      properties:
+        message:
+          type: string
+        attachment:
+          type: string
+          format: binary
+      required:
+      - message
+    TicketStatus:
+      type: string
+      enum:
+      - new
+      - pending
+      - closed
     TicketFAQ:
       type: object
       required:
@@ -540,28 +542,6 @@ components:
         id: 3623
         question: Ho dimenticato il mio nome utente e/o la password e non riesco più ad accedere ad Apply@Polito. Come posso fare?
         answer: Clicca sul link &quot;<u>Codice e/o Password dimenticata</u>?&quot; presente sulla pagina di <a href="https://didattica.polito.it/pls/portal30/sviluppo.pkg_apply.login?p_lang=IT">Log-in</a>&nbsp;e segui le istruzioni.
-    TicketSubtopic:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: number
-          example: 103
-        name:
-          type: string
-          example: Accesso studenti esterni
-      example:
-        id: 103
-        name: Accesso studenti esterni
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
     TicketOverview:
       type: object
       required:
@@ -620,63 +600,68 @@ components:
         unreadCount: 2
         createdAt: '2022-08-31T14:00:00Z'
         updatedAt: '2022-08-31T14:00:00Z'
-    Ticket:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    TicketSpecialAgent:
+      type: string
+      enum:
+      - AIAgent
+    TicketReply:
       type: object
       required:
       - id
-      - subject
       - message
-      - status
-      - hasAttachments
       - isFromAgent
       - agentId
-      - unreadCount
+      - isRead
       - createdAt
-      - updatedAt
-      - replies
       - attachments
       properties:
         id:
           type: number
           example: 1145890
-        subject:
-          type: string
-          example: Sostituzione esame in piano carriera
         message:
           type: string
-          example: Buongiorno, vi contatto per sostituire A con B
-        status:
-          $ref: '#/components/schemas/TicketStatus'
-        hasAttachments:
-          type: boolean
-          example: true
+          example: Non si può fare.
         isFromAgent:
           type: boolean
-          description: If true, this ticket was opened by an agent (not by the student)
-          example: false
+          description: If true, this reply was sent by an agent (not by the student)
+          example: true
         agentId:
-          type:
-          - number
-          - 'null'
-        unreadCount:
-          type: number
-          example: 2
+          anyOf:
+          - allOf:
+            - $ref: '#/components/schemas/TicketSpecialAgent'
+          - type:
+            - number
+            - 'null'
+          example: 351
+        needsFeedback:
+          type: boolean
+          example: false
+        isRead:
+          type: boolean
+          example: true
         createdAt:
           type: string
           format: date-time
           example: '2022-08-31T14:00:00Z'
-        updatedAt:
-          type: string
-          format: date-time
-          example: '2022-08-31T14:00:00Z'
-        replies:
-          type: array
-          items:
-            $ref: '#/components/schemas/TicketReply'
         attachments:
           type: array
           items:
             $ref: '#/components/schemas/TicketAttachment'
+      example:
+        id: 1145890
+        message: Non si può fare.
+        isFromAgent: true
+        agentId: 351
+        isRead: true
+        createdAt: '2022-08-31T14:00:00Z'
+        attachments: []
     TicketTopic:
       type: object
       required:
@@ -700,16 +685,31 @@ components:
         subtopics:
         - id: 103
           name: Accesso studenti esterni
-    TicketSpecialAgent:
-      type: string
-      enum:
-      - AIAgent
-    TicketStatus:
-      type: string
-      enum:
-      - new
-      - pending
-      - closed
+    TicketAttachment:
+      type: object
+      required:
+      - id
+      - filename
+      - mimeType
+      - sizeInKiloBytes
+      properties:
+        id:
+          type: number
+          example: 0
+        filename:
+          type: string
+          example: screenshot.png
+        mimeType:
+          type: string
+          example: image/png
+        sizeInKiloBytes:
+          type: integer
+          example: 305
+      example:
+        id: 0
+        filename: screenshot.png
+        mimeType: image/png
+        sizeInKiloBytes: 305
   securitySchemes:
     BearerAuth:
       type: http

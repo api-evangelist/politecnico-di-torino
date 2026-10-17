@@ -570,109 +570,6 @@ paths:
       - Student
 components:
   schemas:
-    Guide:
-      type: object
-      required:
-      - id
-      - listTitle
-      - title
-      - intro
-      - fields
-      - sections
-      properties:
-        id:
-          type: string
-        listTitle:
-          type: string
-        title:
-          type: string
-        intro:
-          type: string
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/GuideField'
-        sections:
-          type: array
-          items:
-            $ref: '#/components/schemas/GuideSection'
-    EmailBadge:
-      type: object
-      required:
-      - unreadEmails
-      properties:
-        unreadEmails:
-          type: string
-          example: 99+
-    UpdatePreferencesRequest:
-      type: object
-      properties:
-        language:
-          type: string
-          enum:
-          - it
-          - en
-          example: it
-    Deadline:
-      type: object
-      required:
-      - name
-      - type
-      - url
-      - date
-      properties:
-        id:
-          type: number
-        name:
-          type: string
-          example: Termine per l'iscrizione e pagamento della prima rata
-        type:
-          type: string
-          example: Iscrizioni e pagamento tasse
-        url:
-          type:
-          - string
-          - 'null'
-        date:
-          type: string
-          format: date
-          example: '2022-10-11'
-    GuideSection:
-      type: object
-      required:
-      - title
-      - content
-      properties:
-        title:
-          type: string
-          example: Title
-        content:
-          type: string
-          example: HTML content
-    NotificationPreferences:
-      type: object
-      required:
-      - notices
-      - files
-      - lectures
-      - bookings
-      - tickets
-      properties:
-        notices:
-          type: boolean
-          example: true
-        files:
-          type: boolean
-          example: true
-        lectures:
-          type: boolean
-          example: true
-        bookings:
-          type: boolean
-          example: true
-        tickets:
-          type: boolean
-          example: true
     Notification:
       type: object
       required:
@@ -709,6 +606,102 @@ components:
         isRead:
           type: boolean
           example: false
+    UpdatePreferencesRequest:
+      type: object
+      properties:
+        language:
+          type: string
+          enum:
+          - it
+          - en
+          example: it
+    ProvisionalGrade:
+      type: object
+      required:
+      - id
+      - examId
+      - courseShortcode
+      - courseName
+      - teacherId
+      - credits
+      - grade
+      - date
+      - state
+      - stateDescription
+      - teacherMessage
+      - isWithdrawn
+      - isFailure
+      - canBeAccepted
+      - canBeRejected
+      - confirmedAt
+      - rejectedAt
+      - rejectingExpiresAt
+      properties:
+        id:
+          type: number
+          example: 654632
+        examId:
+          type: number
+          example: 887981
+        courseShortcode:
+          type: string
+          example: 01NYHOV
+        courseName:
+          type: string
+          example: System and device programming
+        teacherId:
+          type: integer
+          example: 2893
+        credits:
+          type: number
+          example: 10
+        grade:
+          type: string
+          example: '30'
+        date:
+          type: string
+          format: date
+          example: '2022-07-15'
+        state:
+          type: string
+          enum:
+          - published
+          - confirmed
+          - rejected
+          example: published
+        stateDescription:
+          type: string
+          example: Pubblicata
+        teacherMessage:
+          type:
+          - string
+          - 'null'
+        isWithdrawn:
+          type: boolean
+          example: false
+        isFailure:
+          type: boolean
+          example: false
+        canBeAccepted:
+          type: boolean
+          example: true
+        canBeRejected:
+          type: boolean
+          example: true
+        confirmedAt:
+          type:
+          - string
+          - 'null'
+          format: date
+        rejectedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        rejectingExpiresAt:
+          type: string
+          format: date-time
+          example: '2022-07-31T23:59:59Z'
     Student:
       type: object
       required:
@@ -848,41 +841,63 @@ components:
           - 'null'
         europeanStudentCard:
           $ref: '#/components/schemas/EuropeanStudentCard'
-    EuropeanStudentCard:
+    Guide:
       type: object
       required:
-      - canBeRequested
-      - details
+      - id
+      - listTitle
+      - title
+      - intro
+      - fields
+      - sections
       properties:
-        canBeRequested:
-          type: boolean
-        details:
+        id:
+          type: string
+        listTitle:
+          type: string
+        title:
+          type: string
+        intro:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/GuideField'
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/GuideSection'
+    Deadline:
+      type: object
+      required:
+      - name
+      - type
+      - url
+      - date
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+          example: Termine per l'iscrizione e pagamento della prima rata
+        type:
+          type: string
+          example: Iscrizioni e pagamento tasse
+        url:
           type:
-          - object
+          - string
           - 'null'
-          properties:
-            status:
-              type: string
-              enum:
-              - active
-              - inactive
-              - expired
-            inactiveStatusReason:
-              type:
-              - string
-              - 'null'
-            cardNumber:
-              type: string
-            expiresAt:
-              type: string
-            qrCode:
-              type: string
-          required:
-          - status
-          - inactiveStatusReason
-          - cardNumber
-          - expiresAt
-          - qrCode
+        date:
+          type: string
+          format: date
+          example: '2022-10-11'
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
     ProvisionalGradeState:
       type: object
       required:
@@ -899,50 +914,14 @@ components:
         description:
           type: string
           example: La valutazione è stata pubblicata dal docente
-    MessageType:
-      type: string
-      enum:
-      - emergency
-      - event
-      - personal
-      - teacher
-      - secretariat
-      - exams
-      - mfa
-      example: secretariat
-    GuideField:
+    EmailBadge:
       type: object
       required:
-      - label
-      - value
+      - unreadEmails
       properties:
-        label:
+        unreadEmails:
           type: string
-        value:
-          type: string
-        isCopyEnabled:
-          type: boolean
-    UpdateNotificationPreferencesRequest:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            notices:
-              type: boolean
-              example: true
-            files:
-              type: boolean
-              example: true
-            lectures:
-              type: boolean
-              example: true
-            bookings:
-              type: boolean
-              example: true
-            tickets:
-              type: boolean
-              example: true
+          example: 99+
     Message:
       type: object
       required:
@@ -981,6 +960,121 @@ components:
         isRead:
           type: boolean
           example: false
+    GuideField:
+      type: object
+      required:
+      - label
+      - value
+      properties:
+        label:
+          type: string
+        value:
+          type: string
+        isCopyEnabled:
+          type: boolean
+    EuropeanStudentCard:
+      type: object
+      required:
+      - canBeRequested
+      - details
+      properties:
+        canBeRequested:
+          type: boolean
+        details:
+          type:
+          - object
+          - 'null'
+          properties:
+            status:
+              type: string
+              enum:
+              - active
+              - inactive
+              - expired
+            inactiveStatusReason:
+              type:
+              - string
+              - 'null'
+            cardNumber:
+              type: string
+            expiresAt:
+              type: string
+            qrCode:
+              type: string
+          required:
+          - status
+          - inactiveStatusReason
+          - cardNumber
+          - expiresAt
+          - qrCode
+    MessageType:
+      type: string
+      enum:
+      - emergency
+      - event
+      - personal
+      - teacher
+      - secretariat
+      - exams
+      - mfa
+      example: secretariat
+    UpdateNotificationPreferencesRequest:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            notices:
+              type: boolean
+              example: true
+            files:
+              type: boolean
+              example: true
+            lectures:
+              type: boolean
+              example: true
+            bookings:
+              type: boolean
+              example: true
+            tickets:
+              type: boolean
+              example: true
+    GuideSection:
+      type: object
+      required:
+      - title
+      - content
+      properties:
+        title:
+          type: string
+          example: Title
+        content:
+          type: string
+          example: HTML content
+    NotificationPreferences:
+      type: object
+      required:
+      - notices
+      - files
+      - lectures
+      - bookings
+      - tickets
+      properties:
+        notices:
+          type: boolean
+          example: true
+        files:
+          type: boolean
+          example: true
+        lectures:
+          type: boolean
+          example: true
+        bookings:
+          type: boolean
+          example: true
+        tickets:
+          type: boolean
+          example: true
     ExamGrade:
       type: object
       required:
@@ -1028,100 +1122,6 @@ components:
           type: boolean
           description: Defines whether the credits from the exam count toward the total required for graduation
           example: true
-    ProvisionalGrade:
-      type: object
-      required:
-      - id
-      - examId
-      - courseShortcode
-      - courseName
-      - teacherId
-      - credits
-      - grade
-      - date
-      - state
-      - stateDescription
-      - teacherMessage
-      - isWithdrawn
-      - isFailure
-      - canBeAccepted
-      - canBeRejected
-      - confirmedAt
-      - rejectedAt
-      - rejectingExpiresAt
-      properties:
-        id:
-          type: number
-          example: 654632
-        examId:
-          type: number
-          example: 887981
-        courseShortcode:
-          type: string
-          example: 01NYHOV
-        courseName:
-          type: string
-          example: System and device programming
-        teacherId:
-          type: integer
-          example: 2893
-        credits:
-          type: number
-          example: 10
-        grade:
-          type: string
-          example: '30'
-        date:
-          type: string
-          format: date
-          example: '2022-07-15'
-        state:
-          type: string
-          enum:
-          - published
-          - confirmed
-          - rejected
-          example: published
-        stateDescription:
-          type: string
-          example: Pubblicata
-        teacherMessage:
-          type:
-          - string
-          - 'null'
-        isWithdrawn:
-          type: boolean
-          example: false
-        isFailure:
-          type: boolean
-          example: false
-        canBeAccepted:
-          type: boolean
-          example: true
-        canBeRejected:
-          type: boolean
-          example: true
-        confirmedAt:
-          type:
-          - string
-          - 'null'
-          format: date
-        rejectedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        rejectingExpiresAt:
-          type: string
-          format: date-time
-          example: '2022-07-31T23:59:59Z'
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
   securitySchemes:
     BearerAuth:
       type: http

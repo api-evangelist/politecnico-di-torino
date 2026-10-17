@@ -35,28 +35,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/RoomList'
 components:
-  parameters:
-    Query:
-      name: q
-      in: query
-      required: true
-      description: Free-text search term. Required — the services return HTTP 500 without it.
-      schema:
-        type: string
-        minLength: 1
-      example: ingegneria
-    Lang:
-      name: _lang
-      in: query
-      required: false
-      description: Response language for localized fields. Observed values `it` and `en`. The teachings service echoes this back as `lang` rather than `_lang`.
-      schema:
-        type: string
-        enum:
-        - it
-        - en
-        default: it
   schemas:
+    RoomList:
+      type: array
+      description: Bare array, not an envelope.
+      items:
+        $ref: '#/components/schemas/Room'
     Room:
       type: object
       properties:
@@ -84,11 +68,27 @@ components:
         fl_id: XPTE
         rm_id: '003'
         rm_name: Aula Magna Lingotto
-    RoomList:
-      type: array
-      description: Bare array, not an envelope.
-      items:
-        $ref: '#/components/schemas/Room'
+  parameters:
+    Lang:
+      name: _lang
+      in: query
+      required: false
+      description: Response language for localized fields. Observed values `it` and `en`. The teachings service echoes this back as `lang` rather than `_lang`.
+      schema:
+        type: string
+        enum:
+        - it
+        - en
+        default: it
+    Query:
+      name: q
+      in: query
+      required: true
+      description: Free-text search term. Required — the services return HTTP 500 without it.
+      schema:
+        type: string
+        minLength: 1
+      example: ingegneria
 x-operator: institution
 x-provenance:
   generated: '2026-08-30'

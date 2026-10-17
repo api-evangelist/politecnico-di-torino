@@ -88,6 +88,37 @@ paths:
       - News
 components:
   schemas:
+    NewsItemExtra:
+      type: object
+      required:
+      - url
+      - description
+      - type
+      - sizeInKiloBytes
+      properties:
+        url:
+          type: string
+          example: https://
+        description:
+          type: string
+          example: Bando
+        type:
+          type: string
+          enum:
+          - link
+          - file
+          - image
+          example: image
+        sizeInKiloBytes:
+          type:
+          - integer
+          - 'null'
+          example: 305
+      example:
+        url: https://
+        description: Bando
+        type: image
+        sizeInKiloBytes: 305
     NewsItem:
       type: object
       required:
@@ -122,37 +153,6 @@ components:
           description: Bando
           type: image
           sizeInKiloBytes: 305
-    NewsItemExtra:
-      type: object
-      required:
-      - url
-      - description
-      - type
-      - sizeInKiloBytes
-      properties:
-        url:
-          type: string
-          example: https://
-        description:
-          type: string
-          example: Bando
-        type:
-          type: string
-          enum:
-          - link
-          - file
-          - image
-          example: image
-        sizeInKiloBytes:
-          type:
-          - integer
-          - 'null'
-          example: 305
-      example:
-        url: https://
-        description: Bando
-        type: image
-        sizeInKiloBytes: 305
     NewsItemOverview:
       type: object
       required:

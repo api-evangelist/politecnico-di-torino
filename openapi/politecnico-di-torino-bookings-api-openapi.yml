@@ -266,236 +266,6 @@ paths:
               $ref: '#/components/schemas/UpdateBookingRequest'
 components:
   schemas:
-    PlaceRef:
-      type: object
-      required:
-      - buildingId
-      - floorId
-      - roomId
-      - siteId
-      - name
-      properties:
-        buildingId:
-          type: string
-        floorId:
-          type: string
-        roomId:
-          type: string
-        siteId:
-          type: string
-        name:
-          type: string
-    BookingTopic:
-      type: object
-      required:
-      - subtopics
-      properties:
-        subtopics:
-          type: array
-          items:
-            $ref: '#/components/schemas/BookingSubtopic'
-      allOf:
-      - $ref: '#/components/schemas/BookingTopicLeaf'
-      example:
-        id: DIDATTICA_ING
-        title: Segreteria Didattica Ingegneria
-        description: Servizi della Segreteria Didattica Ingegneria
-        isEnabled: true
-        disclaimer: ''
-        showCalendar: true
-        slotLength: 15
-        slotsPerHour: 4
-        startDate: null
-        startHour: 8
-        endHour: 18
-        maxBookingsPerDay: 2
-        canBeCancelled: true
-        daysPerWeek: 5
-        agendaView: false
-        subtopics:
-        - id: DID_ING_VC_EN
-          title: Aspetti didattici di carriera - Sportello virtuale in inglese
-          description: ''
-          isEnabled: true
-          disclaimer: ''
-          showCalendar: true
-          slotLength: 15
-          slotsPerHour: 4
-          startDate: null
-          startHour: 8
-          endHour: 18
-          maxBookingsPerDay: 2
-          canBeCancelled: true
-          daysPerWeek: 5
-          agendaView: false
-          requirements: []
-    BookingPlaceRef:
-      type: object
-      oneOf:
-      - $ref: '#/components/schemas/BookingPhysicalPlaceRef'
-      - $ref: '#/components/schemas/BookingVirtualPlaceRef'
-      discriminator:
-        propertyName: type
-        mapping:
-          place: '#/components/schemas/BookingPhysicalPlaceRef'
-          virtualPlace: '#/components/schemas/BookingVirtualPlaceRef'
-    BookingSeatsRow:
-      type: object
-      required:
-      - label
-      - seats
-      properties:
-        id:
-          type: integer
-        label:
-          type: string
-        seats:
-          type: array
-          items:
-            $ref: '#/components/schemas/BookingSeatCell'
-    BookingTopicOverview:
-      type: object
-      required:
-      - id
-      - title
-      - description
-      properties:
-        id:
-          type: string
-          example: DIDATTICA_ING
-        title:
-          type: string
-          example: Segreteria Didattica Ingegneria
-        description:
-          type: string
-          example: Servizi della Segreteria Didattica Ingegneria
-    BookingPhysicalPlaceRef:
-      type: object
-      required:
-      - description
-      properties:
-        description:
-          type: string
-      allOf:
-      - $ref: '#/components/schemas/PlaceRef'
-    BookingSeats:
-      type: object
-      required:
-      - totalCount
-      - availableCount
-      - rows
-      properties:
-        totalCount:
-          type: integer
-        availableCount:
-          type: integer
-        rows:
-          type: array
-          items:
-            $ref: '#/components/schemas/BookingSeatsRow'
-    BookingTopicLeaf:
-      type: object
-      required:
-      - isEnabled
-      - disclaimer
-      - showCalendar
-      - slotLength
-      - slotsPerHour
-      - startDate
-      - startHour
-      - endHour
-      - maxBookingsPerDay
-      - canBeCancelled
-      - daysPerWeek
-      - agendaView
-      properties:
-        isEnabled:
-          type: boolean
-          example: true
-        disclaimer:
-          type: string
-          example: ''
-        showCalendar:
-          type: boolean
-          example: true
-        slotLength:
-          type: integer
-          example: 15
-        slotsPerHour:
-          type: integer
-          example: 4
-        startDate:
-          type:
-          - string
-          - 'null'
-          format: date
-          description: Start date of the booking period
-        startHour:
-          type: integer
-          example: 8
-        endHour:
-          type: integer
-          example: 18
-        maxBookingsPerDay:
-          type: integer
-          example: 2
-        canBeCancelled:
-          type: boolean
-          example: true
-        daysPerWeek:
-          type: integer
-          description: Number of days per week the booking is available, starting from startDate weekday, or monday if missing
-          example: 5
-        agendaView:
-          type: boolean
-          description: Specifies if the topic requires the agenda display
-          example: false
-      allOf:
-      - $ref: '#/components/schemas/BookingTopicOverview'
-    BookingLocationCheck:
-      type: object
-      required:
-      - enabled
-      - checked
-      - latitude
-      - longitude
-      - radiusInKm
-      properties:
-        enabled:
-          type: boolean
-        checked:
-          type: boolean
-        latitude:
-          type:
-          - string
-          - 'null'
-        longitude:
-          type:
-          - string
-          - 'null'
-        radiusInKm:
-          type:
-          - number
-          - 'null'
-    UpdateBookingRequest:
-      type: object
-      required:
-      - isLocationChecked
-      properties:
-        isLocationChecked:
-          type: boolean
-          example: true
-    CreateBookingRequest:
-      type: object
-      required:
-      - slotId
-      properties:
-        slotId:
-          type: integer
-          example: 103051
-        seatId:
-          type: integer
-          example: 20018
     Booking:
       type: object
       required:
@@ -550,6 +320,117 @@ components:
           $ref: '#/components/schemas/BookingPlaceRef'
         locationCheck:
           $ref: '#/components/schemas/BookingLocationCheck'
+    BookingTopic:
+      type: object
+      required:
+      - subtopics
+      properties:
+        subtopics:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingSubtopic'
+      allOf:
+      - $ref: '#/components/schemas/BookingTopicLeaf'
+      example:
+        id: DIDATTICA_ING
+        title: Segreteria Didattica Ingegneria
+        description: Servizi della Segreteria Didattica Ingegneria
+        isEnabled: true
+        disclaimer: ''
+        showCalendar: true
+        slotLength: 15
+        slotsPerHour: 4
+        startDate: null
+        startHour: 8
+        endHour: 18
+        maxBookingsPerDay: 2
+        canBeCancelled: true
+        daysPerWeek: 5
+        agendaView: false
+        subtopics:
+        - id: DID_ING_VC_EN
+          title: Aspetti didattici di carriera - Sportello virtuale in inglese
+          description: ''
+          isEnabled: true
+          disclaimer: ''
+          showCalendar: true
+          slotLength: 15
+          slotsPerHour: 4
+          startDate: null
+          startHour: 8
+          endHour: 18
+          maxBookingsPerDay: 2
+          canBeCancelled: true
+          daysPerWeek: 5
+          agendaView: false
+          requirements: []
+    BookingSubtopic:
+      type: object
+      required:
+      - requirements
+      properties:
+        requirements:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              url:
+                type: string
+      allOf:
+      - $ref: '#/components/schemas/BookingTopicLeaf'
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    BookingSeatsRow:
+      type: object
+      required:
+      - label
+      - seats
+      properties:
+        id:
+          type: integer
+        label:
+          type: string
+        seats:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingSeatCell'
+    CreateBookingRequest:
+      type: object
+      required:
+      - slotId
+      properties:
+        slotId:
+          type: integer
+          example: 103051
+        seatId:
+          type: integer
+          example: 20018
+    BookingPlaceRef:
+      type: object
+      oneOf:
+      - $ref: '#/components/schemas/BookingPhysicalPlaceRef'
+      - $ref: '#/components/schemas/BookingVirtualPlaceRef'
+      discriminator:
+        propertyName: type
+        mapping:
+          place: '#/components/schemas/BookingPhysicalPlaceRef'
+          virtualPlace: '#/components/schemas/BookingVirtualPlaceRef'
+    BookingPhysicalPlaceRef:
+      type: object
+      required:
+      - description
+      properties:
+        description:
+          type: string
+      allOf:
+      - $ref: '#/components/schemas/PlaceRef'
     BookingSlot:
       type: object
       required:
@@ -641,6 +522,148 @@ components:
         endsAt: '2021-10-05T10:15:00Z'
         bookingStartsAt: '2021-10-01T00:00:00Z'
         bookingEndsAt: '2021-10-05T09:00:00Z'
+    BookingLocationCheck:
+      type: object
+      required:
+      - enabled
+      - checked
+      - latitude
+      - longitude
+      - radiusInKm
+      properties:
+        enabled:
+          type: boolean
+        checked:
+          type: boolean
+        latitude:
+          type:
+          - string
+          - 'null'
+        longitude:
+          type:
+          - string
+          - 'null'
+        radiusInKm:
+          type:
+          - number
+          - 'null'
+    BookingTopicLeaf:
+      type: object
+      required:
+      - isEnabled
+      - disclaimer
+      - showCalendar
+      - slotLength
+      - slotsPerHour
+      - startDate
+      - startHour
+      - endHour
+      - maxBookingsPerDay
+      - canBeCancelled
+      - daysPerWeek
+      - agendaView
+      properties:
+        isEnabled:
+          type: boolean
+          example: true
+        disclaimer:
+          type: string
+          example: ''
+        showCalendar:
+          type: boolean
+          example: true
+        slotLength:
+          type: integer
+          example: 15
+        slotsPerHour:
+          type: integer
+          example: 4
+        startDate:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Start date of the booking period
+        startHour:
+          type: integer
+          example: 8
+        endHour:
+          type: integer
+          example: 18
+        maxBookingsPerDay:
+          type: integer
+          example: 2
+        canBeCancelled:
+          type: boolean
+          example: true
+        daysPerWeek:
+          type: integer
+          description: Number of days per week the booking is available, starting from startDate weekday, or monday if missing
+          example: 5
+        agendaView:
+          type: boolean
+          description: Specifies if the topic requires the agenda display
+          example: false
+      allOf:
+      - $ref: '#/components/schemas/BookingTopicOverview'
+    UpdateBookingRequest:
+      type: object
+      required:
+      - isLocationChecked
+      properties:
+        isLocationChecked:
+          type: boolean
+          example: true
+    BookingTopicOverview:
+      type: object
+      required:
+      - id
+      - title
+      - description
+      properties:
+        id:
+          type: string
+          example: DIDATTICA_ING
+        title:
+          type: string
+          example: Segreteria Didattica Ingegneria
+        description:
+          type: string
+          example: Servizi della Segreteria Didattica Ingegneria
+    PlaceRef:
+      type: object
+      required:
+      - buildingId
+      - floorId
+      - roomId
+      - siteId
+      - name
+      properties:
+        buildingId:
+          type: string
+        floorId:
+          type: string
+        roomId:
+          type: string
+        siteId:
+          type: string
+        name:
+          type: string
+    BookingSeats:
+      type: object
+      required:
+      - totalCount
+      - availableCount
+      - rows
+      properties:
+        totalCount:
+          type: integer
+        availableCount:
+          type: integer
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingSeatsRow'
     BookingSeatCell:
       type: object
       required:
@@ -670,29 +693,6 @@ components:
         name:
           type: string
         url:
-          type: string
-    BookingSubtopic:
-      type: object
-      required:
-      - requirements
-      properties:
-        requirements:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              url:
-                type: string
-      allOf:
-      - $ref: '#/components/schemas/BookingTopicLeaf'
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
           type: string
   securitySchemes:
     BearerAuth:

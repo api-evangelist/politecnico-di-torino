@@ -682,37 +682,6 @@ paths:
       - Lectures
 components:
   schemas:
-    PlaceRef:
-      type: object
-      required:
-      - buildingId
-      - floorId
-      - roomId
-      - siteId
-      - name
-      properties:
-        buildingId:
-          type: string
-        floorId:
-          type: string
-        roomId:
-          type: string
-        siteId:
-          type: string
-        name:
-          type: string
-    RelatedVirtualClassroom:
-      type: object
-      required:
-      - id
-      - title
-      properties:
-        id:
-          type: integer
-          example: 150157
-        title:
-          type: string
-          example: Lecture 1
     Lecture:
       type: object
       required:
@@ -761,6 +730,37 @@ components:
           type: integer
         message:
           type: string
+    PlaceRef:
+      type: object
+      required:
+      - buildingId
+      - floorId
+      - roomId
+      - siteId
+      - name
+      properties:
+        buildingId:
+          type: string
+        floorId:
+          type: string
+        roomId:
+          type: string
+        siteId:
+          type: string
+        name:
+          type: string
+    RelatedVirtualClassroom:
+      type: object
+      required:
+      - id
+      - title
+      properties:
+        id:
+          type: integer
+          example: 150157
+        title:
+          type: string
+          example: Lecture 1
   securitySchemes:
     BearerAuth:
       type: http
